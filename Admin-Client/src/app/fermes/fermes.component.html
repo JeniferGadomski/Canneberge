@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-5">
+      <button routerLink="nouveau" class="btn btn-outline-primary add-btn">Nouveau</button>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-5">
+      <a class="list-group-item list-group-item-action flex-column align-items-start"
+         *ngFor="let ferme of fermes | sortBy : 'name'"
+        (click)="onSelectFerme(ferme)">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 style="width: auto">{{ferme.name}}</h5>
+          <div>
+            <button (click)="getShapefile(ferme)" class="btn btn-link"><i class="fa fa-download"></i></button>
+            <a class="btn btn-default" target="_blank" href="http://10.248.196.99:3001/{{ferme._id}}"><i class="fa fa-map-o"></i></a>
+          </div>
+        </div>
+
+      </a>
+    </div>
+    <div class="col-sm-7">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+
+</div>

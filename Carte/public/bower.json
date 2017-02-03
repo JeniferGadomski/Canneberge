@@ -1,0 +1,15 @@
+{
+  "name": "public",
+  "authors": [
+    "Jean-Francis Bastien <bhacaz@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "ngSweetAlert": "angular-sweetalert#^1.1.2",
+    "proj4": "^2.3.17"
+    }
+}

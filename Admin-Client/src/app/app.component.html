@@ -1,0 +1,26 @@
+<nav class="navbar navbar-toggleable-md fixed-top">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="nav-header">
+      <a class="navbar-brand">{{ title }}</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/utilisateurs" routerLinkActive="active">Utilisateurs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/fermes" routerLinkActive="active">Fermes</a>
+        </li>
+      </ul>
+    </div>
+</nav>
+
+
+<div class="container main">
+
+  <router-outlet></router-outlet>
+</div>
+

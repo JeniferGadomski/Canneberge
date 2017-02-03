@@ -1,0 +1,31 @@
+
+<div c ng-controller="weatherController">
+    <div class="row full-height header pull-right weather" ng-click="open()" id="weatherHeader" title="Prévision sur 3 jours">
+        <div class="col-sm-6 weather ">
+            <img src="{{weather.getIcon(weather.forecast.simpleforecast.forecastday[0].icon)}}" alt="" id="condition-icon">
+        </div>
+        <div class="col weather">
+            <img src="../images/weather-icon/temperature-icon.png" alt="" class="weather">
+        </div>
+        <div class="col weather">
+            <h2 class="weather">{{weather.current_observation.temp_c}}°C</h2>
+        </div>
+        <div class="col weather">
+            <div>{{weather.forecast.simpleforecast.forecastday[0].high.celsius}}°C</div>
+            <div>{{weather.forecast.simpleforecast.forecastday[0].low.celsius}}°C</div>
+        </div>
+        <div class="col weather">
+            <img src="../images/weather-icon/precip-icon.png" alt="" class="weather">
+        </div>
+        <div class="col weather">
+            <div>{{weather.forecast.simpleforecast.forecastday[0].pop}}%</div>
+            <div>{{weather.forecast.simpleforecast.forecastday[0].qpf_allday.mm}}mm</div>
+        </div>
+    </div>
+
+    <div ng-include="'partiel/forecast.html'"></div>
+
+</div>
+
+
+

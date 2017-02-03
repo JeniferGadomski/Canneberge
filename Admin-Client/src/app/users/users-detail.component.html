@@ -1,0 +1,46 @@
+  <form *ngIf="user">
+
+    <div class="row">
+
+      <div class="form-group col">
+        <label for="firstname">Prénom</label>
+        <input type="text" class="form-control" id="firstname"
+               required
+               [(ngModel)]="user.firstname" name="firstname">
+      </div>
+
+      <div class="form-group col">
+        <label for="lastname">Nom</label>
+        <input type="text" class="form-control" id="lastname"
+               required
+               [(ngModel)]="user.lastname" name="lastname">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Courriel</label>
+      <input type="text" class="form-control" id="email"
+             required
+             [(ngModel)]="user.email" name="email">
+    </div>
+    <div class="form-group">
+      <label for="username">Nom d'utilisateur</label>
+      <input type="text" class="form-control" id="username"
+             required
+             [(ngModel)]="user.username" name="username">
+    </div>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input"
+               [(ngModel)]="user.admin" name="admin">
+        Administrateur
+      </label>
+    </div>
+    <div class="footer-btn">
+      <button type="button" class="btn btn-outline-warning">Réinitialiser mot de passe</button>
+      <button (click)="deleteUser()" class="btn btn-outline-danger">Supprimer</button>
+      <div style="float: right">
+        <button (click)="saveUser(user)" type="submit" class="btn btn-outline-success">Confirmer</button>
+      </div>
+    </div>
+  </form>

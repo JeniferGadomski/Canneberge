@@ -1,0 +1,122 @@
+<!-- Modal -->
+<div class="modal fade" modal="showModal" close="cancel()">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="container-fluid">
+
+
+                    <div class="row current">
+                        <div class="col-sm-4 forecast">
+                            <img class="current-icon" src="{{weather.getBigIcon(weather.forecast.simpleforecast.forecastday[0].icon)}}" alt="">
+                        </div>
+                        <div class="col-sm-4 forecast">
+                            <div>
+                                <h1 class="current-temp">{{weather.current_observation.temp_c}}°C</h1>
+                            </div>
+                            <div>
+                                <h4>{{weather.forecast.simpleforecast.forecastday[0].high.celsius}}°C /
+                                    {{weather.forecast.simpleforecast.forecastday[0].low.celsius}}°C</h4>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 forecast">
+                            <div class="row current-data">
+
+                                <div class="col-sm-1">
+                                    <img src="../images/weather-icon/precip-icon.png" alt="" class="weather">
+                                </div>
+                                <div class="col-sm-2">
+                                    <div>{{weather.forecast.simpleforecast.forecastday[0].pop}}%</div>
+                                    <div>{{weather.forecast.simpleforecast.forecastday[0].qpf_allday.mm}}mm</div>
+                                </div>
+                                <div class="col-sm-1">
+                                    <img src="../images/weather-icon/wind-icon.png" alt="" class="weather">
+                                </div>
+                                <div class="col-sm-2">
+                                    <div>{{weather.current_observation.wind_kph}}km/h</div>
+                                    <div>{{weather.current_observation.wind_dir}}</div>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4" ng-repeat="forDay in weather.forecast.simpleforecast.forecastday" ng-if="!$first">
+                            <div class="forecast forecast-box">
+
+                                <div><h4>{{forDay.date.day}}</h4></div>
+                                <div class="weekday">
+                                    <span class="badge badge-default">{{forDay.date.weekday}}</span>
+                                </div>
+                                    <div class="forecast-data">
+                                        <img src="../images/weather-icon/temperature-icon.png" alt="" class="weather">
+                                        {{forDay.low.celsius}}°C / {{forDay.high.celsius}}°C
+                                    </div>
+
+                                <div class="row forecast-data">
+                                    <div class="col-sm-1">
+                                        <img src="../images/weather-icon/precip-icon.png" alt="" class="weather">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div>
+                                            {{forDay.pop}}%
+                                        </div>
+                                        <div>
+                                            {{forDay.qpf_allday.mm}}mm
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <img src="../images/weather-icon/wind-icon.png" alt="" class="weather">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div>
+                                            {{forDay.maxwind.kph}}km/h
+                                        </div>
+                                        <div>
+                                            {{forDay.maxwind.dir}}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <div>
+
+                    <button class="btn" ng-click="cancel()">Fermer</button>
+                </div>
+                <div class="last-update">
+                    {{weather.current_observation.observation_time}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

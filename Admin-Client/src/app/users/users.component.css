@@ -1,0 +1,22 @@
+.badge{
+  height: 20px;
+}
+
+.footer-btn{
+  margin-top: 40px;
+}
+
+.add-btn{
+  float: right;
+  margin-bottom: 40px;
+}
+
+.list-group-item.active{
+  background-color: lightgray;
+  border-color: lightgray;
+}
+
+.container.main{
+  max-width: 800px;
+}
+
