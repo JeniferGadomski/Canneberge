@@ -28,7 +28,7 @@ Ouvrer un terminal (Ctlr + Alt + T) et naviguer jusqu'au dossier Platforme-Canne
 
     $ ./start_platform.sh <<ADDRESSE IP>>
 
-Ouvrir un  navigateur web : <ADRESSE IP>:8000
+Ouvrir un  navigateur web : "ADRESSE IP":8000
 
 Exemple : _10.248.196.99:8000_
 
@@ -40,4 +40,4 @@ Connection avec Robomongo
  * Authentificaiton
     * Databse : canneberge-database
     * User Name : bhacaz
-    * Password : <Demander>
+    * Password : "Demander"
