@@ -92,6 +92,10 @@ angular.module('app')
                 }
             });
 
+            google.maps.event.addListener(drawingManager, 'mousemove', function (event) {
+                updateLatLng(event);
+            });
+
             if(typeof $scope.ferme.centerCoordinate === 'undefined'){
                 apiService.putFerme($scope.fermeID, {centerCoordinate : map.getCenter()})
                     .then(
