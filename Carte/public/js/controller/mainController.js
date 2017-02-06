@@ -26,19 +26,6 @@ angular.module('app')
         };
 
 
-        $scope.toggleFullScreenTable = function () {
-            var map = document.getElementById('col-map');
-            var table = document.getElementById('col-table');
-
-            map.classList.toggle('col-sm-8');
-            if ( map.style.display != 'none' ) {
-                map.style.display = 'none';
-            }
-            else {
-                map.style.display = '';
-            }
-
-        }
 
 
 

@@ -9,7 +9,7 @@ export class CannebergeApiService {
 
   constructor(private _http : Http) { }
 
-  private serverUrl = "http://localhost:8080/api";
+  private serverUrl = "http://10.248.140.209:8080/api";
 
   getUsers(){
       return this._http.get(this.serverUrl + '/users')

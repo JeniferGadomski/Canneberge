@@ -2,13 +2,10 @@
  * Created by bhacaz on 23/01/17.
  */
 angular.module('apiServiceModule', [])
-    .factory('apiService', function ($location, $http) {
+    .factory('apiService', function($http) {
    var cannerberApi = {};
     var url = 'http://localhost:8080/api/';
-    cannerberApi.printPath = function () {
-        cannerberApi.fermeid = $location.path().split( '/' );
-        console.log('allo service ' + $location.path() );
-    };
+
 
 
     cannerberApi.getFerme = function (fermeID) {

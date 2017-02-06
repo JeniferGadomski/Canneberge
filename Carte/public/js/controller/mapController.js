@@ -2,7 +2,7 @@
  * Created by bhacaz on 24/01/17.
  */
 angular.module('app')
-    .controller('mapController', function ($scope, $rootScope, apiService) {
+    .controller('mapController', function ($scope, $rootScope, $compile, apiService) {
         // var map;
         // map.data.addListener('click', function(event) {
         //     map.data.revertStyle();
@@ -13,16 +13,27 @@ angular.module('app')
         // });
         $scope.currentCoord = {};
         $scope.currentField = {};
+        $scope.currentMarker = {};
+        listMarker = [];
+        var infowindow;
 
-        proj4.defs([
-            [
-                'EPSG:26918',
-                '+proj=utm +zone=18 +ellps=GRS80 +datum=NAD83 +units=m +no_defs '
-            ]
-        ]);
+        function markerObject(title, lat, lng, note, color){
+            this.title = title;
+            this.latLng = {lat : lat, lng : lng};
+            this.note = note;
+            this.color = color;
+
+            this.getlatLngString = function () {
+                return this.latLng.lat.toFixed(6) + ", " + this.latLng.lng.toFixed(6);
+            }
+
+        }
+
+
+
+
 
         var projection  = '+proj=utm +zone=18 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
-
         var map = null;
 
 
@@ -90,9 +101,25 @@ angular.module('app')
                     var geo = google.maps.geometry.poly.containsLocation(latLng,polygon);
                     console.log(geo);
                 }
-                if(event.type == google.maps.drawing.OverlayType.MARKER){
-                    console.log(event);
-                }
+            });
+
+            google.maps.event.addListener(drawingManager, 'markercomplete', function(marker) {
+                console.log(marker);
+                var newMarker = new markerObject('', marker.getPosition().lat(), marker.getPosition().lng(), '', '');
+                console.log(newMarker);
+                listMarker.push(newMarker);
+                $scope.currentMarker = newMarker;
+                $scope.$apply();
+                infowindow.setContent(compiled[0].outerHTML);
+                infowindow.open(map, marker);
+
+                marker.addListener('click', function() {
+                    $scope.currentMarker = newMarker;
+                    $scope.$apply();
+                    infowindow.setContent(compiled[0].outerHTML);
+                    infowindow.open(map, marker);
+                });
+
             });
 
             google.maps.event.addListener(drawingManager, 'mousemove', function (event) {
@@ -115,6 +142,32 @@ angular.module('app')
                 console.log(event.feature);
             });
 
+
+
+            //////////////////// Trying marker ////////////////////////
+
+            var content = '<div><div id="infowindow_content" ng-include="\'/infowindow.html\'"></div></div>';
+            var compiled = $compile(content)($scope);
+
+            infowindow = new google.maps.InfoWindow();
+
+            var marker = new google.maps.Marker({
+                position: {lat: 46.236733, lng: -72.0357},
+                map: map,
+                title: 'Uluru (Ayers Rock)'
+            });
+
+            marker.addListener('click', function() {
+                console.log(compiled);
+                $scope.latLng = [46.23673, -72.0357];
+                $scope.$apply();
+                infowindow.setContent(compiled[0].outerHTML);
+                infowindow.open(map, marker);
+            });
+
+            //////////////////// Trying marker ////////////////////////
+
+
             return map;
         };
 
@@ -128,8 +181,7 @@ angular.module('app')
                         point.push(ll);
                     });
                     var mSquare = google.maps.geometry.spherical.computeArea(point);
-                    $scope.currentField['hectare'] = (mSquare / 10000).toFixed(2);
-                    // console.log(google.maps.geometry.spherical.computeArea(point).toFixed(2) + ' m²');
+                    $scope.currentField['hectare'] = (mSquare / 10000).toFixed(4);
                 }
                 if(selectFiledId !== rowId){
                     if(selectFiledId === feature.getProperty('id')){
@@ -149,7 +201,8 @@ angular.module('app')
             var pnt = getLatLngByOffset(map, event.offsetX, event.offsetY);
             var lat = pnt.lat().toFixed(6);
             var lng = pnt.lng().toFixed(6);
-            var utm = proj4(projection, [lng, lat]);
+            var utm = getUtmFromLatLng(lat, lng);
+
             utmx = utm[0].toFixed(2);
             utmy = utm[1].toFixed(2);
 
@@ -158,6 +211,10 @@ angular.module('app')
             $scope.currentCoord['utmx'] = utmx;
             $scope.currentCoord['utmy'] = utmy;
         };
+
+        function getUtmFromLatLng(lat, lng) {
+            return proj4(projection, [lng, lat]);
+        }
 
         function getLatLngByOffset( map, offsetX, offsetY ){
             var currentBounds = map.getBounds();

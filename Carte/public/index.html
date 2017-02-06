@@ -76,10 +76,10 @@
                     <div style="padding-bottom: 5px;">
                         {{currentCoord.lat}}, {{currentCoord.lng}}
                     </div>
-                    <div style="padding-bottom: 5px;">
+                    <div>
                         {{currentCoord.utmx}}, {{currentCoord.utmy}}
                     </div>
-                    <div>
+                    <div ng-if="currentField.hectare !== undefined" style="padding-top: 5px;">
                         {{currentField.hectare}} ha
                     </div>
                 </div>

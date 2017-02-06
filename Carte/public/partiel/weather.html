@@ -1,5 +1,5 @@
 
-<div c ng-controller="weatherController">
+<div ng-controller="weatherController">
     <div class="row full-height header pull-right weather" ng-click="open()" id="weatherHeader" title="Prévision sur 3 jours">
         <div class="col-sm-6 weather ">
             <img src="{{weather.getIcon(weather.forecast.simpleforecast.forecastday[0].icon)}}" alt="" id="condition-icon">
