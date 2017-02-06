@@ -70,14 +70,17 @@
     </div>
     <div class="row full-height content">
         <div class="col-sm-7 full-height col-map" id="col-map" ng-controller="mapController">
-            <div id="map" class="full-height"></div>
+            <div id="map" class="full-height" ng-mousemove="updateLatLng($event)"></div>
             <div id="over_map">
-                <div id="over_map_content">
+                <div id="coord_display">
                     <div style="padding-bottom: 5px;">
                         {{currentCoord.lat}}, {{currentCoord.lng}}
                     </div>
-                    <div>
+                    <div style="padding-bottom: 5px;">
                         {{currentCoord.utmx}}, {{currentCoord.utmy}}
+                    </div>
+                    <div>
+                        {{currentField.hectare}} ha
                     </div>
                 </div>
             </div>

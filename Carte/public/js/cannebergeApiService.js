@@ -4,7 +4,7 @@
 angular.module('apiServiceModule', [])
     .factory('apiService', function ($location, $http) {
    var cannerberApi = {};
-    var url = 'http://10.248.196.99:8080/api/';
+    var url = 'http://localhost:8080/api/';
     cannerberApi.printPath = function () {
         cannerberApi.fermeid = $location.path().split( '/' );
         console.log('allo service ' + $location.path() );

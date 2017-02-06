@@ -54,16 +54,20 @@ img.weather {
 
 }
 
-#col-map { position: relative; }
+#col-map {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
 #over_map {
     position: absolute; top: 10px; z-index: 99;
     margin-top: 25px;
     text-align: center;
     color : white;
-    width: 100%;
 }
 
-#over_map_content{
+#coord_display{
     background-color: rgba(0, 0, 0, 0.4);
     display: inline-block;
     padding: 5px;

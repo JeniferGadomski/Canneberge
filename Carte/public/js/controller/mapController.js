@@ -12,6 +12,7 @@ angular.module('app')
         //     document.getElementById(event.feature.getProperty('id')).scrollIntoView();
         // });
         $scope.currentCoord = {};
+        $scope.currentField = {};
 
         proj4.defs([
             [
@@ -88,7 +89,9 @@ angular.module('app')
                 if (event.type == google.maps.drawing.OverlayType.POLYGONE) {
                     var geo = google.maps.geometry.poly.containsLocation(latLng,polygon);
                     console.log(geo);
-
+                }
+                if(event.type == google.maps.drawing.OverlayType.MARKER){
+                    console.log(event);
                 }
             });
 
@@ -105,22 +108,12 @@ angular.module('app')
                     )
             }
 
-            google.maps.event.addListener(map, 'mousemove', function (event) {
-                updateLatLng(event);
-            });
-
             map.data.addListener('click', function(event) {
                 var rowId = event.feature.getProperty('id');
                 colorizeField(rowId);
-                $rootScope.$emit('polygonSelect', rowId)
+                $rootScope.$emit('polygonSelect', rowId);
+                console.log(event.feature);
             });
-
-            map.data.addListener('mousemove', function(event) {
-                updateLatLng(event);
-            });
-
-
-
 
             return map;
         };
@@ -130,6 +123,13 @@ angular.module('app')
             map.data.forEach(function(feature) {
                 if(rowId === feature.getProperty('id')){
                     map.data.overrideStyle(feature, {fillColor: '#BC3E3E'});
+                    var point = [];
+                    feature.getGeometry().forEachLatLng(function (ll) {
+                        point.push(ll);
+                    });
+                    var mSquare = google.maps.geometry.spherical.computeArea(point);
+                    $scope.currentField['hectare'] = (mSquare / 10000).toFixed(2);
+                    // console.log(google.maps.geometry.spherical.computeArea(point).toFixed(2) + ' m²');
                 }
                 if(selectFiledId !== rowId){
                     if(selectFiledId === feature.getProperty('id')){
@@ -143,25 +143,30 @@ angular.module('app')
         $rootScope.$on('rowSelected', function (event, data) {
             colorizeField(data);
         });
+        
 
-        function updateLatLng(event) {
-            var pnt = event.latLng;
-            var lat = pnt.lat();
-            lat = lat.toFixed(6);
-            var lng = pnt.lng();
-            lng = lng.toFixed(6);
-            // console.log("Latitude: " + lat + "  Longitude: " + lng);
-            // console.log(proj4(projection, [lng, lat]));
+        $scope.updateLatLng =  function (event) {
+            var pnt = getLatLngByOffset(map, event.offsetX, event.offsetY);
+            var lat = pnt.lat().toFixed(6);
+            var lng = pnt.lng().toFixed(6);
             var utm = proj4(projection, [lng, lat]);
             utmx = utm[0].toFixed(2);
             utmy = utm[1].toFixed(2);
 
-            $scope.$apply(function () {
-                $scope.currentCoord['lat'] = lat;
-                $scope.currentCoord['lng'] = lng;
-                $scope.currentCoord['utmx'] = utmx;
-                $scope.currentCoord['utmy'] = utmy;
-            });
+            $scope.currentCoord['lat'] = lat;
+            $scope.currentCoord['lng'] = lng;
+            $scope.currentCoord['utmx'] = utmx;
+            $scope.currentCoord['utmy'] = utmy;
+        };
+
+        function getLatLngByOffset( map, offsetX, offsetY ){
+            var currentBounds = map.getBounds();
+            var topLeftLatLng = new google.maps.LatLng( currentBounds.getNorthEast().lat(),
+                currentBounds.getSouthWest().lng());
+            var point = map.getProjection().fromLatLngToPoint( topLeftLatLng );
+            point.x += offsetX / ( 1<<map.getZoom() );
+            point.y += offsetY / ( 1<<map.getZoom() );
+            return map.getProjection().fromPointToLatLng( point );
         }
 
 
