@@ -11,11 +11,25 @@ angular.module('app')
         //     document.getElementById(event.feature.getProperty('id')).style.backgroundColor = "CornflowerBlue";
         //     document.getElementById(event.feature.getProperty('id')).scrollIntoView();
         // });
+
+        // marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+
+
+
         $scope.currentCoord = {};
         $scope.currentField = {};
         $scope.currentMarker = {};
         listMarker = [];
         var infowindow;
+
+        $scope.markerColor = [
+            {couleur : "Bleu", code : "#6991fd", iconPath : "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
+            {couleur : "Rouge", code : "#fd7567", iconPath : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"},
+            {couleur : "Violet", code : "#8e67fd", iconPath : "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"},
+            {couleur : "Jaune", code : "#fdf569", iconPath : "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"},
+            {couleur : "Vert", code : "#00e64d", iconPath : "http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
+        ];
 
         function markerObject(title, lat, lng, note, color){
             this.title = title;
@@ -25,6 +39,11 @@ angular.module('app')
 
             this.getlatLngString = function () {
                 return this.latLng.lat.toFixed(6) + ", " + this.latLng.lng.toFixed(6);
+            };
+
+            this.getUtmString = function () {
+                var utm = getUtmFromLatLng(this.latLng.lat, this.latLng.lng);
+                return utm[0].toFixed(2) + ', ' + utm[1].toFixed(2);
             }
 
         }
@@ -146,29 +165,40 @@ angular.module('app')
 
             //////////////////// Trying marker ////////////////////////
 
-            var content = '<div><div id="infowindow_content" ng-include="\'/infowindow.html\'"></div></div>';
+            var content = '<div><div id="infowindow_content" ng-include="\'/partiel/infowindow.html\'"></div></div>';
             var compiled = $compile(content)($scope);
 
             infowindow = new google.maps.InfoWindow();
 
-            var marker = new google.maps.Marker({
-                position: {lat: 46.236733, lng: -72.0357},
-                map: map,
-                title: 'Uluru (Ayers Rock)'
-            });
-
-            marker.addListener('click', function() {
-                console.log(compiled);
-                $scope.latLng = [46.23673, -72.0357];
-                $scope.$apply();
-                infowindow.setContent(compiled[0].outerHTML);
-                infowindow.open(map, marker);
-            });
+            // var marker = new google.maps.Marker({
+            //     position: {lat: 46.236733, lng: -72.0357},
+            //     map: map,
+            //     title: 'Uluru (Ayers Rock)'
+            // });
+            //
+            // var newMarker = new markerObject('', marker.getPosition().lat(), marker.getPosition().lng(), '', '');
+            // console.log(newMarker);
+            // listMarker.push(newMarker);
+            // $scope.currentMarker = newMarker;
+            //
+            //
+            // marker.addListener('click', function() {
+            //     console.log(compiled);
+            //     // $scope.latLng = [46.23673, -72.0357];
+            //     $scope.$apply();
+            //     infowindow.setContent(compiled[0].outerHTML);
+            //     infowindow.open(map, marker);
+            // });
 
             //////////////////// Trying marker ////////////////////////
 
 
             return map;
+        };
+
+        $scope.changeMarkerIcon = function (iconPath) {
+            console.log(iconPath);
+            $scope.currentMarker.setIcon(iconPath);
         };
 
         var selectFiledId;

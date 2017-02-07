@@ -117,7 +117,7 @@ img.weather {
     margin-top: 15px;
 }
 
-.btn{
+.btn.red{
     background-color: #BC3E3E;
     color: #FCFCFC;
 }

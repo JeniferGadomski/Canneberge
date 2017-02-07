@@ -1,0 +1,29 @@
+input.infowindow{
+    border: 0;
+}
+
+.row.infowindow{
+    padding-top: 10px ;
+    margin: 0;
+}
+
+.col-sm-5.col-sm-offset-2.infowindow{
+    text-align: right;
+    padding: 0;
+}
+
+.col-sm-5.infowindow{
+    padding: 0;
+}
+
+.textarea.infowindow{
+    width: 100%;
+    padding-top: 10px;
+}
+
+.coord.infowindow{
+    font-weight: 100;
+    font-size: 12px;
+    color: #000;
+    padding: 2px;
+}

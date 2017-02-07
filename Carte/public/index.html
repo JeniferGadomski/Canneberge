@@ -24,6 +24,7 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
+    <link rel="stylesheet" href="stylesheets/infowindow.css" type="text/css">
 
 
     <!-- Include SweetAlert -->
@@ -63,7 +64,7 @@
             <div ng-include="'partiel/weather.html'"></div>
         </div>
         <div class="col-sm-5">
-            <button class="btn" ng-click="pop()" >Calcul 1</button>
+            <button class="btn red" ng-click="pop()" >Calcul 1</button>
 
 
         </div>
@@ -96,9 +97,9 @@
                  ui-grid-importer
                  class="myGrid full-height" ></div>
             <div class="footer-grid">
-                <button class="btn" ng-click="addColumn()" title="Ajouter"><span class="glyphicon glyphicon-plus-sign"></span></button>
-                <button class="btn" id="btnSave" ng-click="saveGeojson()" disabled title="Sauvegarder" ><span class="glyphicon glyphicon-floppy-save"></span></button>
-                <button class="btn" ng-click="resetHide()"><span class="glyphicon glyphicon-eye-open" title="Afficher toutes les colonnes"></span> <span class="badge badge-default badge-pill">{{nbHideColumn}}</span> </button>
+                <button class="btn red" ng-click="addColumn()" title="Ajouter"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                <button class="btn red" id="btnSave" ng-click="saveGeojson()" disabled title="Sauvegarder" ><span class="glyphicon glyphicon-floppy-save"></span></button>
+                <button class="btn red" ng-click="resetHide()"><span class="glyphicon glyphicon-eye-open" title="Afficher toutes les colonnes"></span> <span class="badge badge-default badge-pill">{{nbHideColumn}}</span> </button>
             </div>
         </div>
     </div>
