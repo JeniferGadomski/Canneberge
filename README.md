@@ -1,5 +1,12 @@
 # Platforme Canneberge
 
+## Installation de dependance
+
+    $ sudo apt-get install nodejs npm
+    $ sudo ln -s /usr/bin/nodejs /usr/bin/node
+    $ sudo npm install -g angular-cli
+    $ sudo npm install -g bower
+
 ## Cloner le projet
 Téléchargement du la platforme localement
 
