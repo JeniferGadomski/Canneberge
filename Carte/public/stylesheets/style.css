@@ -122,6 +122,11 @@ img.weather {
     color: #FCFCFC;
 }
 
+.btn.red:hover{
+    background-color: #C24F4F;
+    border: 1px solid #f3f3f3;
+}
+
 #weatherHeader{
     cursor: pointer;
 }

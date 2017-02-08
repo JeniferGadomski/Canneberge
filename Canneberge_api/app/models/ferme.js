@@ -10,7 +10,8 @@ var fermeSchema = new Schema({
     name: { type: String, required: false},
     icon : {type : Buffer, contentType: String},
     geojson : {type : Object},
-    centerCoordinate : {type : Object}
+    centerCoordinate : {type : Object},
+    markers : {type : Array, default : []}
 });
 
 

@@ -25,6 +25,16 @@ angular.module('app')
             swal("Oops!", "Something went wrong on the page!", "error");
         };
 
+        $scope.saveFerme = function () {
+            apiService.putFerme($scope.fermeID, $scope.ferme)
+                .then(
+                    function (response) {
+                        console.log(response);
+                    }
+                );
+        };
+
+
 
 
 

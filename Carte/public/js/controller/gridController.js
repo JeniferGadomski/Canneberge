@@ -40,8 +40,11 @@ angular.module('app')
         $scope.gridOptions.enableRowHeaderSelection = false;
 
 
-        function disabledSaveBtn(value){
-            document.getElementById('btnSave').disabled = value;
+        function updateGeojson(){
+            var updatedGeojson = $scope.ferme.geojson;
+            console.log(updatedGeojson);
+            for(var fieldIndex in $scope.ferme.geojson.features)
+                updatedGeojson.features[fieldIndex].properties = $scope.dataTable[fieldIndex];
         }
 
         function importCSV(grid, newObjects) {
@@ -65,7 +68,7 @@ angular.module('app')
                     });
                 }
             }
-            disabledSaveBtn(false);
+            updateGeojson();
             updateGridOptions();
         }
 
@@ -75,13 +78,13 @@ angular.module('app')
             console.log(updatedGeojson);
             for(var fieldIndex in $scope.ferme.geojson.features)
                 updatedGeojson.features[fieldIndex].properties = $scope.dataTable[fieldIndex];
-            apiService.putFerme($scope.fermeID, {geojson : updatedGeojson})
+            apiService.putFerme($scope.fermeID, {geojson : updatedGeojson, markers : $scope.ferme.markers})
                 .then(
                     function (response) {
                         console.log(response);
                     }
                 );
-            disabledSaveBtn(true);
+            updateGeojson();
         };
 
         function findIndiceColumnByName(name) {
@@ -120,7 +123,7 @@ angular.module('app')
                             console.log(colName);
                             $scope.dataTable.forEach(function (v) {delete v[colName];});
                             updateGridOptions();
-                            disabledSaveBtn(false);
+                            updateGeojson(false);
                         });
                 },
                 shown: function () {
@@ -191,7 +194,7 @@ angular.module('app')
                         v[colName] = null;
                     });
                     updateGridOptions();
-                    disabledSaveBtn(false);
+                    updateGeojson();
                     swal.close();
                 });
 
@@ -235,7 +238,7 @@ angular.module('app')
             });
 
             gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
-                disabledSaveBtn(false);
+                updateGeojson();
             });
 
 

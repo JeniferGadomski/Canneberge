@@ -64,6 +64,7 @@
             <div ng-include="'partiel/weather.html'"></div>
         </div>
         <div class="col-sm-5">
+            <button class="btn red" id="btnSave" ng-click="saveFerme()" title="Sauvegarder" ><span class="glyphicon glyphicon-floppy-save"></span></button>
             <button class="btn red" ng-click="pop()" >Calcul 1</button>
 
 
@@ -97,9 +98,10 @@
                  ui-grid-importer
                  class="myGrid full-height" ></div>
             <div class="footer-grid">
-                <button class="btn red" ng-click="addColumn()" title="Ajouter"><span class="glyphicon glyphicon-plus-sign"></span></button>
-                <button class="btn red" id="btnSave" ng-click="saveGeojson()" disabled title="Sauvegarder" ><span class="glyphicon glyphicon-floppy-save"></span></button>
-                <button class="btn red" ng-click="resetHide()"><span class="glyphicon glyphicon-eye-open" title="Afficher toutes les colonnes"></span> <span class="badge badge-default badge-pill">{{nbHideColumn}}</span> </button>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-group red" role="group" ng-click="addColumn()" title="Ajouter"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                    <button class="btn btn-group red" role="group" ng-click="resetHide()"><span class="glyphicon glyphicon-eye-open" title="Afficher toutes les colonnes"></span> <span class="badge badge-default badge-pill">{{nbHideColumn}}</span> </button>
+                </div>
             </div>
         </div>
     </div>
