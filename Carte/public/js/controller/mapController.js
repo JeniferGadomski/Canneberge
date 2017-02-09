@@ -10,15 +10,15 @@ angular.module('app')
         $scope.currentField = {};
 
 
-        $scope.currentMarkerObject = {};
+        $scope.currentMarkerDescritor = {};
         $scope.currentMarker = {};
         $scope.infowindow = {};
 
-        var defaultColor = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+        var projection  = '+proj=utm +zone=18 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
 
         $scope.markerColor = [
-            {couleur : "Bleu", code : "#6991fd", iconPath : "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
             {couleur : "Rouge", code : "#fd7567", iconPath : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"},
+            {couleur : "Bleu", code : "#6991fd", iconPath : "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"},
             {couleur : "Violet", code : "#8e67fd", iconPath : "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"},
             {couleur : "Jaune", code : "#fdf569", iconPath : "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"},
             {couleur : "Vert", code : "#00e64d", iconPath : "http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
@@ -26,45 +26,25 @@ angular.module('app')
 
 
 
-
-
-
-        function markerObject(title, lat, lng, note, color){
-            this.title = title;
-            this.latLng = {lat : lat, lng : lng};
-            this.note = note;
-            this.color = color;
-            // this.marker =  new google.maps.Marker({
-            //     position: this.latLng,
-            //     map: map
-            // });
-
-            this.getlatLngString = function () {
-                return this.latLng.lat.toFixed(6) + ", " + this.latLng.lng.toFixed(6);
-            };
-
-            this.getUtmString = function () {
-                var utm = getUtmFromLatLng(this.latLng.lat, this.latLng.lng);
-                return utm[0].toFixed(2) + ', ' + utm[1].toFixed(2);
-            };
-
-            this.getMarker = function (map) {
+        $scope.markerFunction = {
+            getMarkerFromMarkerDescriptor : function (markerDescriptor, map) {
                 return new google.maps.Marker({
-                        position: this.latLng,
-                        map: map,
-                    icon : this.color
-                    });
+                    position: markerDescriptor.latLng,
+                    map: map,
+                    icon : markerDescriptor.color.iconPath,
+                    title : markerDescriptor.title,
+                    id : markerDescriptor.id
+                });
+            },
+            getLatLngString : function (des) {
+            return des.latLng.lat.toFixed(6) + ", " + des.latLng.lng.toFixed(6);
+            },
+            getUtmString : function (des) {
+                var utm = getUtmFromLatLng(des.latLng.lat, des.latLng.lng);
+                return utm[0].toFixed(2) + ', ' + utm[1].toFixed(2);
             }
+        };
 
-        }
-
-
-
-
-
-
-
-        var projection  = '+proj=utm +zone=18 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
 
 
 
@@ -135,14 +115,17 @@ angular.module('app')
             });
 
             google.maps.event.addListener(drawingManager, 'markercomplete', function(marker) {
-                var newMarkerObject = new markerObject('', marker.getPosition().lat(), marker.getPosition().lng(), '', defaultColor);
-                marker.setIcon(defaultColor);
-                $scope.ferme.markers.push(newMarkerObject);
-                initMarker(marker, newMarkerObject);
+                var id = Math.floor(Date.now() + Math.random());
+                $scope.currentMarkerDescritor = {
+                    latLng : {lat : marker.getPosition().lat(), lng : marker.getPosition().lng()},
+                    color : $scope.markerColor[0],
+                    id : id
+                };
+                $scope.ferme.markers.push($scope.currentMarkerDescritor);
+                marker.setIcon($scope.markerColor[0].iconPath);
+                marker['id'] = id;
                 $scope.currentMarker = marker;
-                $scope.currentMarkerObject = newMarkerObject;
-                openInfowindow();
-
+                initMarker(true);
             });
 
             google.maps.event.addListener(drawingManager, 'mousemove', function (event) {
@@ -165,86 +148,57 @@ angular.module('app')
                 console.log(event.feature);
             });
 
-
-
-            //////////////////// Trying marker ////////////////////////
-
-            // var content = '<div><div id="infowindow_content" ng-include="\'/partiel/infowindow.html\'"></div></div>';
-            // var compiled = $compile(content)($scope);
-            //
-            // $scope.infowindow = new google.maps.InfoWindow();
-            //
-            // var marker = new google.maps.Marker({
-            //     position: {lat: 46.236733, lng: -72.0357},
-            //     map: map,
-            //     title: 'Uluru (Ayers Rock)'
-            // });
-            //
-            // var newMarker = new markerObject('', marker.getPosition().lat(), marker.getPosition().lng(), '', '');
-            // console.log(newMarker);
-            // listMarker.push(newMarker);
-            // $scope.currentMarkerObject = newMarker;
-            //
-            //
-            // google.maps.event.addListener(marker, 'click', (function(marker, content, scope) {
-            //     return function() {
-            //         scope.currentMarkerObject = marker;
-            //         scope.infowindow.setContent(content);
-            //         scope.infowindow.open(scope.map, marker);
-            //     };
-            // })(marker, compiled[0], $scope));
-
-
             $scope.infowindow = new google.maps.InfoWindow();
-            // $scope.ferme.markers.push(new markerObject('Premier marker', 46.236733, -72.0357, '', ''));
-
             $scope.ferme.markers.forEach(function (v) {
-                var newMarkerObject = new markerObject(v.title, v.latLng.lat, v.latLng.lng, v.note, v.color);
-                initMarker(newMarkerObject.getMarker(map), newMarkerObject);
+                $scope.currentMarkerDescritor = v;
+                $scope.currentMarker = $scope.markerFunction.getMarkerFromMarkerDescriptor(v, map);
+                initMarker(false);
             });
-
-
-            //////////////////// Trying marker ////////////////////////
-
 
             return map;
         };
 
-        // $scope.changeMarkerIcon = function (iconPath) {
-        //     $scope.currentMarker.setIcon(iconPath);
-        //     $scope.currentMarkerObject.color = iconPath;
-        // };
-
-        function initMarker(marker, markerObject){
-
-            $scope.currentMarkerObject = markerObject;
+        function initMarker(openWindow){
             var content = '<div><div id="infowindow_content" ng-include="\'/partiel/infowindow.html\'"></div></div>';
             var compiled = $compile(content)($scope);
 
-            google.maps.event.addListener(marker, 'click', (function(marker, content, scope, markerObject) {
+            google.maps.event.addListener($scope.currentMarker, 'click', (function(marker, content, scope, markerDescriptor) {
                 return function() {
-                    scope.currentMarkerObject = markerObject;
+                    scope.currentMarkerDescritor = markerDescriptor;
                     scope.currentMarker = marker;
-                    scope.changeMarkerIcon = function (iconPath) {
-                        scope.currentMarker.setIcon(iconPath);
-                        scope.currentMarkerObject.color = iconPath;
-                        console.log(iconPath);
-                        console.log(scope.currentMarkerObject);
-                        console.log(scope.ferme.markers);
-                    };
                     scope.$apply();
                     scope.infowindow.setContent(content);
                     scope.infowindow.open(scope.map, marker);
                 };
-            })(marker, compiled[0], $scope, markerObject));
+            })($scope.currentMarker, compiled[0], $scope, $scope.currentMarkerDescritor));
+
+            if(openWindow){
+                $scope.$apply();
+                $scope.infowindow.setContent(compiled[0]);
+                $scope.infowindow.open(map, $scope.currentMarker);
+            }
         }
 
-        function openInfowindow(){
-            var content = '<div><div id="infowindow_content" ng-include="\'/partiel/infowindow.html\'"></div></div>';
-            var compiled = $compile(content)($scope);
-            $scope.infowindow.setContent(compiled[0]);
-            $scope.infowindow.open(map, $scope.currentMarker);
-        }
+        $scope.changeMarkerIcon = function (color) {
+            $scope.currentMarker.setIcon(color.iconPath);
+            $scope.ferme.markers.forEach(function (v) {
+                if(v.id == $scope.currentMarker.id)
+                    v.color = color;
+            });
+        };
+
+        $scope.deleteMarker = function () {
+            $scope.ferme.markers.forEach(function (v, i) {
+                if(v.id === $scope.currentMarker.id){
+                    $scope.ferme.markers.splice(i, 1);
+                }
+            });
+            $scope.currentMarker.setMap(null);
+        };
+
+        $scope.$watch('currentMarkerDescritor.title', function () {
+                $scope.currentMarker.setTitle($scope.currentMarkerDescritor.title);
+        });
 
         var selectFiledId;
         var colorizeField = function(rowId) {
@@ -270,7 +224,6 @@ angular.module('app')
         $rootScope.$on('rowSelected', function (event, data) {
             colorizeField(data);
         });
-        
 
         $scope.updateLatLng =  function (event) {
             var pnt = getLatLngByOffset(map, event.offsetX, event.offsetY);

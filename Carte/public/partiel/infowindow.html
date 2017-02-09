@@ -1,20 +1,20 @@
 <div>
     <div>
         <div>
-            <h4><input class="infowindow" type="text" placeholder="Titre" ng-model="currentMarkerObject.title"/></h4>
+            <h4><input class="infowindow" type="text" placeholder="Titre" ng-model="currentMarkerDescritor.title"/></h4>
         </div>
-        <div class="coord infowindow" title="Latitude, Longitude">
+        <div class="coord infowindow" title="Latitude, Longitude" style="min-height: 25px;">
             <div style="padding-bottom: 3px;">
-                {{currentMarkerObject.getlatLngString()}}
+                {{markerFunction.getLatLngString(currentMarkerDescritor)}}
             </div>
             <div title="EPSG:26918, NAD83 / UTM zone 18N">
-                {{currentMarkerObject.getUtmString()}}
+                {{markerFunction.getUtmString(currentMarkerDescritor)}}
             </div>
         </div>
 
     </div>
     <div class="textarea infowindow">
-        <textarea placeholder="Note" style="width: 100%;" name="" rows="3" ng-model="currentMarkerObject.note"></textarea>
+        <textarea placeholder="Note" style="width: 100%;" rows="4" ng-model="currentMarkerDescritor.note"></textarea>
     </div>
 
     <div class="row infowindow">
@@ -25,12 +25,14 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                     <li ng-repeat="color in markerColor">
-                        <a href="#" ng-click="this.currentMarkerObject['color'] = color.iconPath; currentMarker.setIcon(color.iconPath);" ng-style="{'background-color' : color.code}" >{{color.couleur}}</a>
+                        <a class="color-link infowindow" href="#" ng-click="changeMarkerIcon(color)"  >
+                            <div class="infowindow color-container" ng-style="{'background-color' : color.code}"></div>
+                        </a>
                     </li>
                 </ul>
             </div>
         <div class="col-sm-5 col-sm-offset-2 infowindow">
-            <button class="btn btn-danger btn-delete" title="Supprimer"><span class="glyphicon glyphicon-trash"></span> </button>
+            <button class="btn btn-danger btn-delete" title="Supprimer" ng-click="deleteMarker()"><span class="glyphicon glyphicon-trash"></span> </button>
         </div>
     </div>
 

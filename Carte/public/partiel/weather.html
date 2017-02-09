@@ -2,7 +2,8 @@
 <div ng-controller="weatherController">
     <div class="row full-height header pull-right weather" ng-click="open()" id="weatherHeader" title="Prévision sur 3 jours">
         <div class="col-sm-6 weather ">
-            <img src="{{weather.getIcon(weather.forecast.simpleforecast.forecastday[0].icon)}}" alt="" id="condition-icon">
+            <!--<img ng-src="{{weather.getIcon(weather.forecast.simpleforecast.forecastday[0].icon)}}" alt="" id="condition-icon">-->
+            <img ng-src="images/weather-icon/{{weather.forecast.simpleforecast.forecastday[0].icon}}.png" alt="" id="condition-icon">
         </div>
         <div class="col weather">
             <img src="../images/weather-icon/temperature-icon.png" alt="" class="weather">

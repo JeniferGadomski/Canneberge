@@ -1,5 +1,10 @@
 input.infowindow{
     border: 0;
+    height: 25px;
+}
+
+textarea{
+    font-family: serif;
 }
 
 .row.infowindow{
@@ -24,8 +29,22 @@ input.infowindow{
 .coord.infowindow{
     font-weight: 100;
     font-size: 12px;
-    color: #000;
     padding: 2px;
+}
+
+.color-link.infowindow{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.color-container.infowindow{
+    height: 20px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.color-container.infowindow:hover{
+    border: 2px solid #DDE1E4;
 }
 
 /*padding: 0;*/

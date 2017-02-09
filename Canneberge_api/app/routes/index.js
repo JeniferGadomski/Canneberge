@@ -272,7 +272,26 @@ router.route('/fermes/:ferme_id')
         Ferme.findById(req.params.ferme_id, function (err, ferme) {
             if(err)
                 console.log(err);
-            res.json({ferme: ferme});
+
+            var send = {ferme : ferme};
+            send['weather'] = {};
+            var coord = ferme.centerCoordinate.lat.toString() + "," + ferme.centerCoordinate.lng.toString();
+            var weatherRequest = {};
+            var weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/forecast/q/" + coord + ".json";
+            weatherRequest.forecast = request.get(weatherJsonUrl, function(err, httpResponse, body){
+                if(err){
+                    return console.error(err);
+                }
+                send.weather['forecast'] = JSON.parse(body).forecast;
+                weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/conditions/q/" + coord + ".json";
+                weatherRequest.conditions = request.get(weatherJsonUrl, function(err, httpResponse, body){
+                    if(err){
+                        return console.error(err);
+                    }
+                    send.weather['current_observation'] = JSON.parse(body).current_observation;
+                    res.json(send);
+                });
+            });
         });
     })
     .put(function (req, res) {

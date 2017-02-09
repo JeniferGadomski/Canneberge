@@ -6,6 +6,7 @@ angular.module('app')
     .controller('mainController', function ($scope, $rootScope, $window, apiService) {
         $scope.title = 'Carte';
         $scope.fermeID = $window.location.pathname.split('/')[1];
+        $scope.weather = {};
 
 
 
@@ -13,9 +14,11 @@ angular.module('app')
         apiService.getFerme($scope.fermeID)
             .then(
                 function (res) {
-
+                    console.log(res);
                     $scope.ferme = res.data.ferme;
+                    $scope.weather = res.data.weather;
                     console.log($scope.ferme);
+                    console.log($scope.weather);
                     $rootScope.$emit('initMap');
                     $rootScope.$emit('initGrid');
                 }
