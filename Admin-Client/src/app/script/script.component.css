@@ -1,0 +1,25 @@
+body, html{
+  height: 100%;
+}
+
+.aceEditorDirective {
+  margin-top: 50px;
+  min-height: 200px;
+  width: 100%;
+  overflow: auto;
+}
+
+.script-list{
+  border-right: 2px solid #fff;
+}
+
+.full-height{
+  height: 100%;
+}
+
+.script-header{
+  text-align: right;
+  height: 50px;
+}
+
+

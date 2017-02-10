@@ -13,7 +13,8 @@ var userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, default : 'default' },
     admin: {type : Boolean, default : false},
-    username: { type: String, required: true, unique: true }
+    username: { type: String, required: true, unique: true },
+    scripts : {type : Array}
 });
 
 userSchema.pre('save', function (next) {
