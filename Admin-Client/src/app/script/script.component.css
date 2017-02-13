@@ -18,8 +18,41 @@ body, html{
 }
 
 .script-header{
-  text-align: right;
   height: 50px;
 }
 
+.text-right{
+  text-align: right;
+}
 
+ace-editor{
+  height: 700px;
+}
+
+input{
+  border: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+input.full-width{
+  width: 100%;
+}
+
+.full-width{
+  width: 100%;
+}
+
+#console{
+  margin-top: 15px;
+}
+
+.console-output{
+  display: inline-block;
+  margin-top: 10px;
+  color: orange;
+}
+
+#console-output{
+  overflow: auto;
+  height: 100px;
+}

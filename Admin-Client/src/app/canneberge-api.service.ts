@@ -99,6 +99,24 @@ export class CannebergeApiService {
     return this._http.delete(this.serverUrl + '/fermes/' + id);
   }
 
+  sendRCommandLine(commandLine : string){
+    let headers = new Headers();
+    let formData:FormData = new FormData();
+    formData.append('command', commandLine);
+    return this._http.post(this.serverUrl + '/executeR', formData, {
+      headers: headers
+    }).map(res => res.json());
+  }
+
+  sendRFiletext(filetext : string){
+    let headers = new Headers();
+    let formData:FormData = new FormData();
+    formData.append('filetext', filetext);
+    return this._http.post(this.serverUrl + '/executeR', formData, {
+      headers: headers
+    }).map(res => res.json());
+  }
+
 
 
 

@@ -1,30 +1,51 @@
 <div class="full-height">
   <div class="row script-header">
     <div class="col-sm-4">
-      Save
+
     </div>
-    <div class="col-sm-8">
-      Run
+    <div class="col-sm-4">
+      <input class="full-width" [(ngModel)] = "scripsData[indexSelectedScript].name"/>
+      <!--{{scripsData[indexSelectedScript].name}}-->
+    </div>
+    <div class="col-sm-4 text-right">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-secondary" title="Sauvegarder"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-secondary" title="Nouveau" (click)="newScript()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-secondary" title="Exécuter" (click)="executeFile()"><i class="fa fa-play" aria-hidden="true"></i></button>
+      </div>
     </div>
   </div>
   <div class="row full-height">
     <div class="col-sm-4 script-list full-height">
-        <li>
-          <a>Hello</a>
-        </li>
+        <div class="list-group">
+          <a *ngFor="let script of scripsData | sortBy : 'name'; let i = index"
+              class="list-group-item list-group-item-action"
+              (click)="selectScript(i)">
+            {{script.name}}
+          </a>
+        </div>
     </div>
     <div class="col-sm-8 full-height">
       <ace-editor
-        [text]="text"
+        [text]="scripsData[indexSelectedScript].code"
         [mode] = "'r'"
         [theme] = "'xcode'"
         #editor></ace-editor>
+      <input id="console" class="full-width" (keypress)="promtInput()" (keyup.enter)="sendCommandLine()" (keyup.ArrowUp)="inputCommandValue = lastCommand" [(ngModel)]="inputCommandValue"/>
+      <div>
+        {{lastCommand}}
+      </div>
+      <div class="console-output">
+        {{output.output}}
+      </div>
+      <!--<iframe width='100%' height='800px' src='http://r-fiddle.org/#/embed/' frameborder='0'></iframe>-->
+
     </div>
 
   </div>
 
 
-  
+
 </div>
 
 

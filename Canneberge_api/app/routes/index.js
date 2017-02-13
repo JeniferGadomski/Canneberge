@@ -11,6 +11,7 @@ var multer = require('multer');
 var Jimp = require("jimp");
 var request = require('request');
 var path = require('path');
+var rio = require('rio');
 
 router.get('/', function(req, res) {
     res.send('Hello! The API is at http://localhost:8080/api');
@@ -187,7 +188,7 @@ var storage = multer.diskStorage({
         cb(null, 'uploads/')
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
+        cb(null, file.originalname); //Appending extension
     }
 });
 
@@ -311,6 +312,57 @@ router.route('/fermes/:ferme_id')
             res.sendStatus(200);
         });
     });
+
+
+
+router.post('/executeR', upload.any(), function (req, response) {
+
+    function sendResponseBack(err, res){
+        if(err){
+            console.log(err);
+            response.json({output : err});
+        }
+        else{
+            // res = JSON.parse(res);
+            console.log(res);
+            response.json({output : res});
+        }
+    }
+
+    if(typeof req.body.command !== 'undefined'){
+        console.log(req.body.command);
+        rio.e({
+            command : req.body.command,
+            callback : sendResponseBack
+        });
+    }
+    else if(typeof req.body.filetext !== 'undefined'){
+        var filename = './uploads/filetext.R';
+        fs.writeFile(filename, req.body.filetext, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            rio.e({
+                filename : filename,
+                callback : sendResponseBack
+            });
+        });
+    }
+    else{
+        // var filename = '../../uploads/' + req.body.filename;
+        var filename = './uploads/scirpt.R';
+        console.log(filename);
+        rio.e({
+            filename : filename,
+            callback : sendResponseBack,
+            entrypoint : 'main'
+        });
+    }
+
+
+
+
+});
 
 module.exports = router;
 
