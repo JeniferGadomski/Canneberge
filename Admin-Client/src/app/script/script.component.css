@@ -1,16 +1,10 @@
-body, html{
-  height: 100%;
-}
 
-.aceEditorDirective {
-  margin-top: 50px;
-  min-height: 200px;
-  width: 100%;
-  overflow: auto;
-}
+
 
 .script-list{
   border-right: 2px solid #fff;
+  display: inline-block;
+  overflow: auto;
 }
 
 .full-height{
@@ -26,7 +20,7 @@ body, html{
 }
 
 ace-editor{
-  height: 700px;
+  height: 100%;
 }
 
 input{
@@ -34,25 +28,47 @@ input{
   border-bottom: 1px solid #ccc;
 }
 
-input.full-width{
-  width: 100%;
-}
-
 .full-width{
   width: 100%;
 }
 
-#console{
-  margin-top: 15px;
-}
-
 .console-output{
-  display: inline-block;
   margin-top: 10px;
-  color: orange;
+  color: chartreuse;
+  background-color: lightslategrey;
+  padding: 10px;
 }
 
-#console-output{
-  overflow: auto;
-  height: 100px;
+
+.list-group-item.active{
+  background-color: lightgray;
+  border-color: lightgray;
+}
+
+.btn-link{
+  color: #000;
+}
+
+.btn-link:hover{
+  color: red;
+}
+
+.wrapper {
+  height: 100%;
+  display: flex;
+
+  /* Direction of the items, can be row or column */
+  flex-direction: column;
+}
+
+header{
+  height: 50px;
+}
+footer {
+  height:200px;
+}
+
+main {
+  flex: 1;
+  display: inline-flex;
 }

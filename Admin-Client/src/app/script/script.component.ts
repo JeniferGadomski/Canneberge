@@ -19,18 +19,20 @@ export class ScriptComponent {
   lastCommand = '';
 
   scripsData = [
-    {
-    name : 'HelloWorld.R',
-    code : 'print(\'Hello world\')\n' +
-      'out <- capture.output(print(\'bonjour\'))\n' +
-      'out <- c(out, capture.output(rep(\'c\', 10)))\n' +
-      'print(out)\n'
-    },
-    {
-    name : 'HelloWorld2.R',
-    code : 'print(\'Hello world2\')'
-    }
+    // {
+    // name : 'HelloWorld.R',
+    // code : 'print(\'Hello world\')\n' +
+    //   'out <- capture.output(print(\'bonjour\'))\n' +
+    //   'out <- c(out, capture.output(rep(\'c\', 10)))\n' +
+    //   'print(out)\n'
+    // },
+    // {
+    // name : 'HelloWorld2.R',
+    // code : 'print(\'Hello world2\')'
+    // }
   ];
+
+  code = '';
 
   constructor(
     private service : CannebergeApiService,
@@ -42,6 +44,13 @@ export class ScriptComponent {
 
   ngAfterViewInit() {
 
+    this.service.getUser('5894a2f1df1f28501873a566').subscribe(
+      user => {
+        this.scripsData = user.scripts;
+      }
+    );
+
+
     this.editor.getEditor().setOptions({
       highlightSelectedWord : true
 
@@ -51,18 +60,19 @@ export class ScriptComponent {
 
   selectScript(index){
     this.indexSelectedScript = index;
-
+    this.code = this.scripsData[this.indexSelectedScript].code
   }
 
   newScript(){
-    let name = "Nouveau_script.R";
+    let name = ".R";
     let today = new Date();
     let date = today.getDate() + '/' + (today.getMonth()+1) + '/' + today.getFullYear() + '-' + today.getHours()
       + ':' + today.getMinutes() + ':' + today.getSeconds();
     let code = "# Créé le : " + date + '\n\n';
     this.scripsData.push({name : name, code : code});
 
-    this.indexSelectedScript = this.scripsData.length - 1;
+    this.selectScript(this.scripsData.length - 1);
+
   }
 
   sendCommandLine(){
@@ -84,7 +94,7 @@ export class ScriptComponent {
   }
 
   executeFile(){
-    this.scripsData[this.indexSelectedScript].code = this.editor.text;
+    this.updateCode();
     this.lastCommand = '> ' + this.scripsData[this.indexSelectedScript].name;
     console.log(this.editor.text);
     this.service.sendRFiletext(this.editor.text).subscribe(
@@ -93,6 +103,36 @@ export class ScriptComponent {
         this.output = output;
       }
     )
+  }
+
+  saveScripts(){
+    this.updateCode();
+    this.service.saveUser('5894a2f1df1f28501873a566', {scripts : this.scripsData}).subscribe(
+      rep => console.log(rep)
+    );
+  }
+
+  updateCode(){
+    if(this.scripsData.length > 0){
+        this.scripsData[this.indexSelectedScript].code = this.editor.text;
+    }
+  }
+
+  isSelected(script){
+    return script ===  this.scripsData[this.indexSelectedScript];
+  }
+
+
+  removeScript(i){
+    if(this.indexSelectedScript === this.scripsData.length - 1){
+      this.indexSelectedScript = this.scripsData.length - 2
+    }
+    this.scripsData.splice(i, 1);
+    if(i === this.indexSelectedScript && this.scripsData.length !== 0)
+      this.selectScript(0);
+
+    this.saveScripts()
+
   }
 
 

@@ -165,6 +165,7 @@ router.route('/users/:user_id')
             if(err)
                 console.log(err.message);
             console.log(result);
+            console.log(req.body);
             res.sendStatus(200);
         });
 
