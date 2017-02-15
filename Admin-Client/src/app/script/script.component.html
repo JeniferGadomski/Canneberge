@@ -67,9 +67,10 @@
       </div>
 
       <div class=" console-output full-width">
-        <p>
-          {{lastCommand}} <br> {{output.output}}
-        </p>
+        <!--<p>-->
+          <!--{{lastCommand}} <br> {{output.output}}-->
+        <!--</p>-->
+        <iframe *ngIf="showIFrame" class="full-width full-height" [src]='urlIFrame'></iframe>
       </div>
     </div>
 

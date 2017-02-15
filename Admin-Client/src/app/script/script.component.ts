@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { AceEditorDirective } from 'ng2-ace-editor';
 import {Router, ActivatedRoute} from "@angular/router";
 import {CannebergeApiService} from "../canneberge-api.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector : 'app-script',
@@ -17,6 +18,9 @@ export class ScriptComponent {
   indexSelectedScript = 0;
   inputCommandValue : string = "> ";
   lastCommand = '';
+  baseUrl = "http://localhost:8888/filetext";
+  urlIFrame : any;
+  showIFrame = false;
 
   scripsData = [
     // {
@@ -37,7 +41,8 @@ export class ScriptComponent {
   constructor(
     private service : CannebergeApiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private sanitizer : DomSanitizer
   )
   { }
 
@@ -101,6 +106,8 @@ export class ScriptComponent {
       output => {
         console.log(output);
         this.output = output;
+        this.getIframeUrl(this.baseUrl);
+        this.showIFrame = true;
       }
     )
   }
@@ -133,6 +140,10 @@ export class ScriptComponent {
 
     this.saveScripts()
 
+  }
+
+  getIframeUrl(url){
+    this.urlIFrame = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
 

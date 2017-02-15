@@ -35,8 +35,9 @@ input{
 .console-output{
   margin-top: 10px;
   color: chartreuse;
-  background-color: lightslategrey;
+  /*background-color: lightslategrey;*/
   padding: 10px;
+  height: 260px;
 }
 
 
@@ -65,7 +66,7 @@ header{
   height: 50px;
 }
 footer {
-  height:200px;
+  height:300px;
 }
 
 main {
