@@ -8,7 +8,6 @@ var database = require('../config/database'); // get our config file
 var ObjectId = require('mongodb').ObjectID;
 var fs = require('fs');
 var multer = require('multer');
-var Jimp = require("jimp");
 var request = require('request');
 var path = require('path');
 var rio = require('rio');
@@ -205,9 +204,22 @@ function getGeoJSONFormData(path) {
 
 router.route('/fermes')
     .get(function (req, res) {
-        Ferme.find({}, function (err, users) {
-            res.json(users);
-        });
+        var query = req.query;
+        if(query.hasOwnProperty('fermeId')){
+            getFermeById(query.fermeId, function (ferme) {
+                res.json(ferme);
+            });
+        }
+        else if(query.hasOwnProperty('fermeName')){
+            getFermeByName(query.fermeName, function (ferme) {
+                res.json(ferme);
+            })
+        }
+        else{
+            Ferme.find({}, function (err, fermes) {
+                res.json(fermes);
+            });
+        }
     })
     .post(function (req, res) {
         var newferme = new Ferme({
@@ -221,7 +233,6 @@ router.route('/fermes')
             res.json({success: true, message: 'Successful created new user.'});
         });
     });
-
 
 router.post('/shapefile-to-geojson', upload.single('shapefileZip'), function (req, res) {
     request.post({url : "http://ogre.adc4gis.com/convert", formData: getGeoJSONFormData(req.file.path)},
@@ -251,7 +262,6 @@ function responseFile(filePath, fileName, response) {
     });
 }
 
-
 router.post('/geojson-to-shapefile', function (req, res) {
     var fileName;
     var url = 'http://ogre.adc4gis.com/convertJson';
@@ -268,6 +278,62 @@ router.post('/geojson-to-shapefile', function (req, res) {
 
     });
 });
+
+router.route('/fermes/data')
+    .get(function(req, res){
+       var query = req.query;
+       if(query.hasOwnProperty('fermeId')){
+            getFermeById(query.fermeId, function (ferme) {
+                res.json(geojsonToData(ferme.geojson));
+            })
+       }
+       else if(query.hasOwnProperty('fermeName')){
+            getFermeByName(query.fermeName, function (ferme) {
+                res.json(geojsonToData(ferme.geojson));
+            })
+       }
+    })
+    .put(function (req, res) {
+        var query = req.query;
+        var body = JSON.parse(JSON.stringify(req.body));
+        if(!body.hasOwnProperty('data')){
+            res.statusMessage = 'Aucune donne, \'data\' doit etre fournie';
+            res.sendStatus(400);
+        }
+        else if(query.hasOwnProperty('fermeId')){
+            getFermeById(query.fermeId, function (ferme) {
+                updateDataFerme(req, res, ferme);
+            });
+        }
+        else if(query.hasOwnProperty('fermeName')){
+            getFermeByName(query.fermeName, function (ferme) {
+                updateDataFerme(req, res, ferme);
+            })
+        }
+        else{
+            res.statusMessage = "Parametre valide : fermeId, fermeName"
+            res.sendStatus(400);
+        }
+    });
+
+router.route('/fermes/data/:ferme_id')
+    .get(function (req, res) {
+        getFermeById(req.params.ferme_id, function (ferme) {
+            res.json(geojsonToData(ferme.geojson));
+        });
+    })
+    .put(function (req, res) {
+        var body = JSON.parse(JSON.stringify(req.body));
+        if(!body.hasOwnProperty('data')){
+            res.statusMessage = 'Aucune donne, \'data\' doit etre fournie';
+            res.sendStatus(400);
+            return;
+        }
+        getFermeById(req.params.ferme_id, function(ferme){
+            updateDataFerme(req, res, ferme);
+        });
+    });
+
 
 router.route('/fermes/:ferme_id')
     .get(function (req, res) {
@@ -339,13 +405,25 @@ router.post('/executeR', upload.any(), function (req, response) {
     }
     else if(typeof req.body.filetext !== 'undefined'){
         var filename = './uploads/filetext.R';
-        fs.writeFile(filename, req.body.filetext, function(err) {
-            if(err) {
-                return console.log(err);
-            }
-            rio.e({
-                filename : filename,
-                callback : sendResponseBack
+        Ferme.find({}, function (err, fermes) {
+            console.log(fermes);
+
+            var fermeIndex = 1;
+
+            var data = [];
+            for(var fieldIndex in fermes[fermeIndex].geojson.features)
+                data.push(fermes[fermeIndex].geojson.features[fieldIndex].properties);
+
+            var filecontent = "run <- function(){ \n" + req.body.filetext + "\n }";
+
+            fs.writeFile(filename, filecontent, function(err) {
+                if(err) {
+                    return console.log(err);
+                }
+                rio.e({
+                    filename : filename,
+                    callback : sendResponseBack
+                });
             });
         });
     }
@@ -359,12 +437,109 @@ router.post('/executeR', upload.any(), function (req, response) {
             entrypoint : 'main'
         });
     }
+});
 
 
-
+router.get('/weather', function (req, res) {
+    var query = req.query;
+    if(query.hasOwnProperty('lat') && query.hasOwnProperty('lng')){
+        getWeatherByLatLng(query.lat, query.lng, function (w) {
+            res.json(w);
+        });
+    }
+    else if(query.hasOwnProperty('fermeId')){
+        getFermeById(query.fermeId, function (ferme) {
+            getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, function (weather) {
+                res.json(weather);
+            })
+        })
+    }
+    else if(query.hasOwnProperty('fermeName')){
+        getFermeByName(query.fermeName, function (ferme) {
+            getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, function (weather) {
+                res.json(weather);
+            })
+        })
+    }
+    else{
+        res.statusMessage = 'Liste des paramètres valide : lat, lng -- fermeId -- fermeName';
+        res.sendStatus(400);
+    }
 
 });
 
-module.exports = router;
 
+function getFermeById(id, next){
+    Ferme.findById(id, function (err, ferme) {
+        if (err)
+            console.log(err);
+        next(ferme)
+    });
+}
+
+function getFermeByName(name, next){
+    Ferme.findOne({name : name}, function (err, ferme) {
+        if(err)
+            console.log(err);
+        next(ferme);
+    })
+}
+
+function getWeatherByLatLng(lat, lng, next){
+    var coord = lat.toString() + "," + lng.toString();
+    var weatherRequest = {};
+    var weather = {};
+    var weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/forecast/q/" + coord + ".json";
+    weatherRequest.forecast = request.get(weatherJsonUrl, function(err, httpResponse, body){
+        if(err){
+            return console.error(err);
+        }
+        weather['forecast'] = JSON.parse(body).forecast;
+        weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/conditions/q/" + coord + ".json";
+        weatherRequest.conditions = request.get(weatherJsonUrl, function(err, httpResponse, body){
+            if(err){
+                return console.error(err);
+            }
+            weather['current_observation'] = JSON.parse(body).current_observation;
+            next(weather);
+        });
+    });
+}
+
+function geojsonToData(geojson){
+    var data = [];
+    for(var fieldIndex in geojson.features)
+        data.push(geojson.features[fieldIndex].properties);
+    return data;
+}
+
+function dataToGeojson(data, geojson){
+    data = tryToParseJson(data);
+    for(var fieldIndex in geojson.features){
+        geojson.features[fieldIndex].properties = data[fieldIndex];
+    }
+    return geojson;
+}
+
+function updateDataFerme(req, res, ferme){
+    var data = tryToParseJson(req.body.data);
+    if(data.length != ferme.geojson.features.length){
+        res.statusMessage = 'Le nombre de ligne de \'data\' ne concorde pas';
+        res.sendStatus(400);
+        return;
+    }
+    Ferme.update({_id : ferme._id}, {geojson : dataToGeojson(req.body.data ,ferme.geojson)}, function (err, result) {
+        if(err)
+            console.log(err);
+        res.sendStatus(200);
+    })
+}
+
+function tryToParseJson(data){
+    try{data = JSON.parse(data);}
+    catch(e) {}
+    return data;
+}
+
+module.exports = router;
 

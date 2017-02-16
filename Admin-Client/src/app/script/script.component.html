@@ -1,87 +1,62 @@
 <div class="wrapper">
-
   <header>
-
     <div class="row">
-      <div class="col-sm-4">
-
-      </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <template [ngIf]="scripsData?.length > 0">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{scripsData[indexSelectedScript].name}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a *ngFor="let script of scripsData; let i = index"
+                 class="dropdown-item"
+                 (click)="selectScript(i)"
+                 [class.active]="isSelected(script)">
 
+                <div class="d-flex w-100 justify-content-between">
+                  {{script.name}}
+                  <button class="btn btn-link" (click)="removeScript(i)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+              </a>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <div class="col-sm-3">
+        <template [ngIf]="scripsData?.length > 0">
           <input class="full-width" [(ngModel)] = "scripsData[indexSelectedScript].name"/>
         </template>
-        <!--{{scripsData[indexSelectedScript].name}}-->
       </div>
-      <div class="col-sm-4 text-right">
+
+      <div class="col-sm-6">
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-secondary" title="Sauvegarder" (click)="saveScripts()"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
           <button type="button" class="btn btn-secondary" title="Nouveau" (click)="newScript()"><i class="fa fa-plus" aria-hidden="true"></i></button>
           <button type="button" class="btn btn-secondary" title="Exécuter" (click)="executeFile()"><i class="fa fa-play" aria-hidden="true"></i></button>
         </div>
       </div>
+
     </div>
   </header>
 
   <main>
     <div class="row full-height full-width">
-      <div class="col-sm-4 script-list">
-        <div class="list-group">
-          <a *ngFor="let script of scripsData | sortBy : 'name'; let i = index"
-             class="list-group-item list-group-item-action"
-             (click)="selectScript(i)"
-             [class.active]="isSelected(script)">
-
-            <div class="d-flex w-100 justify-content-between">
-              {{script.name}}
-              <button class="btn btn-link" (click)="removeScript(i)"><i class="fa fa-times" aria-hidden="true"></i></button>
-            </div>
-
-
-
-          </a>
-        </div>
-      </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6 script-list">
         <ace-editor
-          [text] = "code"
+          [(text)] = "code"
           (textChanged)="updateCode()"
           [mode] = "'r'"
           [theme] = "'xcode'"
           #editor></ace-editor>
-
-
-
-        <!--<iframe width='100%' height='800px' src='http://r-fiddle.org/#/embed/' frameborder='0'></iframe>-->
-
       </div>
 
-    </div>
-
-  </main>
-
-  <footer>
-    <div class="full-height full-width">
-      <div class="full-width">
-        <input id="console" class="full-width" (keypress)="promtInput()" (keyup.enter)="sendCommandLine()" (keyup.ArrowUp)="inputCommandValue = lastCommand" [(ngModel)]="inputCommandValue"/>
-      </div>
-
-      <div class=" console-output full-width">
-        <!--<p>-->
-          <!--{{lastCommand}} <br> {{output.output}}-->
-        <!--</p>-->
+      <div class="col-sm-6">
         <iframe *ngIf="showIFrame" class="full-width full-height" [src]='urlIFrame'></iframe>
       </div>
+
     </div>
-
-  </footer>
-
-
-
-
-
-
-
+  </main>
 </div>
 
 

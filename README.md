@@ -70,9 +70,12 @@ Connection avec Robomongo
 	$ sudo apt-get install libcairo2-dev
 	$ sudo apt-get install libxt-dev 
 	$ sudo apt-get install libxml2-dev
+	$ sudo apt-get install libcurl4-openssl-dev libssl-dev
+
 	> install.packages('Cairo')
 	> install.packages('FastRWeb')
 	> install.packages('XML')
+	> install.packages('httr')
 	$ sudo .~/R/***/FastRWeb/install.sh
 	
 ### Changement de congif
@@ -98,6 +101,10 @@ Connection avec Robomongo
 	Sys.setlocale(,"en_US.UTF-8")
 
 	...
+	
+Ajouter un lien 
+
+	$ ln -s ~/Documents/Platforme-Canneberge/Canneberge_api/uploads/filetext.R
 
 
 ## Start FastRWeb

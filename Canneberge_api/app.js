@@ -13,14 +13,11 @@ var multer = require('multer');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(config.database, {
-    server: {
-        socketOptions: {
-            socketTimeoutMS: 0,
-            connectTimeoutMS: 0
-        }
-    }
-}); // connect to database
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
+mongoose.connect(config.database, options);
+
+
 app.set('superSecret', config.secret); // secret variable
 
 // use body parser so we can get info from POST and/or URL parameters

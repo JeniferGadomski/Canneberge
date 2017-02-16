@@ -52,6 +52,7 @@ export class ScriptComponent {
     this.service.getUser('5894a2f1df1f28501873a566').subscribe(
       user => {
         this.scripsData = user.scripts;
+        this.selectScript(0);
       }
     );
 
@@ -65,7 +66,10 @@ export class ScriptComponent {
 
   selectScript(index){
     this.indexSelectedScript = index;
-    this.code = this.scripsData[this.indexSelectedScript].code
+    if(this.scripsData.length === 0)
+      this.code = '';
+    else
+      this.code = this.scripsData[this.indexSelectedScript].code
   }
 
   newScript(){
@@ -78,24 +82,6 @@ export class ScriptComponent {
 
     this.selectScript(this.scripsData.length - 1);
 
-  }
-
-  sendCommandLine(){
-    let command = this.inputCommandValue.substring(2);
-    console.log(command);
-    this.service.sendRCommandLine(command).subscribe(
-      output => {
-        this.output = output;
-        this.lastCommand = this.inputCommandValue;
-        this.inputCommandValue = '> ';
-      }
-    );
-  }
-
-  promtInput(){
-    if(this.inputCommandValue.indexOf('> ') !== 0){
-      this.inputCommandValue = '> ';
-    }
   }
 
   executeFile(){
@@ -121,7 +107,7 @@ export class ScriptComponent {
 
   updateCode(){
     if(this.scripsData.length > 0){
-        this.scripsData[this.indexSelectedScript].code = this.editor.text;
+        this.scripsData[this.indexSelectedScript].code = this.code;
     }
   }
 
@@ -131,15 +117,19 @@ export class ScriptComponent {
 
 
   removeScript(i){
-    if(this.indexSelectedScript === this.scripsData.length - 1){
-      this.indexSelectedScript = this.scripsData.length - 2
+    let r = confirm("Voulez-vous vraiment supprimer le scripts : " + this.scripsData[i].name + "?");
+    if (r) {
+      this.scripsData.splice(i, 1);
+      if(i < this.indexSelectedScript){
+        this.indexSelectedScript = this.indexSelectedScript - 1;
+      }
+      else if(i == this.indexSelectedScript){
+        this.indexSelectedScript = 0
+      }
+      this.selectScript(this.indexSelectedScript);
+      console.log(this.scripsData);
+      this.saveScripts();
     }
-    this.scripsData.splice(i, 1);
-    if(i === this.indexSelectedScript && this.scripsData.length !== 0)
-      this.selectScript(0);
-
-    this.saveScripts()
-
   }
 
   getIframeUrl(url){
