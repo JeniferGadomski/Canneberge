@@ -21,6 +21,7 @@ export class ScriptComponent {
   baseUrl = "http://localhost:8888/filetext";
   urlIFrame : any;
   showIFrame = false;
+  showInfo = false;
 
   scripsData = [
     // {
@@ -94,6 +95,7 @@ export class ScriptComponent {
         this.output = output;
         this.getIframeUrl(this.baseUrl);
         this.showIFrame = true;
+        this.showInfo = false;
       }
     )
   }
@@ -134,6 +136,11 @@ export class ScriptComponent {
 
   getIframeUrl(url){
     this.urlIFrame = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  toggleInfo(){
+    this.showIFrame = false;
+    this.showInfo = !this.showInfo;
   }
 
 

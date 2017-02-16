@@ -33,6 +33,7 @@
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-secondary" title="Sauvegarder" (click)="saveScripts()"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
           <button type="button" class="btn btn-secondary" title="Nouveau" (click)="newScript()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-secondary" title="Information" (click)="toggleInfo()"><i class="fa fa-info" aria-hidden="true"></i></button>
           <button type="button" class="btn btn-secondary" title="Exécuter" (click)="executeFile()"><i class="fa fa-play" aria-hidden="true"></i></button>
         </div>
       </div>
@@ -53,6 +54,20 @@
 
       <div class="col-sm-6">
         <iframe *ngIf="showIFrame" class="full-width full-height" [src]='urlIFrame'></iframe>
+        <div class="container" *ngIf="showInfo">
+
+          <h1>Référence documentation : </h1>
+          <p>
+            <a href="https://www.rdocumentation.org/packages/FastRWeb/versions/1.1-1" target="_blank">FastRWeb</a>
+          </p>
+          <p>
+            <a href="https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html" target="_blank">httr</a>
+          </p>
+          <p>
+            <a href="https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html" target="_blank">jsonlite</a>
+          </p>
+
+        </div>
       </div>
 
     </div>
