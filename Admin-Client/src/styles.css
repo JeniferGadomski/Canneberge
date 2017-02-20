@@ -25,3 +25,12 @@ html, body{
   padding: 0;
   height: 100%;
 }
+
+
+.btn-link.remove:hover{
+  color: red;
+}
+
+.btn-link.remove{
+  /*color: black;*/
+}

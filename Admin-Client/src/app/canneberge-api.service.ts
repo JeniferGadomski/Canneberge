@@ -118,6 +118,38 @@ export class CannebergeApiService {
   }
 
 
+  getFile(path){
+    return this._http.get(this.serverUrl + '/file' + path)
+      .map(res => res.json());
+  }
+
+  postNewFolder(path){
+    return this._http.post(this.serverUrl + '/file' + path, {})
+      .map(res => res);
+  }
+
+  deleteWithPath(path){
+    return this._http.delete(this.serverUrl + '/file' + path, {})
+      .map(res => res);
+  }
+
+  postNewFile(path, file){
+    let inputFile = new Blob(file);
+    return this._http.post(this.serverUrl + '/file' +path, inputFile)
+      .map(res => res);
+  }
+
+  renameFile(path, newPath){
+    return this._http.post(this.serverUrl + '/file' + path, {newPath : newPath})
+      .map(res => res);
+  }
+
+  getInfoPath(path){
+    return this._http.get(this.serverUrl + '/file' + path + '?stat=true')
+      .map(res => res.json());
+  }
+
+
 
 
 }

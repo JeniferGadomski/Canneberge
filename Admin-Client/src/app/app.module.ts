@@ -15,6 +15,7 @@ import { FermesAddComponent } from './fermes/fermes-add.component';
 import {FermesDetailComponent} from "./fermes/fermes-detail.component";
 import { ScriptComponent } from './script/script.component';
 import {AceEditorDirective, AceEditorComponent} from 'ng2-ace-editor';
+import { FichierComponent } from './fichier/fichier.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {AceEditorDirective, AceEditorComponent} from 'ng2-ace-editor';
     FermesComponent,
     FermesAddComponent,
     FermesDetailComponent,
-    ScriptComponent
+    ScriptComponent,
+    FichierComponent
 
   ],
   imports: [

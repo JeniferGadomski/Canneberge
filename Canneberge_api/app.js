@@ -10,6 +10,9 @@ var config = require('./app/config/database'); // get our config file
 var jwt         = require('jwt-simple');
 var path = require('path');
 var multer = require('multer');
+var fileserver = require('./app/file_system_api/fileserver');
+
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -21,7 +24,7 @@ mongoose.connect(config.database, options);
 app.set('superSecret', config.secret); // secret variable
 
 // use body parser so we can get info from POST and/or URL parameters
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(passport.initialize());
@@ -38,9 +41,9 @@ app.use(function(req, res, next) {
 
 // use morgan to log requests to the console
 app.use(morgan('common'));
+
 app.use('/api', routes);
-
-
+app.use('/api/file', fileserver);
 
 
 app.listen(port);

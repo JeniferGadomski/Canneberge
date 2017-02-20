@@ -439,24 +439,24 @@ router.post('/executeR', upload.any(), function (req, response) {
     }
 });
 
-
 router.get('/weather', function (req, res) {
     var query = req.query;
+    var simple = req.query.simple || false;
     if(query.hasOwnProperty('lat') && query.hasOwnProperty('lng')){
-        getWeatherByLatLng(query.lat, query.lng, function (w) {
+        getWeatherByLatLng(query.lat, query.lng, simple, function (w) {
             res.json(w);
         });
     }
     else if(query.hasOwnProperty('fermeId')){
         getFermeById(query.fermeId, function (ferme) {
-            getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, function (weather) {
+            getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
                 res.json(weather);
             })
         })
     }
     else if(query.hasOwnProperty('fermeName')){
         getFermeByName(query.fermeName, function (ferme) {
-            getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, function (weather) {
+            getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
                 res.json(weather);
             })
         })
@@ -467,7 +467,6 @@ router.get('/weather', function (req, res) {
     }
 
 });
-
 
 function getFermeById(id, next){
     Ferme.findById(id, function (err, ferme) {
@@ -485,7 +484,7 @@ function getFermeByName(name, next){
     })
 }
 
-function getWeatherByLatLng(lat, lng, next){
+function getWeatherByLatLng(lat, lng, simple, next){
     var coord = lat.toString() + "," + lng.toString();
     var weatherRequest = {};
     var weather = {};
@@ -495,14 +494,38 @@ function getWeatherByLatLng(lat, lng, next){
             return console.error(err);
         }
         weather['forecast'] = JSON.parse(body).forecast;
-        weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/conditions/q/" + coord + ".json";
-        weatherRequest.conditions = request.get(weatherJsonUrl, function(err, httpResponse, body){
-            if(err){
-                return console.error(err);
-            }
-            weather['current_observation'] = JSON.parse(body).current_observation;
-            next(weather);
-        });
+        if(!simple){
+            weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/conditions/q/" + coord + ".json";
+            weatherRequest.conditions = request.get(weatherJsonUrl, function(err, httpResponse, body){
+                if(err){
+                    return console.error(err);
+                }
+                weather['current_observation'] = JSON.parse(body).current_observation;
+                next(weather);
+            });
+        }
+        else{
+            var simpleForecast = [];
+            weather.forecast.simpleforecast.forecastday.forEach(function (f) {
+                simpleForecast.push({
+                    yday : f.date.yday,
+                    day : f.date.day,
+                    month : f.date.month,
+                    year : f.date.year,
+                    tmp_high : f.high.celsius,
+                    tmp_low : f.low.celsius,
+                    pop : f.pop,
+                    qpf_allday : f.qpf_allday.mm,
+                    ave_wind_speed : f.avewind.kph,
+                    ave_wind_dir : f.avewind.dir,
+                    max_wind_speed : f.maxwind.kph,
+                    max_wind_dir : f.maxwind.dir,
+                    ave_humidity : f.avehumidity
+                })
+            });
+            next(simpleForecast);
+        }
+
     });
 }
 

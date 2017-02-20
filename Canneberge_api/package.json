@@ -23,6 +23,20 @@
     "passport-local": "^1.0.0",
     "request": "^2.79.0",
     "rio": "^2.4.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "dat-middleware": "^1.8.1",
+    "express-domain-middleware": "^0.1.0",
+    "findit": "^1.2.0",
+    "middleware-flow": "^0.5.1",
+    "mime": "^1.2.11",
+    "mv": "^2.0.0",
+    "rimraf": "^2.2.8"
+  },
+  "devDependencies": {
+    "async": "*",
+    "lab": "^4.7.0",
+    "lodash": "*",
+    "supertest": "*",
+    "walkdir": "*"
   }
 }
