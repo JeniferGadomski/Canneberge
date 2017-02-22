@@ -405,25 +405,19 @@ router.post('/executeR', upload.any(), function (req, response) {
     }
     else if(typeof req.body.filetext !== 'undefined'){
         var filename = './uploads/filetext.R';
-        Ferme.find({}, function (err, fermes) {
-            console.log(fermes);
+        var filecontent =
+                "run <- function(){ \n" +
+                "setwd('" + __dirname + "/../file_system_api/fileSystem')\n" +
+                req.body.filetext +
+                "\n }";
 
-            var fermeIndex = 1;
-
-            var data = [];
-            for(var fieldIndex in fermes[fermeIndex].geojson.features)
-                data.push(fermes[fermeIndex].geojson.features[fieldIndex].properties);
-
-            var filecontent = "run <- function(){ \n" + req.body.filetext + "\n }";
-
-            fs.writeFile(filename, filecontent, function(err) {
-                if(err) {
-                    return console.log(err);
-                }
-                rio.e({
-                    filename : filename,
-                    callback : sendResponseBack
-                });
+        fs.writeFile(filename, filecontent, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+            rio.e({
+                filename : filename,
+                callback : sendResponseBack
             });
         });
     }

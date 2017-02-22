@@ -4,4 +4,34 @@
   padding-bottom: 15px;
 }
 
+.background-blue{
+  background-color: #e3f2fd;
+}
+
+.hide{
+  display: none;
+}
+
+.folder{
+  background-color: #e3f2fd ;
+}
+
+.file{
+  background-color: #f9fbe7;
+}
+
+.hover-file{
+  border: 2px solid #bdbdbd;
+}
+
+.drag-over{
+  background-color: #c8e6c9 ;
+  border: solid 4px white;
+
+}
+
+.dragen{
+  opacity: 0.5;
+}
+
 

@@ -10,11 +10,14 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a *ngFor="let script of scripsData; let i = index"
                  class="dropdown-item"
-                 (click)="selectScript(i)"
+
                  [class.active]="isSelected(script)">
 
                 <div class="d-flex w-100 justify-content-between">
-                  {{script.name}}
+                  <div  (click)="selectScript(i)" style="width: 100%; padding-top: 6px">
+                    {{script.name}}
+                  </div>
+
                   <button class="btn btn-link" (click)="removeScript(i)"><i class="fa fa-times" aria-hidden="true"></i></button>
                 </div>
               </a>

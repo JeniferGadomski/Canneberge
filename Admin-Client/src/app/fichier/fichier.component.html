@@ -4,8 +4,23 @@
 
     <div class="col-sm-10">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item" ><a href="javascript:void(0)" (click)="clickFolder('/')"><i class="fa fa-home" aria-hidden="true"></i></a></li>
-        <li *ngFor="let folder of currentPathList; let i = index;" (click)="clickFolder(folder.path)" class="breadcrumb-item"><a href="javascript:void(0)">{{folder.name}}</a></li>
+        <li class="breadcrumb-item" >
+          <a href="javascript:void(0)"
+             (click)="clickFolder('/')"
+             (drop)="onDrop($event, '/')"
+             (dragover)="$event.preventDefault()">
+            <i class="fa fa-home" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li *ngFor="let folder of currentPathList; let i = index;"
+            (click)="clickFolder(folder.path)"
+            class="breadcrumb-item">
+          <a href="javascript:void(0)"
+             (drop)="onDrop($event, folder.path)"
+             (dragenter)="dragEnter_handler($event, folder.path)"
+             (dragleave)="onDragLeave($event, folder.path)"
+             (dragover)="$event.preventDefault()">{{folder.name}}</a>
+        </li>
       </ol>
     </div>
 
@@ -22,7 +37,18 @@
 
   <div class="list-group">
     <div *ngFor="let file of listFiles | sortBy : 'name'"
-            class="list-group-item list-group-item-action">
+         [class.folder] = "isAFolder(file.name)"
+         [class.file] = "!isAFolder(file.name)"
+         [class.hover-file] = "isHover(file.path)"
+         (mouseenter)="onMouseEnter(file.path)"
+         draggable="true"
+         (dragstart)="dragStart_handler($event, file.name)"
+         (dragend)="dragEnd_handler($event)"
+         (dragenter)="dragEnter_handler($event, file.path)"
+         (dragleave)="onDragLeave($event, file.path)"
+         (drop)="onDrop($event, file.path)"
+         (dragover)="$event.preventDefault()"
+         class="list-group-item list-group-item-action">
       <div class="d-flex w-100 justify-content-between">
         <div (click)="clickFolder(file.path)" style="width: 100%; padding-top: 6px">
           {{file.name}}

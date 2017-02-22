@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Renderer} from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
 import {CannebergeApiService} from "../canneberge-api.service";
-import {rename} from "fs";
 
 @Component({
   selector: 'app-fichier',
@@ -14,12 +13,17 @@ export class FichierComponent implements OnInit {
   currentPathString  = '/';
   listFiles = [];
 
+  pathElementOver = '';
+  currentPathOver = '';
+  currentDragendFile = '';
+
   constructor(
     private service : CannebergeApiService,
     private route: ActivatedRoute,
     private router: Router,
+    private render : Renderer
   )
-  { }
+  {  }
 
   ngOnInit() {
     this.getListInFolder('/');
@@ -30,7 +34,7 @@ export class FichierComponent implements OnInit {
       this.getListInFolder(folderPath);
     }
     else{
-      window.open('http://localhost:8080/api/file' + folderPath);
+      window.open(this.service.serverUrl + '/file' + folderPath);
     }
   }
 
@@ -133,8 +137,53 @@ export class FichierComponent implements OnInit {
   fileSizeSI(size) {
     let e = (Math.log(size) / Math.log(1e3)) | 0;
     return +(size / Math.pow(1e3, e)).toFixed(2) + ' ' + ('kMGTPEZY'[e - 1] || '') + 'B';
-}
+  }
+
+  isAFolder(path){
+    return path.substr(-1) === '/';
+  }
+
+  isHover(path){
+    return path === this.pathElementOver;
+  }
+
+  onMouseEnter(path){
+    this.pathElementOver = path;
+  }
 
 
+  dragStart_handler(event, path){
+    this.currentDragendFile = path;
+    this.render.setElementClass(event.target , 'dragen', true);
+  }
 
+  dragEnd_handler(event){
+    this.render.setElementClass(event.target , 'dragen', false);
+  }
+
+  dragEnter_handler(event, path){
+    this.currentPathOver = path;
+    if(event.target.classList.value != "" && this.isAFolder(path)){
+      this.render.setElementClass(event.target, 'drag-over', true);
+    }
+
+  }
+
+  onDragLeave(event, path){
+      if(path !== this.currentPathOver){
+        this.render.setElementClass(event.target, 'drag-over', false);
+      }
+  }
+
+  onDrop(event, path){
+    this.render.setElementClass(event.target, 'drag-over', false);
+    if(this.isAFolder(path)){
+      this.service.postMoveFile(this.currentPathString + this.currentDragendFile, path + this.currentDragendFile)
+        .subscribe(
+          req => {
+            this.getListInFolder(this.currentPathString);
+          }
+        )
+    }
+  }
 }

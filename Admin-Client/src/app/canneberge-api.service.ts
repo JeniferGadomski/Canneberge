@@ -9,7 +9,7 @@ export class CannebergeApiService {
 
   constructor(private _http : Http) { }
 
-  private serverUrl = "http://localhost:8080/api";
+  serverUrl = "http://localhost:8080/api";
 
   getUsers(){
       return this._http.get(this.serverUrl + '/users')
@@ -147,6 +147,11 @@ export class CannebergeApiService {
   getInfoPath(path){
     return this._http.get(this.serverUrl + '/file' + path + '?stat=true')
       .map(res => res.json());
+  }
+
+  postMoveFile(originalPath, moveToPath){
+    return this._http.post(this.serverUrl + '/file' + originalPath, {newPath : moveToPath})
+      .map(res => res);
   }
 
 
