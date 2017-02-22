@@ -41,3 +41,6 @@ jspm_packages
 
 #uploads file
 **/uploads
+
+#File system folder
+**/fileSystem

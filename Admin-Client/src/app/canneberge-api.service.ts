@@ -9,7 +9,7 @@ export class CannebergeApiService {
 
   constructor(private _http : Http) { }
 
-  private serverUrl = "http://localhost:8080/api";
+  serverUrl = "http://localhost:8080/api";
 
   getUsers(){
       return this._http.get(this.serverUrl + '/users')
@@ -97,6 +97,61 @@ export class CannebergeApiService {
 
   deleteFerme(id : string){
     return this._http.delete(this.serverUrl + '/fermes/' + id);
+  }
+
+  sendRCommandLine(commandLine : string){
+    let headers = new Headers();
+    let formData:FormData = new FormData();
+    formData.append('command', commandLine);
+    return this._http.post(this.serverUrl + '/executeR', formData, {
+      headers: headers
+    }).map(res => res.json());
+  }
+
+  sendRFiletext(filetext : string){
+    let headers = new Headers();
+    let formData:FormData = new FormData();
+    formData.append('filetext', filetext);
+    return this._http.post(this.serverUrl + '/executeR', formData, {
+      headers: headers
+    }).map(res => res.json());
+  }
+
+
+  getFile(path){
+    return this._http.get(this.serverUrl + '/file' + path)
+      .map(res => res.json());
+  }
+
+  postNewFolder(path){
+    return this._http.post(this.serverUrl + '/file' + path, {})
+      .map(res => res);
+  }
+
+  deleteWithPath(path){
+    return this._http.delete(this.serverUrl + '/file' + path, {})
+      .map(res => res);
+  }
+
+  postNewFile(path, file){
+    let inputFile = new Blob(file);
+    return this._http.post(this.serverUrl + '/file' +path, inputFile)
+      .map(res => res);
+  }
+
+  renameFile(path, newPath){
+    return this._http.post(this.serverUrl + '/file' + path, {newPath : newPath})
+      .map(res => res);
+  }
+
+  getInfoPath(path){
+    return this._http.get(this.serverUrl + '/file' + path + '?stat=true')
+      .map(res => res.json());
+  }
+
+  postMoveFile(originalPath, moveToPath){
+    return this._http.post(this.serverUrl + '/file' + originalPath, {newPath : moveToPath})
+      .map(res => res);
   }
 
 

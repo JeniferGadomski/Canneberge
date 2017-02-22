@@ -13,9 +13,14 @@ import {UsersAddComponent} from "./users/users-add.component";
 import { FermesComponent } from './fermes/fermes.component';
 import { FermesAddComponent } from './fermes/fermes-add.component';
 import {FermesDetailComponent} from "./fermes/fermes-detail.component";
+import { ScriptComponent } from './script/script.component';
+import {AceEditorDirective, AceEditorComponent} from 'ng2-ace-editor';
+import { FichierComponent } from './fichier/fichier.component';
 
 @NgModule({
   declarations: [
+    AceEditorComponent,
+    AceEditorDirective,
     AppComponent,
     UsersComponent,
     UsersDetailComponent,
@@ -23,7 +28,10 @@ import {FermesDetailComponent} from "./fermes/fermes-detail.component";
     SortPipe,
     FermesComponent,
     FermesAddComponent,
-    FermesDetailComponent
+    FermesDetailComponent,
+    ScriptComponent,
+    FichierComponent
+
   ],
   imports: [
     BrowserModule,

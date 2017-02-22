@@ -48,3 +48,68 @@ Connection avec Robomongo
     * Databse : canneberge-database
     * User Name : bhacaz
     * Password : "Demander"
+    
+    
+    
+# Serveur pour R
+
+	$ sudo apt-get install r-base
+	$ sudo R
+	
+## Installer Rserve
+
+	> install.packages("Rserve")
+
+## Demarer le serveur
+
+	> require('Rserve')
+	> Rserve()
+	
+## FastRWeb
+
+	$ sudo apt-get install libcairo2-dev
+	$ sudo apt-get install libxt-dev 
+	$ sudo apt-get install libxml2-dev
+	$ sudo apt-get install libcurl4-openssl-dev libssl-dev
+
+	> install.packages('Cairo')
+	> install.packages('FastRWeb')
+	> install.packages('XML')
+	> install.packages('httr')
+	$ sudo .~/R/***/FastRWeb/install.sh
+	
+### Changement de congif
+
+/var/FastRWeb/code/rserve.conf
+
+	http.port 8888
+	remote enable
+	source /var/FastRWeb/code/rserve.R
+	control enable
+	
+
+/var/FastRWeb/code/rserve.R
+
+	...
+	## as well as define any global variables you want all
+	## scripts to see
+
+	## Today, pretty much everyone speaks UTF-8, it makes the life easier
+	library(FastRWeb)
+	.http.request <- FastRWeb:::.http.request
+
+	Sys.setlocale(,"en_US.UTF-8")
+
+	...
+	
+Ajouter un lien 
+
+	$ ln -s ~/Documents/Platforme-Canneberge/Canneberge_api/uploads/filetext.R
+
+
+## Start FastRWeb
+
+	$ sudo ./var/FastRWeb/code/start
+	
+Exemple : http://localhost:8888/example2
+	

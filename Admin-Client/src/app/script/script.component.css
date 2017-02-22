@@ -1,0 +1,91 @@
+
+
+
+.script-list{
+  border-right: 2px solid #fff;
+  display: inline-block;
+  overflow: auto;
+}
+
+.full-height{
+  height: 100%;
+}
+
+.script-header{
+  height: 50px;
+}
+
+.text-right{
+  text-align: right;
+}
+
+ace-editor{
+  height: 100%;
+}
+
+input{
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  padding-left: 5px;
+}
+
+.full-width{
+  width: 100%;
+}
+
+.console-output{
+  margin-top: 10px;
+  color: chartreuse;
+  /*background-color: lightslategrey;*/
+  padding: 10px;
+  height: 260px;
+}
+
+
+.dropdown-item.active{
+  background-color: lightgray;
+  border-color: lightgray;
+}
+
+.btn-link{
+  color: #000;
+}
+
+.btn-link:hover{
+  color: red;
+}
+
+.wrapper {
+  height: 100%;
+  display: flex;
+
+  /* Direction of the items, can be row or column */
+  flex-direction: column;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+header{
+  height: 50px;
+}
+footer {
+  height:300px;
+}
+
+main {
+  flex: 1;
+  display: inline-flex;
+  margin-bottom: 10px;
+
+}
+
+iframe{
+  border: 0;
+  background-color: seashell;
+}
+
+#dropdownMenuButton{
+  width: auto;
+  min-width: 200px;
+  text-align: left;
+}

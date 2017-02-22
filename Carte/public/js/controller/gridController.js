@@ -43,6 +43,7 @@ angular.module('app')
         function updateGeojson(){
             var updatedGeojson = $scope.ferme.geojson;
             console.log(updatedGeojson);
+            console.log($scope.dataTable);
             for(var fieldIndex in $scope.ferme.geojson.features)
                 updatedGeojson.features[fieldIndex].properties = $scope.dataTable[fieldIndex];
         }

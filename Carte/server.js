@@ -13,7 +13,7 @@ var app             = express();
 
 // Logging and Parsing
 app.use(express.static(__dirname + '/public'));                 // sets the static files location to public
-app.use(morgan('dev'));                                         // log with Morgan
+app.use(morgan('common'));                                         // log with Morgan
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.urlencoded({extended: true}));               // parse application/x-www-form-urlencoded
 app.use(bodyParser.text());                                     // allows bodyParser to look at raw text
