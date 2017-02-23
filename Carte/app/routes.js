@@ -3,11 +3,18 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.redirect('http://localhost:4200/fermes');
+    console.log('home page');
+    if(req.query.hasOwnProperty('fermeId')){
+        res.render('../public/index');
+    }
+    else{
+        res.redirect('http://admin.canneberge.io/fermes');
+    }
 });
 
-router.get('/:fermeID', function(req, res) {
-    res.render('../public/index', {fermeID : req.params.fermeID});
-});
+// router.get('/:fermeID', function(req, res) {
+//     console.log(req.params.fermeID);
+//     res.render('../public/index');
+// });
 
 module.exports = router;

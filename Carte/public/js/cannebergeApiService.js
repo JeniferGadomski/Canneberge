@@ -4,7 +4,7 @@
 angular.module('apiServiceModule', [])
     .factory('apiService', function($http) {
    var cannerberApi = {};
-    var url = 'http://localhost:8080/api/';
+    var url = 'http://api.canneberge.io/api/';
 
 
 

@@ -13,7 +13,7 @@ var path = require('path');
 var rio = require('rio');
 
 router.get('/', function(req, res) {
-    res.send('Hello! The API is at http://localhost:8080/api');
+    res.send('Hello! The API is at http://api.canneberge.io/api');
 });
 
 router.post('/authenticate', function(req, res) {
@@ -334,7 +334,6 @@ router.route('/fermes/data/:ferme_id')
         });
     });
 
-
 router.route('/fermes/:ferme_id')
     .get(function (req, res) {
         Ferme.findById(req.params.ferme_id, function (err, ferme) {
@@ -343,6 +342,10 @@ router.route('/fermes/:ferme_id')
 
             var send = {ferme : ferme};
             send['weather'] = {};
+            if(!ferme){
+                res.json({});
+                return
+            }
             var coord = ferme.centerCoordinate.lat.toString() + "," + ferme.centerCoordinate.lng.toString();
             var weatherRequest = {};
             var weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/forecast/q/" + coord + ".json";
@@ -380,10 +383,7 @@ router.route('/fermes/:ferme_id')
         });
     });
 
-
-
 router.post('/executeR', upload.any(), function (req, response) {
-
     function sendResponseBack(err, res){
         if(err){
             console.log(err);
@@ -459,7 +459,6 @@ router.get('/weather', function (req, res) {
         res.statusMessage = 'Liste des paramètres valide : lat, lng -- fermeId -- fermeName';
         res.sendStatus(400);
     }
-
 });
 
 function getFermeById(id, next){
@@ -519,7 +518,6 @@ function getWeatherByLatLng(lat, lng, simple, next){
             });
             next(simpleForecast);
         }
-
     });
 }
 
