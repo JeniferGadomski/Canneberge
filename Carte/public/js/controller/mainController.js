@@ -3,13 +3,18 @@
  */
 
 angular.module('app')
-    .controller('mainController', function ($scope, $rootScope, $window, apiService) {
+    .controller('mainController', function ($scope, $rootScope, $window, $location, apiService) {
         $scope.title = 'Carte';
-        $scope.fermeID = $window.location.pathname.split('/')[1];
+        $scope.fermeID = $location.search().fermeId;
+        $scope.ferme = {};
+        console.log($scope.fermeID);
+
+        if(typeof $scope.fermeID === 'undefined'){
+            $scope.ferme.name = 'Aucune ferme'
+            return;
+        }
+
         $scope.weather = {};
-
-
-
 
         apiService.getFerme($scope.fermeID)
             .then(
@@ -36,11 +41,4 @@ angular.module('app')
                     }
                 );
         };
-
-
-
-
-
-
-
     });

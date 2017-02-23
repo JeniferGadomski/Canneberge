@@ -1,5 +1,6 @@
 
-var app = angular.module('app', ['ngTouch',
+var app = angular
+    .module('app', ['ngTouch',
     'ui.grid',
     'ui.grid.edit',
     'ui.grid.moveColumns',
@@ -11,5 +12,11 @@ var app = angular.module('app', ['ngTouch',
     'ui.grid.importer',
     'oitozero.ngSweetAlert',
     'apiServiceModule'
-]);
+])
+    .config(function($locationProvider) {
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });
+    });
 

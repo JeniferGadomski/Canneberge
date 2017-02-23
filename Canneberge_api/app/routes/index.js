@@ -13,7 +13,7 @@ var path = require('path');
 var rio = require('rio');
 
 router.get('/', function(req, res) {
-    res.send('Hello! The API is at http://localhost:8080/api');
+    res.send('Hello! The API is at http://api.canneberge.io/api');
 });
 
 router.post('/authenticate', function(req, res) {
@@ -342,6 +342,10 @@ router.route('/fermes/:ferme_id')
 
             var send = {ferme : ferme};
             send['weather'] = {};
+            if(!ferme){
+                res.json({});
+                return
+            }
             var coord = ferme.centerCoordinate.lat.toString() + "," + ferme.centerCoordinate.lng.toString();
             var weatherRequest = {};
             var weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/forecast/q/" + coord + ".json";

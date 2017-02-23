@@ -18,7 +18,7 @@ export class ScriptComponent {
   indexSelectedScript = 0;
   inputCommandValue : string = "> ";
   lastCommand = '';
-  baseUrl = "http://localhost:8888/filetext";
+  baseUrl = "http://r.canneberge.io/filetext";
   urlIFrame : any;
   showIFrame = false;
   showInfo = false;
