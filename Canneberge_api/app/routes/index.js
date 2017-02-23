@@ -334,7 +334,6 @@ router.route('/fermes/data/:ferme_id')
         });
     });
 
-
 router.route('/fermes/:ferme_id')
     .get(function (req, res) {
         Ferme.findById(req.params.ferme_id, function (err, ferme) {
@@ -380,10 +379,7 @@ router.route('/fermes/:ferme_id')
         });
     });
 
-
-
 router.post('/executeR', upload.any(), function (req, response) {
-
     function sendResponseBack(err, res){
         if(err){
             console.log(err);
@@ -459,7 +455,6 @@ router.get('/weather', function (req, res) {
         res.statusMessage = 'Liste des paramètres valide : lat, lng -- fermeId -- fermeName';
         res.sendStatus(400);
     }
-
 });
 
 function getFermeById(id, next){
@@ -519,7 +514,6 @@ function getWeatherByLatLng(lat, lng, simple, next){
             });
             next(simpleForecast);
         }
-
     });
 }
 

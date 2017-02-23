@@ -1,50 +1,15 @@
 // fileserver
-var bodyParser = require('body-parser');
 var fileDriver = require('./fsDriver.js');
 var url = require('url');
 var mime = require('mime');
 var path = require('path');
-var mw = require('dat-middleware');
 var flow = require('middleware-flow');
 var morgan = require('morgan');
 var error = require('debug')('rest-fs:fileserver');
 var fileSystemDir = __dirname + '/fileSystem';
-var routerPrefix = '';
 var express = require('express');
 var router = express.Router();
 var filePrefix =  __dirname + '/fileSystem';
-
-var fileserver = function(app) {
-  if (!app) {
-    throw new Error('express app required');
-  }
-
-  //   router.set('etag', 'strong');
-  //   router.use(require('express-domain-middleware'));
-  //   router.use(bodyParser.json());
-  //   router.use(bodyParser.urlencoded({
-  //   extended: true
-  // }));
-  //   router.use(morgan('combined', {
-  //   skip: function () { return process.env.LOG !== 'true'; }
-  // }));
-    router.get(/^\/(.+\/)?$/, getDir);
-    router.get( /^\/.+[^\/]$/, getFile);
-    router.post( "/*", postFileOrDir);
-    router.put( "/*", putFileOrDir);
-    router.delete( /^\/.+\/$/, delDir);
-    router.delete( /^\/.+[^\/]$/, delFile);
-  app.use(function (err, req, res, next)  {
-    error('uncaught error', err.stack);
-    var outErr = {
-      message: err.message,
-      stack: err.stack
-    };
-    res.status(500).send(outErr);
-  });
-  app.use('api/file', router);
-  return app;
-};
 
 router.get(/^\/(.+\/)?$/, getDir);
 router.get( /^\/.+[^\/]$/, getFile);
@@ -402,5 +367,4 @@ function getOriginalpath(req){
     return url.parse(req.originalUrl);
 }
 
-module.exports = fileserver;
 module.exports = router;

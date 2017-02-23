@@ -16,8 +16,21 @@ var fileserver = require('./app/file_system_api/fileserver');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
-    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
+var options = {
+    server: {
+        socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 },
+        auto_reconnect : true,
+        reconnectTries : 100
+    },
+    replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } }
+};
+
+var db = mongoose.connection;
+db.on('disconnected', function() {
+    console.log('MongoDB disconnected!');
+    mongoose.connect(config.database, options);
+});
+
 mongoose.connect(config.database, options);
 
 
@@ -41,6 +54,7 @@ app.use(function(req, res, next) {
 
 // use morgan to log requests to the console
 app.use(morgan('common'));
+
 
 app.use('/api', routes);
 app.use('/api/file', fileserver);
