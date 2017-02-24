@@ -46,5 +46,14 @@ userSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
+userSchema.methods.getSimplifyUserData = function(user){
+    return {
+        _id : user._id,
+        email : user.email,
+        username : user.username,
+        admin : user.admin
+    };
+};
+
 // make this available to our users in our Node applications
 module.exports = mongoose.model('User', userSchema);

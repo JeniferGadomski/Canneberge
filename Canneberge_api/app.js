@@ -3,11 +3,10 @@ var app         = express();
 var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
-var routes = require('./app/routes/index');
+var routes = require('./app/routes/route');
 var passport = require('passport');
 var port = process.env.PORT || 8080; // used to create, sign, and verify tokens
-var config = require('./app/config/database'); // get our config file
-var jwt         = require('jwt-simple');
+var config = require('./app/config/config'); // get our config file
 var path = require('path');
 var multer = require('multer');
 var fileserver = require('./app/file_system_api/fileserver');
@@ -43,7 +42,6 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./app/config/passport')(passport);
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -55,6 +53,9 @@ app.use(function(req, res, next) {
 // use morgan to log requests to the console
 app.use(morgan('common'));
 
+app.get('/', function (req, res) {
+    res.send('Api a l\'adresse api.canneberge.io/api/');
+});
 
 app.use('/api', routes);
 app.use('/api/file', fileserver);

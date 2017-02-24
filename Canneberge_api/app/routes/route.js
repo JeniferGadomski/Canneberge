@@ -2,24 +2,26 @@ var express = require('express');
 var router = express.Router();
 var User   = require('../models/user'); // get our mongoose model
 var Ferme = require('../models/ferme');
-var passport = require('passport');
-var jwt    = require('jwt-simple'); // used to create, sign, and verify tokens
-var database = require('../config/database'); // get our config file
+var Weather = require('../models/weather');
+var config = require('../config/config'); // get our config file
 var ObjectId = require('mongodb').ObjectID;
 var fs = require('fs');
 var multer = require('multer');
 var request = require('request');
 var path = require('path');
 var rio = require('rio');
+var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
 router.get('/', function(req, res) {
     res.send('Hello! The API is at http://api.canneberge.io/api');
 });
 
-router.post('/authenticate', function(req, res) {
+router.post('/authentification', function(req, res) {
     // find the user
+    var email = req.body.email || req.query.email;
+
     User.findOne({
-        email: req.body.email
+        email: email
     }, function(err, user) {
         if (err) throw err;
         if (!user) {
@@ -28,13 +30,13 @@ router.post('/authenticate', function(req, res) {
             // check if password matches
             user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
-                    var token = jwt.encode(user, database.secret);
+                    var token = jwt.sign(user.getSimplifyUserData(user), config.secret);
 
                     // return the information including token as JSON
                     res.json({
                         success: true,
                         message: 'Enjoy your token!',
-                        token: token
+                        apiKey: token
                     });
                 } else {
                     res.send({success: false, message: 'Authentication failed. Wrong password.'});
@@ -49,7 +51,7 @@ router.post('/authenticate', function(req, res) {
 //     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 //     // decode token
 //     if (token) {
-//         var decoded = jwt.decode(token, database.secret);
+//         var decoded = jwt.decode(token, config.secret);
 //         User.findOne({
 //             email: decoded.email
 //         }, function(err, user) {
@@ -206,12 +208,12 @@ router.route('/fermes')
     .get(function (req, res) {
         var query = req.query;
         if(query.hasOwnProperty('fermeId')){
-            getFermeById(query.fermeId, function (ferme) {
+            Ferme.getFermeById(query.fermeId, function (ferme) {
                 res.json(ferme);
             });
         }
         else if(query.hasOwnProperty('fermeName')){
-            getFermeByName(query.fermeName, function (ferme) {
+            Ferme.getFermeByName(query.fermeName, function (ferme) {
                 res.json(ferme);
             })
         }
@@ -283,13 +285,13 @@ router.route('/fermes/data')
     .get(function(req, res){
        var query = req.query;
        if(query.hasOwnProperty('fermeId')){
-            getFermeById(query.fermeId, function (ferme) {
-                res.json(geojsonToData(ferme.geojson));
+            Ferme.getFermeById(query.fermeId, function (ferme) {
+                res.json(Ferme.geojsonToData(ferme.geojson));
             })
        }
        else if(query.hasOwnProperty('fermeName')){
-            getFermeByName(query.fermeName, function (ferme) {
-                res.json(geojsonToData(ferme.geojson));
+            Ferme.getFermeByName(query.fermeName, function (ferme) {
+                res.json(Ferme.geojsonToData(ferme.geojson));
             })
        }
     })
@@ -301,13 +303,13 @@ router.route('/fermes/data')
             res.sendStatus(400);
         }
         else if(query.hasOwnProperty('fermeId')){
-            getFermeById(query.fermeId, function (ferme) {
-                updateDataFerme(req, res, ferme);
+            Ferme.getFermeById(query.fermeId, function (ferme) {
+                Ferme.updateDataFerme(req, res, ferme);
             });
         }
         else if(query.hasOwnProperty('fermeName')){
-            getFermeByName(query.fermeName, function (ferme) {
-                updateDataFerme(req, res, ferme);
+            Ferme.getFermeByName(query.fermeName, function (ferme) {
+                Ferme.updateDataFerme(req, res, ferme);
             })
         }
         else{
@@ -318,8 +320,8 @@ router.route('/fermes/data')
 
 router.route('/fermes/data/:ferme_id')
     .get(function (req, res) {
-        getFermeById(req.params.ferme_id, function (ferme) {
-            res.json(geojsonToData(ferme.geojson));
+        Ferme.getFermeById(req.params.ferme_id, function (ferme) {
+            res.json(Ferme.geojsonToData(ferme.geojson));
         });
     })
     .put(function (req, res) {
@@ -329,8 +331,8 @@ router.route('/fermes/data/:ferme_id')
             res.sendStatus(400);
             return;
         }
-        getFermeById(req.params.ferme_id, function(ferme){
-            updateDataFerme(req, res, ferme);
+        Ferme.getFermeById(req.params.ferme_id, function(ferme){
+            Ferme.updateDataFerme(req, res, ferme);
         });
     });
 
@@ -346,15 +348,20 @@ router.route('/fermes/:ferme_id')
                 res.json({});
                 return
             }
+
+            if(req.query.weather === 'false'){
+                res.json({ferme : ferme});
+                return
+            }
             var coord = ferme.centerCoordinate.lat.toString() + "," + ferme.centerCoordinate.lng.toString();
             var weatherRequest = {};
-            var weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/forecast/q/" + coord + ".json";
+            var weatherJsonUrl = "http://api.wunderground.com/api/" + config.wu_key +"/forecast/q/" + coord + ".json";
             weatherRequest.forecast = request.get(weatherJsonUrl, function(err, httpResponse, body){
                 if(err){
                     return console.error(err);
                 }
                 send.weather['forecast'] = JSON.parse(body).forecast;
-                weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/conditions/q/" + coord + ".json";
+                weatherJsonUrl = "http://api.wunderground.com/api/" + config.wu_key +"/conditions/q/" + coord + ".json";
                 weatherRequest.conditions = request.get(weatherJsonUrl, function(err, httpResponse, body){
                     if(err){
                         return console.error(err);
@@ -437,20 +444,20 @@ router.get('/weather', function (req, res) {
     var query = req.query;
     var simple = req.query.simple || false;
     if(query.hasOwnProperty('lat') && query.hasOwnProperty('lng')){
-        getWeatherByLatLng(query.lat, query.lng, simple, function (w) {
+        Weather.getWeatherByLatLng(query.lat, query.lng, simple, function (w) {
             res.json(w);
         });
     }
     else if(query.hasOwnProperty('fermeId')){
-        getFermeById(query.fermeId, function (ferme) {
-            getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
+        Ferne.getFermeById(query.fermeId, function (ferme) {
+            Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
                 res.json(weather);
             })
         })
     }
     else if(query.hasOwnProperty('fermeName')){
-        getFermeByName(query.fermeName, function (ferme) {
-            getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
+        Ferme.getFermeByName(query.fermeName, function (ferme) {
+            Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
                 res.json(weather);
             })
         })
@@ -461,100 +468,9 @@ router.get('/weather', function (req, res) {
     }
 });
 
-function getFermeById(id, next){
-    Ferme.findById(id, function (err, ferme) {
-        if (err)
-            console.log(err);
-        next(ferme)
-    });
-}
 
-function getFermeByName(name, next){
-    Ferme.findOne({name : name}, function (err, ferme) {
-        if(err)
-            console.log(err);
-        next(ferme);
-    })
-}
 
-function getWeatherByLatLng(lat, lng, simple, next){
-    var coord = lat.toString() + "," + lng.toString();
-    var weatherRequest = {};
-    var weather = {};
-    var weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/forecast/q/" + coord + ".json";
-    weatherRequest.forecast = request.get(weatherJsonUrl, function(err, httpResponse, body){
-        if(err){
-            return console.error(err);
-        }
-        weather['forecast'] = JSON.parse(body).forecast;
-        if(!simple){
-            weatherJsonUrl = "http://api.wunderground.com/api/5eea73b2f937ec5c/conditions/q/" + coord + ".json";
-            weatherRequest.conditions = request.get(weatherJsonUrl, function(err, httpResponse, body){
-                if(err){
-                    return console.error(err);
-                }
-                weather['current_observation'] = JSON.parse(body).current_observation;
-                next(weather);
-            });
-        }
-        else{
-            var simpleForecast = [];
-            weather.forecast.simpleforecast.forecastday.forEach(function (f) {
-                simpleForecast.push({
-                    yday : f.date.yday,
-                    day : f.date.day,
-                    month : f.date.month,
-                    year : f.date.year,
-                    tmp_high : f.high.celsius,
-                    tmp_low : f.low.celsius,
-                    pop : f.pop,
-                    qpf_allday : f.qpf_allday.mm,
-                    ave_wind_speed : f.avewind.kph,
-                    ave_wind_dir : f.avewind.dir,
-                    max_wind_speed : f.maxwind.kph,
-                    max_wind_dir : f.maxwind.dir,
-                    ave_humidity : f.avehumidity
-                })
-            });
-            next(simpleForecast);
-        }
-    });
-}
 
-function geojsonToData(geojson){
-    var data = [];
-    for(var fieldIndex in geojson.features)
-        data.push(geojson.features[fieldIndex].properties);
-    return data;
-}
-
-function dataToGeojson(data, geojson){
-    data = tryToParseJson(data);
-    for(var fieldIndex in geojson.features){
-        geojson.features[fieldIndex].properties = data[fieldIndex];
-    }
-    return geojson;
-}
-
-function updateDataFerme(req, res, ferme){
-    var data = tryToParseJson(req.body.data);
-    if(data.length != ferme.geojson.features.length){
-        res.statusMessage = 'Le nombre de ligne de \'data\' ne concorde pas';
-        res.sendStatus(400);
-        return;
-    }
-    Ferme.update({_id : ferme._id}, {geojson : dataToGeojson(req.body.data ,ferme.geojson)}, function (err, result) {
-        if(err)
-            console.log(err);
-        res.sendStatus(200);
-    })
-}
-
-function tryToParseJson(data){
-    try{data = JSON.parse(data);}
-    catch(e) {}
-    return data;
-}
 
 module.exports = router;
 
