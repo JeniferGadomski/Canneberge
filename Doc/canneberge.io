@@ -1,36 +1,3 @@
-<VirtualHost *:80>
-	ServerName admin.canneberge.io
-        ProxyPreserveHost on
-	ProxyRequests     off 
-        ProxyPass / http://localhost:8000/
-        ProxyPassReverse / http://localhost:8000/
-</VirtualHost>
-
-<VirtualHost *:80>
-	ServerName api.canneberge.io
-        ProxyPreserveHost on
-	ProxyRequests     off 
-        ProxyPass / http://localhost:8080/
-        ProxyPassReverse / http://localhost:8080/
-</VirtualHost>
-
-<VirtualHost *:80>
-	ServerName carte.canneberge.io
-        ProxyPreserveHost On
-        ProxyPass / http://localhost:3001/
-        ProxyPassReverse / http://localhost:3001/
-</VirtualHost>
-
-<VirtualHost *:80>
-	ServerName r.canneberge.io
-        ProxyPreserveHost On
-        ProxyPass / http://localhost:8888/
-        ProxyPassReverse / http://localhost:8888/
-</VirtualHost>﻿
-
-
-#Ngnix
-
 server {
     listen 80;
 
