@@ -7,12 +7,16 @@ angular.module('apiServiceModule', [])
         var url = 'http://api.canneberge.io/api/';
 
         apiService.getRedirection = function(apiKey){
-            return  $http.get(url + 'users/redirections/' + apiKey);
+            return  $http.get(url + 'users/' + apiKey + '/redirections');
         };
 
+        apiService.getUser = function(apiKey){
+            return  $http.get(url + 'users/' + apiKey);
+        };
+
+        apiService.authentification = function(userForm){
+            return $http.post(url + 'authentification', userForm);
+        };
 
         return apiService;
-
-
-
     });

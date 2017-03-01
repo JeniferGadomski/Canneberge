@@ -59,5 +59,21 @@ userSchema.methods.getSimplifyUserData = function(user){
     };
 };
 
+userSchema.methods.getRedirections = function () {
+    var url = [];
+    if(this.authorization.admin)
+        url.push({
+            name : 'Page administrateur',
+            url : 'http://admin.canneberge.io'
+        });
+    this.authorization.fermes.forEach(function (f) {
+        url.push({
+            name : f.name,
+            url : 'http://carte.canneberge.io/?fermeId=' + f._id
+        });
+    });
+    return url;
+};
+
 // make this available to our users in our Node applications
 module.exports = mongoose.model('User', userSchema);

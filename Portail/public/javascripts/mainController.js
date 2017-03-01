@@ -3,7 +3,10 @@
  */
 
 angular.module('app')
-    .controller('mainController', function ($scope, apiService) {
+    .controller('mainController', function ($scope, $window, $location, apiService) {
+
+
+        
 
         $scope.userForm = {};
 
@@ -11,18 +14,32 @@ angular.module('app')
         $scope.apiKey = {
             value :  localStorage.getItem('apiKey'),
             isUndefined : function () {
-                console.log(this.value);
-                return typeof this.value === 'undefined'
+                return this.value === null
             }
 
         };
 
-        apiService.getRedirection($scope.apiKey.value)
-            .then(function (res) {
-                console.log(res.data);
-                $scope.redirections = res.data;
-            });
-        console.log($scope.redirections);
+        $scope.getViewPath = function (){
+            console.log($scope.apiKey.value);
+            return $scope.apiKey.isUndefined() ? 'views/login.html' : 'views/redirections.html';
+        };
+
+        function getRedirection(){
+            apiService.getRedirection($scope.apiKey.value)
+                .then(function (res) {
+                    console.log(res.data);
+                    $scope.redirections = res.data;
+                });
+        }
+
+        function getUser() {
+            apiService.getUser($scope.apiKey.value)
+                .then(function (res) {
+                    console.log(res.data);
+                    $scope.user = res.data.user;
+                });
+        }
+
 
 
         $scope.form = {
@@ -35,6 +52,38 @@ angular.module('app')
                 return this.validEmail($scope.userForm.email) && passwordValid;
             }
         };
+
+        $scope.clickConnexion =function () {
+            apiService.authentification($scope.userForm)
+                .then(function (res) {
+                    if(res.data.success)
+                    {
+                        localStorage.setItem('apiKey', res.data.apiKey);
+                        $scope.apiKey.value = res.data.apiKey;
+                        console.log(res.data.apiKey);
+                        getUser();
+                        getRedirection();
+                    }
+                    else{
+                        $scope.errorMessage = res.data.message;
+                        console.log(res.data.message);
+                    }
+                })
+        };
+
+        if(!$scope.apiKey.isUndefined()){
+            getUser();
+            getRedirection();
+        }
+        
+        function handleLogout() {
+            if($window.location.pathname.split('/')[1] === 'logout')
+            {
+                $window.localStorage.clear();
+                $window.location.href = '/';
+            }
+        }
+        handleLogout();
 
 
 

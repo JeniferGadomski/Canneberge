@@ -31,3 +31,8 @@ option{
 option:hover{
   background-color: #eee;
 }
+
+.selected{
+  border: 1px solid #0CC1F3;
+  border-radius: 2px;
+}

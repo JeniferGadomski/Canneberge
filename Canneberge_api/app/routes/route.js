@@ -10,7 +10,6 @@ var multer = require('multer');
 var request = require('request');
 var path = require('path');
 var rio = require('rio');
-var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
 router.get('/', function(req, res) {
     res.send('Hello! The API is at http://api.canneberge.io/api');
@@ -30,13 +29,10 @@ router.post('/authentification', function(req, res) {
             // check if password matches
             user.comparePassword(req.body.password, function (err, isMatch) {
                 if (isMatch && !err) {
-                    var token = jwt.sign(user.getSimplifyUserData(user), config.secret);
-
-                    // return the information including token as JSON
                     res.json({
                         success: true,
                         message: 'Enjoy your token!',
-                        apiKey: token
+                        apiKey: user._id
                     });
                 } else {
                     res.send({success: false, message: 'Authentication failed. Wrong password.'});
@@ -79,14 +75,7 @@ router.route('/users')
         });
     })
     .post(function(req, res) {
-        var newUser = new User({
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            email: req.body.email,
-            username : req.body.username,
-            admin: req.body.admin,
-            authorization : req.body.authorization
-        });
+        var newUser = new User(req.body);
         console.log(newUser);
         // save the user
         newUser.save(function (err) {
@@ -97,21 +86,11 @@ router.route('/users')
         });
     });
 
-router.get('/users/redirections/:user_id', function (req, res) {
-    res.json([
-        {
-            name : 'Page administrateur',
-            url : 'http://admin.canneberge.io'
-        },
-        {
-            name : 'Pampev',
-            url : 'http://carte.canneberge.io/?fermeId=5894a3e9df1f28501873a568'
-        },
-        {
-            name : 'Blandford',
-            url : 'http://carte.canneberge.io/?fermeId=589b68bf90d51c42998c017d'
-        }
-    ])
+router.get('/users/:user_id/redirections', function (req, res) {
+    User.findById(req.params.user_id, function (err, user) {
+
+        res.json(user.getRedirections());
+    });
 });
 
 router.route('/users/:user_id')

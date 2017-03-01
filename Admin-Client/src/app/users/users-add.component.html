@@ -31,17 +31,19 @@
     <div class="form-check">
       <label class="form-check-label">
         <input type="checkbox" class="form-check-input"
-               [(ngModel)]="user.admin" name="admin">
+               [(ngModel)]="user.authorization.admin" name="admin">
         Administrateur
       </label>
     </div>
 
-    <div *ngIf="!user.admin" class="form-group">
-      <label for="exampleSelect2">Ferme (Ctrl + Click)</label>
+    <div *ngIf="!user.authorization.admin" class="form-group">
+      <label for="exampleSelect2">Ferme, (Ctrl + Click)</label>
       <select multiple class="form-control select-multiple" id="exampleSelect2" name="ferme" [(ngModel)]="user.authorization.fermes" >
-        <option *ngFor="let ferme of listFermes" [value]="ferme.name" >{{ferme.name}}</option>
+        <option *ngFor="let ferme of listFermes"
+                [ngValue]="{name : ferme.name, _id : ferme._id}">{{ferme.name}}</option>
       </select>
     </div>
+
 
 
 

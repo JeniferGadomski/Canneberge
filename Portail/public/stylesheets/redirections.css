@@ -31,3 +31,8 @@ a.list-group-item{
     color:white;
     font-family: monospace;
 }
+
+.bottom-option{
+    width: 100%;
+    text-align: right;
+}
