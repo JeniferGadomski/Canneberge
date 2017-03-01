@@ -35,6 +35,16 @@
         Administrateur
       </label>
     </div>
+
+    <div *ngIf="!user.admin" class="form-group">
+      <label for="exampleSelect2">Ferme (Ctrl + Click)</label>
+      <select multiple class="form-control select-multiple" id="exampleSelect2" name="ferme" [(ngModel)]="user.authorization.fermes" >
+        <option *ngFor="let ferme of listFermes" [value]="ferme.name" >{{ferme.name}}</option>
+      </select>
+    </div>
+
+
+
     <div class="footer-btn">
       <div style="float: right">
         <button (click)="returnUsersList()" type="button" class="btn btn-outline-secondary">Annuler</button>

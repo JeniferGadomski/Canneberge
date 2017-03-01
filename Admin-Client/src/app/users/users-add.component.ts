@@ -12,13 +12,16 @@ declare var swal: any;
 export class UsersAddComponent implements OnInit {
 
   user: User;
+  listFermes;
 
   constructor(
     private userService : CannebergeApiService,
     private route: ActivatedRoute,
     private router: Router
   )
-  { }
+  {
+    this.getFermes();
+  }
 
   ngOnInit() {
     this.user = {
@@ -26,7 +29,8 @@ export class UsersAddComponent implements OnInit {
       lastname: '',
       email: '',
       username: '',
-      admin: false
+      admin: false,
+      authorization : {}
     }
   }
 
@@ -58,6 +62,13 @@ export class UsersAddComponent implements OnInit {
         type :"error"
       });
     }
+  }
+
+
+  getFermes(){
+    this.userService.getFermes().subscribe(
+      res => this.listFermes = res
+    )
   }
 
 

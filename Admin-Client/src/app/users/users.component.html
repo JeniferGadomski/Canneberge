@@ -15,7 +15,11 @@
           <h5 style="width: auto">{{user.firstname}} {{user.lastname}}</h5>
           <span *ngIf="user.admin" class="badge badge-default badge-pill">A</span>
         </div>
-        <p>{{ user.username }}</p>
+        <p>
+          {{ user.username }} <br>
+          {{ user.email}}
+        </p>
+
 
       </a>
     </div>

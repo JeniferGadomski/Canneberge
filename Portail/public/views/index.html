@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="app">
+<head>
+  <title> Portal </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+  <!--Angularjs module-->
+  <script src="../javascripts/app.js"></script>
+  <script src="../javascripts/mainController.js"></script>
+  <script src="../javascripts/apiService.js"></script>
+
+
+</head>
+<body ng-controller="mainController">
+
+
+<!--<div ng-if="apiKey.isUndefined">-->
+  <ng-include src="'views/redirections.html'"></ng-include>
+<!--</div>-->
+
+<!--<h1>Portail canneberge.io</h1>-->
+<!--<p>Welcome to portail</p>-->
+<!--<p>apiKey = {{apiKey.value}}</p>-->
+
+
+
+
+</body>
+</html>

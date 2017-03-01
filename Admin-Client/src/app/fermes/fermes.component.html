@@ -14,8 +14,8 @@
         <div class="d-flex w-100 justify-content-between">
           <h5 style="width: auto">{{ferme.name}}</h5>
           <div>
-            <button (click)="getShapefile(ferme)" class="btn btn-link"><i class="fa fa-download"></i></button>
-            <a class="btn btn-default" target="_blank" href="http://carte.canneberge.io/?fermeId={{ferme._id}}"><i class="fa fa-map-o"></i></a>
+            <button (click)="getShapefile(ferme)" class="btn btn-link" title="Télécharger shapefile"><i class="fa fa-download"></i></button>
+            <a class="btn btn-default" target="_blank" href="http://carte.canneberge.io/?fermeId={{ferme._id}}" title="Voir la carte"><i class="fa fa-map-o"></i></a>
           </div>
         </div>
 

@@ -10,7 +10,7 @@ angular.module('app')
         console.log($scope.fermeID);
 
         if(typeof $scope.fermeID === 'undefined'){
-            $scope.ferme.name = 'Aucune ferme'
+            $scope.ferme.name = 'Aucune ferme';
             return;
         }
 

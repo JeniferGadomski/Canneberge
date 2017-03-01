@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/stylesheets/login.css">
+<link rel="stylesheet" href="/stylesheets/redirections.css">
+
+
+<div class="container">
+
+    <div id="title" class="form-signin-heading">
+        <h1 class="text-center">Canneberge.io</h1>
+
+    </div>
+    <div id="user-info">
+        Jean-Francis Bastien
+    </div>
+
+
+
+    <div class="list-group under-title">
+        <a ng-repeat="link in redirections" class="list-group-item" ng-href="{{link.url}}" target="_self">{{link.name}}</a>
+    </div>
+</div>
+

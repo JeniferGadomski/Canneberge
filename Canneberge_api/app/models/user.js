@@ -14,7 +14,11 @@ var userSchema = new Schema({
     password: { type: String, default : 'default' },
     admin: {type : Boolean, default : false},
     username: { type: String, required: true, unique: true },
-    scripts : {type : Array}
+    scripts : {type : Array},
+    authorization : {
+        admin : {type : Boolean, default : false},
+        fermes : {type : Array}
+    }
 });
 
 userSchema.pre('save', function (next) {

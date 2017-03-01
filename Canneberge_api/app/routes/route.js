@@ -79,33 +79,13 @@ router.route('/users')
         });
     })
     .post(function(req, res) {
-            // if(!req.decoded.admin){
-            //     res.json({success: false, message: 'Admin only'});
-            // }
-            // else if (!req.body.email || !req.body.password) {
-            //     res.json({success: false, message: 'Please pass email and password.'});
-            // }
-            // else {
-            //     var newUser = new User({
-            //         name: req.body.name,
-            //         email: req.body.email,
-            //         password: req.body.password,
-            //         admin: req.body.admin
-            //     });
-            //     // save the user
-            //     newUser.save(function (err) {
-            //         if (err) {
-            //             return res.json({success: false, message: err.message});
-            //         }
-            //         res.json({success: true, message: 'Successful created new user.'});
-            //     });
-            // }
         var newUser = new User({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             email: req.body.email,
             username : req.body.username,
-            admin: req.body.admin
+            admin: req.body.admin,
+            authorization : req.body.authorization
         });
         console.log(newUser);
         // save the user
@@ -117,51 +97,30 @@ router.route('/users')
         });
     });
 
+router.get('/users/redirections/:user_id', function (req, res) {
+    res.json([
+        {
+            name : 'Page administrateur',
+            url : 'http://admin.canneberge.io'
+        },
+        {
+            name : 'Pampev',
+            url : 'http://carte.canneberge.io/?fermeId=5894a3e9df1f28501873a568'
+        },
+        {
+            name : 'Blandford',
+            url : 'http://carte.canneberge.io/?fermeId=589b68bf90d51c42998c017d'
+        }
+    ])
+});
+
 router.route('/users/:user_id')
     .get(function (req, res) {
-        // if(req.decoded._id == req.params.user_id)
-        // {
-        //     res.json({sucesss: true, user: req.decoded});
-        // }
-        // else if(req.decoded.admin)
-        // {
-        //     User.findById(req.params.user_id, function (err, user) {
-        //         res.json({sucesss: true, user: user});
-        //     });
-        // }
-        // else
-        // {
-        //     res.json({success: false, message: 'Admin only'});
-        // }
         User.findById(req.params.user_id, function (err, user) {
             res.json({user: user});
         });
     })
     .put(function (req, res) {
-       // if(!req.decoded.admin)
-       // {
-       //     res.json({success: false, message: 'Admin only'});
-       // }
-       // else
-       // {
-       //     User.findById(req.params.user_id, function (err, user) {
-       //         if (err)
-       //             res.send(err);
-       //         else
-       //         {
-       //             user.name = req.body.name;
-       //             user.email = req.body.email;
-       //             user.password = req.body.password;
-       //             user.admin = req.body.admin;
-       //             user.save(function (err) {
-       //                 if(err)
-       //                     res.send({success: false, message: err.message});
-       //                 else
-       //                     res.json({success:true, message: user.email + " Updates"});
-       //             })
-       //         }
-       //     });
-       // }
         User.update({_id : ObjectId(req.params.user_id)}, req.body, function (err, result) {
             if(err)
                 console.log(err.message);
