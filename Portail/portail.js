@@ -25,6 +25,10 @@ app.get('/logout', function (req, res) {
     res.render('./index');
 });
 
+app.get('/retrieve', function (req, res) {
+    res.render('./views/retrieve.html');
+});
+
 app.listen(port);
 console.log('App listening on port ' + port);
 

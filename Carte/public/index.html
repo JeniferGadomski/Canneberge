@@ -43,6 +43,7 @@
     <script src="js/cannebergeApiService.js"></script>
 
     <script src="bower_components/proj4/dist/proj4-src.js"></script>
+    <script src="js/retrieveApiKey.js"></script>
 
 
 
@@ -53,59 +54,59 @@
 
 </head>
 <body ng-controller="mainController">
+    <div class="container-fluid full-height">
+        <div class="row header">
+            <div class="col-sm-4">
+                <h2 class="ferme-title">{{ ferme.name }}</h2>
+            </div>
+            <div class="col-sm-3 align-right">
+                <div ng-include="'partiel/weather.html'"></div>
+            </div>
+            <div class="col-sm-5">
+                    <button class="btn red" id="btnSave" ng-click="saveFerme()" title="Sauvegarder" ><span class="glyphicon glyphicon-floppy-save"></span></button>
+                    <button class="btn red" ng-click="pop()" >Calcul 1</button>
+                    <a class="btn red" href="http://portail.canneberge.io/logout" >Déconnextion</a>
 
 
-<div class="container-fluid full-height">
-    <div class="row header">
-        <div class="col-sm-4">
-            <h2 class="ferme-title">{{ ferme.name }}</h2>
+            </div>
         </div>
-        <div class="col-sm-3 align-right">
-            <div ng-include="'partiel/weather.html'"></div>
-        </div>
-        <div class="col-sm-5">
-            <button class="btn red" id="btnSave" ng-click="saveFerme()" title="Sauvegarder" ><span class="glyphicon glyphicon-floppy-save"></span></button>
-            <button class="btn red" ng-click="pop()" >Calcul 1</button>
-
-
-        </div>
-    </div>
-    <div class="row full-height content">
-        <div class="col-sm-7 full-height col-map" id="col-map" ng-controller="mapController">
-            <div id="map" class="full-height" ng-mousemove="updateLatLng($event)"></div>
-            <div id="over_map">
-                <div id="coord_display">
-                    <div style="padding-bottom: 5px;">
-                        {{currentCoord.lat}}, {{currentCoord.lng}}
+        <div class="row full-height content">
+            <div class="col-sm-7 full-height col-map" id="col-map" ng-controller="mapController">
+                <div id="map" class="full-height" ng-mousemove="updateLatLng($event)"></div>
+                <div id="over_map">
+                    <div id="coord_display">
+                        <div style="padding-bottom: 5px;">
+                            {{currentCoord.lat}}, {{currentCoord.lng}}
+                        </div>
+                        <div>
+                            {{currentCoord.utmx}}, {{currentCoord.utmy}}
+                        </div>
+                        <div ng-if="currentField.hectare !== undefined" style="padding-top: 5px;">
+                            {{currentField.hectare}} ha
+                        </div>
                     </div>
-                    <div>
-                        {{currentCoord.utmx}}, {{currentCoord.utmy}}
-                    </div>
-                    <div ng-if="currentField.hectare !== undefined" style="padding-top: 5px;">
-                        {{currentField.hectare}} ha
+                </div>
+            </div>
+            <div class="col-sm-5 full-height col-grid" id="col-table" ng-controller="gridController">
+                <div ui-grid="gridOptions"
+                     ui-grid-edit
+                     ui-grid-move-columns
+                     ui-grid-resize-columns
+                     ui-grid-cellNav
+                     ui-grid-selection
+                     ui-grid-exporter
+                     ui-grid-importer
+                     class="myGrid full-height" ></div>
+                <div class="footer-grid">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-group red" role="group" ng-click="addColumn()" title="Ajouter"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="btn btn-group red" role="group" ng-click="resetHide()"><span class="glyphicon glyphicon-eye-open" title="Afficher toutes les colonnes"></span> <span class="badge badge-default badge-pill">{{nbHideColumn}}</span> </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-5 full-height col-grid" id="col-table" ng-controller="gridController">
-            <div ui-grid="gridOptions"
-                 ui-grid-edit
-                 ui-grid-move-columns
-                 ui-grid-resize-columns
-                 ui-grid-cellNav
-                 ui-grid-selection
-                 ui-grid-exporter
-                 ui-grid-importer
-                 class="myGrid full-height" ></div>
-            <div class="footer-grid">
-                <div class="btn-group" role="group">
-                    <button class="btn btn-group red" role="group" ng-click="addColumn()" title="Ajouter"><span class="glyphicon glyphicon-plus-sign"></span></button>
-                    <button class="btn btn-group red" role="group" ng-click="resetHide()"><span class="glyphicon glyphicon-eye-open" title="Afficher toutes les colonnes"></span> <span class="badge badge-default badge-pill">{{nbHideColumn}}</span> </button>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
+
 
 
 

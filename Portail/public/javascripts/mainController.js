@@ -11,6 +11,7 @@ angular.module('app')
         $scope.userForm = {};
 
 
+
         $scope.apiKey = {
             value :  localStorage.getItem('apiKey'),
             isUndefined : function () {
@@ -18,6 +19,8 @@ angular.module('app')
             }
 
         };
+
+        apiService.setApiKey($scope.apiKey.value);
 
         $scope.getViewPath = function (){
             console.log($scope.apiKey.value);
@@ -61,6 +64,7 @@ angular.module('app')
                         localStorage.setItem('apiKey', res.data.apiKey);
                         $scope.apiKey.value = res.data.apiKey;
                         console.log(res.data.apiKey);
+                        apiService.setApiKey(res.data.apiKey);
                         getUser();
                         getRedirection();
                     }

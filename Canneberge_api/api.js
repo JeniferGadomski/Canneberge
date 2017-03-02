@@ -45,7 +45,7 @@ app.use(passport.session());
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', 'GET, POST , PUT, DELETE');
+    res.header('Access-Control-Allow-Methods', 'GET, POST , PUT, DELETE', 'OPTIONS');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With,     Content-Type, Accept");
     next();
 });
@@ -55,6 +55,20 @@ app.use(morgan('common'));
 
 app.get('/', function (req, res) {
     res.send('Api a l\'adresse api.canneberge.io/api/');
+});
+
+app.options('*', function (req, res) {
+    console.log('!OPTIONS');
+    var headers = {};
+    // IE8 does not allow domains to be specified, just the *
+    // headers["Access-Control-Allow-Origin"] = req.headers.origin;
+    headers["Access-Control-Allow-Origin"] = "*";
+    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+    headers["Access-Control-Allow-Credentials"] = false;
+    headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+    headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, x-access-token";
+    res.writeHead(200, headers);
+    res.end();
 });
 
 app.use('/api', routes);

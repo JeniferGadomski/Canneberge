@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
 
 router.post('/authentification', function(req, res) {
     // find the user
-    var email = req.body.email || req.query.email;
+    var email = req.body.email;
 
     User.findOne({
         email: email
@@ -42,30 +42,27 @@ router.post('/authentification', function(req, res) {
     });
 });
 
-// router.use(function(req, res, next) {
-//     // check header or url parameters or post parameters for token
-//     var token = req.body.token || req.query.token || req.headers['x-access-token'];
-//     // decode token
-//     if (token) {
-//         var decoded = jwt.decode(token, config.secret);
-//         User.findOne({
-//             email: decoded.email
-//         }, function(err, user) {
-//             if (err) throw err;
-//
-//             if (!user) {
-//                 return res.status(403).send({
-//                     success: false,
-//                     message: 'Authentication failed. User not found.'});
-//             } else {
-//                 req.decoded = decoded;
-//                 next();
-//             }
-//         });
-//     } else {
-//         return res.status(403).send({success: false, msg: 'No token provided.'});
-//     }
-// });
+
+/*
+    From here
+    A partir d'ici un token avec un _id de user doit etre fournis
+ */
+
+router.use(function(req, res, next) {
+    // check header or url parameters or post parameters for token
+    var token = req.body.apiKey || req.query.apiKey || req.headers['x-access-token'];
+    console.log(token);
+    // decode token
+    if (token) {
+        User.findById(token, function (err, user) {
+            if(err) res.status(403).send({success: false, msg: 'Error token provided.'});
+            else if(!user) res.status(403).send({success: false, msg: 'Wrong token provided.'});
+            else next();
+        })
+    } else {
+        return res.status(403).send({success: false, msg: 'No token provided.'});
+    }
+});
 
 
 router.route('/users')
