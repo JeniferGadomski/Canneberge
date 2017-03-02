@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import {Router, ActivatedRoute} from "@angular/router";
+import {CannebergeApiService} from "./canneberge-api.service";
+
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Administrateur';
+
+
 }

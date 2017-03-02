@@ -10,6 +10,7 @@ var multer = require('multer');
 var request = require('request');
 var path = require('path');
 var rio = require('rio');
+var apiKey = require('../models/apiKey');
 
 router.get('/', function(req, res) {
     res.send('Hello! The API is at http://api.canneberge.io/api');
@@ -48,10 +49,10 @@ router.post('/authentification', function(req, res) {
     A partir d'ici un token avec un _id de user doit etre fournis
  */
 
+
 router.use(function(req, res, next) {
     // check header or url parameters or post parameters for token
-    var token = req.body.apiKey || req.query.apiKey || req.headers['x-access-token'];
-    console.log(token);
+    var token = apiKey.getApiFromReq(req);
     // decode token
     if (token) {
         User.findById(token, function (err, user) {
@@ -284,7 +285,7 @@ router.route('/fermes/:ferme_id')
                 return
             }
 
-            if(req.query.weather === 'false'){
+            if(req.query.weather === 'false' || typeof ferme.centerCoordinate === 'undefined'){
                 res.json({ferme : ferme});
                 return
             }
@@ -349,7 +350,7 @@ router.post('/executeR', upload.any(), function (req, response) {
         var filename = './uploads/filetext.R';
         var filecontent =
                 "run <- function(){ \n" +
-                "setwd('" + __dirname + "/../file_system_api/fileSystem')\n" +
+                "setwd('" + __dirname + "/../file_system_api/fileSystem/" + apiKey.getApiFromReq(req) +"')\n" +
                 req.body.filetext +
                 "\n }";
 

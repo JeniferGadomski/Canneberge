@@ -64,22 +64,10 @@ export class UsersDetailComponent implements OnInit {
   isSelected(ferme){
     for(let i = 0; i < this.user.authorization.fermes.length; i++){
       if(this.user.authorization.fermes[i]._id === ferme._id){
-        console.log('selected');
         return true;
       }
     }
     return false;
-  }
-
-  setSelected(selectElement) {
-    for (var i = 0; i < this.user.authorization.fermes.length; i++) {
-      var optionElement = selectElement.options[i];
-      var optionModel = this.user.authorization.fermes[i];
-
-      if (optionElement.selected == true) { optionModel.selected = true; }
-      else { optionModel.selected = false; }
-    }
-    console.log(this.user.authorization.fermes);
   }
 
 
