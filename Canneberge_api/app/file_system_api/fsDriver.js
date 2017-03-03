@@ -47,7 +47,7 @@ var list = function(args, cb) {
         else {
           var isDir = stat.isDirectory() ? '/' : '';
           var file = path.join(dirPath, files[index], isDir);
-          filesList.push(file);
+          filesList.push(file.replace(args.apiKey + '/', ''));
         }
 
         cnt++;

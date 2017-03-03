@@ -25,7 +25,7 @@ router.post('/authentification', function(req, res) {
     }, function(err, user) {
         if (err) throw err;
         if (!user) {
-            res.json({ success: false, message: 'Authentication failed. User not found.' });
+            res.status(403).json({ success: false, message: 'Authentication failed. User not found.' });
         } else if (user) {
             // check if password matches
             user.comparePassword(req.body.password, function (err, isMatch) {
@@ -36,7 +36,7 @@ router.post('/authentification', function(req, res) {
                         apiKey: user._id
                     });
                 } else {
-                    res.send({success: false, message: 'Authentication failed. Wrong password.'});
+                    res.status(403).send({success: false, message: 'Authentication failed. Wrong password.'});
                 }
             });
         }
@@ -78,9 +78,9 @@ router.route('/users')
         // save the user
         newUser.save(function (err) {
             if (err) {
-                return res.json({success: false, message: err.message});
+                return res.status(403).json({success: false, message: err.message});
             }
-            res.json({success: true, message: 'Successful created new user.'});
+            res.json({success: true, message: 'Successful created new user.', user : newUser});
         });
     });
 
@@ -94,16 +94,21 @@ router.get('/users/:user_id/redirections', function (req, res) {
 router.route('/users/:user_id')
     .get(function (req, res) {
         User.findById(req.params.user_id, function (err, user) {
-            res.json({user: user});
+            if(err) res.status(404).json({message : 'no user'});
+            else if(!user) res.status(404).json({message : 'no user'});
+            else res.json({user: user});
         });
     })
     .put(function (req, res) {
         User.update({_id : ObjectId(req.params.user_id)}, req.body, function (err, result) {
-            if(err)
-                console.log(err.message);
-            console.log(result);
-            console.log(req.body);
-            res.sendStatus(200);
+            if(err) res.status(404).send({message : 'error update user', success : false});
+            else {
+                User.findById(req.params.user_id, function (err, user) {
+                    if(err) res.status(404).send({success : false, message : 'Error no user found'});
+                    else if(!user) res.status(404).send({success : false, message : 'Error no user found'});
+                    else res.send({user : user});
+                })
+            }
         });
 
     })
@@ -160,15 +165,12 @@ router.route('/fermes')
         }
     })
     .post(function (req, res) {
-        var newferme = new Ferme({
-            name : req.body.name,
-            geojson : req.body.geojson
-        });
+        var newferme = new Ferme(req.body);
         newferme.save(function (err) {
             if (err) {
                 return res.json({success: false, message: err.message});
             }
-            res.json({success: true, message: 'Successful created new user.'});
+            res.json({success: true, message: 'Successful created new ferme.', ferme : newferme});
         });
     });
 
@@ -230,6 +232,9 @@ router.route('/fermes/data')
                 res.json(Ferme.geojsonToData(ferme.geojson));
             })
        }
+       else {
+           res.status(400).send({message : 'Aucune ferme demander'});
+       }
     })
     .put(function (req, res) {
         var query = req.query;
@@ -249,7 +254,7 @@ router.route('/fermes/data')
             })
         }
         else{
-            res.statusMessage = "Parametre valide : fermeId, fermeName"
+            res.statusMessage = "Parametre valide : fermeId, fermeName";
             res.sendStatus(400);
         }
     });
@@ -310,10 +315,13 @@ router.route('/fermes/:ferme_id')
     })
     .put(function (req, res) {
         Ferme.update({_id : ObjectId(req.params.ferme_id)}, req.body, function (err, result) {
-            if(err)
-                console.log(err.message);
-            console.log(result);
-            res.sendStatus(200);
+            if(err) res.status(404).send({message : 'ferme not found'});
+            else{
+                Ferme.getFermeById(req.params.ferme_id, function (ferme) {
+                    if(!ferme) res.status(403).send({succes : false, message : 'ferme not found'});
+                    else res.json({ferme : ferme});
+                })
+            }
         });
     })
     .delete(function (req, res) {
@@ -321,7 +329,6 @@ router.route('/fermes/:ferme_id')
             if (err) {
                 console.log(err);
             }
-            console.log(result);
             res.sendStatus(200);
         });
     });
@@ -380,28 +387,31 @@ router.get('/weather', function (req, res) {
     var query = req.query;
     var simple = req.query.simple || false;
     if(query.hasOwnProperty('lat') && query.hasOwnProperty('lng')){
-        Weather.getWeatherByLatLng(query.lat, query.lng, simple, function (w) {
-            res.json(w);
-        });
+            Weather.getWeatherByLatLng(query.lat, query.lng, simple, function (w) {
+                res.json(w);
+            });
     }
     else if(query.hasOwnProperty('fermeId')){
-        Ferne.getFermeById(query.fermeId, function (ferme) {
-            Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
-                res.json(weather);
-            })
+        Ferme.getFermeById(query.fermeId, function (ferme) {
+            if(!ferme) res.status(404).send({message : 'No ferme found'});
+            else{
+                Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
+                    res.json(weather);
+                })
+            }
         })
     }
     else if(query.hasOwnProperty('fermeName')){
         Ferme.getFermeByName(query.fermeName, function (ferme) {
-            Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
-                res.json(weather);
-            })
+            if(!ferme) res.status(404).send({message : 'No ferme found'});
+            else{
+                Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
+                    res.json(weather);
+                })
+            }
         })
     }
-    else{
-        res.statusMessage = 'Liste des paramètres valide : lat, lng -- fermeId -- fermeName';
-        res.sendStatus(400);
-    }
+    else res.status(400).send({message : 'Liste des paramètres valide : lat, lng -- fermeId -- fermeName'});
 });
 
 

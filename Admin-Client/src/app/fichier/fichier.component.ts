@@ -90,7 +90,7 @@ export class FichierComponent implements OnInit {
     for(let i = 0; i < reqFileList.length; i++){
       let p = reqFileList[i];
       // p = p.replace(this.currentPathString, '');
-      p = p.replace('/' + this.service.apiKey, '');
+      // p = p.replace('/' + this.service.apiKey, '');
       this.listFiles.push({
         name : p.replace(this.currentPathString, ''),
         path : p

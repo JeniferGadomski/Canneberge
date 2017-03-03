@@ -67,12 +67,14 @@ function getDir (req, res, next) {
       if (isRecursive === "true") {
           return fileDriver.listAll({
               dirPath: dirPath,
-              opts: opts
+              opts: opts,
+              apiKey : apiKey.getApiFromReq(req)
           }, handList);
       } else {
           return fileDriver.list({
               dirPath: dirPath,
-              opts: opts
+              opts: opts,
+              apiKey : apiKey.getApiFromReq(req)
           }, handList);
       }
   });
@@ -95,7 +97,7 @@ function getFile(req, res, next) {
     return statFile(req, res, next);
   }
 
-    var filePath =  getFilePath(req, function (filePath) {
+    getFilePath(req, function (filePath) {
         // var filePath = decodeURI(url.parse(req.url).pathname);
         var encoding = req.query.encoding || 'utf8';
         var opts = req.body.opts;
@@ -219,7 +221,7 @@ function getFile(req, res, next) {
   }
 */
  function putFileOrDir(req, res, next) {
-    var dirPath =  getFilePath(req, function (dirPath) {
+    getFilePath(req, function (dirPath) {
         // var dirPath =  decodeURI(url.parse(req.url).pathname);
         var isDir = dirPath.substr(-1) === '/';
         var options = {};
@@ -280,7 +282,7 @@ function delDir(req, res, next) {
 */
 
 function delFile(req, res, next) {
-    var dirPath =  getFilePath(req, function (dirPath) {
+    getFilePath(req, function (dirPath) {
         // var dirPath =  decodeURI(url.parse(req.url).pathname);
         var opts = req.body.opts;
 
@@ -315,7 +317,7 @@ function delFile(req, res, next) {
   }
 */
 function statFile(req, res, next) {
-    var filePath =  getFilePath(req, function (filePath) {
+    getFilePath(req, function (filePath) {
         // var filePath = decodeURI(url.parse(req.url).pathname);
         var opts = req.body.opts;
 
@@ -342,6 +344,7 @@ function formatOutData(req, filepath) {
 }
 
 function sendCode(code, req, res, next, out) {
+    console.log(code + req + res + out);
   return function (err) {
     if (err) {
       error('ERROR', req.url, err);
