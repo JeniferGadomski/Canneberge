@@ -5,29 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2835dff-39db-4eff-87bf-acf7229e7296" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/favicon.ico" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fileSystem/Images/Icon/Big icon/sunny.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fileSystem/Images/usb-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fileSystem/Images/wifi.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fileSystem/Texte/Exemple.R" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fileSystem/Texte/fichier.component.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fileSystem/Texte/json-shapefile.txt" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/logo.svg" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../Favicon/favicon.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/favicon.ico" afterPath="$PROJECT_DIR$/../Admin-Client/src/favicon.ico" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/angular-cli.json" afterPath="$PROJECT_DIR$/../Admin-Client/angular-cli.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/app.component.ts" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/app.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/canneberge-api.service.ts" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/canneberge-api.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/fichier/fichier.component.ts" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/fichier/fichier.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/favicon.ico" afterPath="$PROJECT_DIR$/public/favicon.ico" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Favicon/favicon.ico" afterPath="$PROJECT_DIR$/../Favicon/favicon.ico" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/favicon.ico" afterPath="$PROJECT_DIR$/../Portail/public/favicon.ico" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/app.component.html" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/app.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/users/users-detail.component.html" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/users/users-detail.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/users/users-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/users/users-detail.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/index.html" afterPath="$PROJECT_DIR$/../Admin-Client/src/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/users/users.component.css" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/users/users.component.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Canneberge_api/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fileserver.js" afterPath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fileserver.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/api.js" afterPath="$PROJECT_DIR$/../Canneberge_api/api.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fsDriver.js" afterPath="$PROJECT_DIR$/../Canneberge_api/app/file_system_api/fsDriver.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/app/models/apiKey.js" afterPath="$PROJECT_DIR$/../Canneberge_api/app/models/apiKey.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/app/routes/route.js" afterPath="$PROJECT_DIR$/../Canneberge_api/app/routes/route.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/style.css" afterPath="$PROJECT_DIR$/public/stylesheets/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/index.html" afterPath="$PROJECT_DIR$/../Portail/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/stylesheets/login.css" afterPath="$PROJECT_DIR$/../Portail/public/stylesheets/login.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/stylesheets/redirections.css" afterPath="$PROJECT_DIR$/../Portail/public/stylesheets/redirections.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/views/login.html" afterPath="$PROJECT_DIR$/../Portail/public/views/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/views/redirections.html" afterPath="$PROJECT_DIR$/../Portail/public/views/redirections.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -45,15 +43,26 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="38" column="58" lean-forward="false" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="58" />
+            <state relative-caret-position="191">
+              <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
+                <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logo.svg" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/images/logo.svg">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="620">
+              <caret line="75" column="41" lean-forward="false" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -191,7 +200,6 @@
         <option value="$PROJECT_DIR$/public/bower.json" />
         <option value="$PROJECT_DIR$/public/js/components/MarkerObject.js" />
         <option value="$PROJECT_DIR$/public/infowindow.html" />
-        <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/public/js/controller/mapController.js" />
         <option value="$PROJECT_DIR$/public/partiel/infowindow.html" />
         <option value="$PROJECT_DIR$/public/partiel/weather.html" />
@@ -206,6 +214,8 @@
         <option value="$PROJECT_DIR$/public/js/controller/mainController.js" />
         <option value="$PROJECT_DIR$/public/js/cannebergeApiService.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
+        <option value="$PROJECT_DIR$/public/images/logo.svg" />
       </list>
     </option>
   </component>
@@ -260,7 +270,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -301,47 +311,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="partiel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Carte" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Carte" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Carte" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Carte" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controller" />
+              <option name="myItemId" value="images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -361,7 +331,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -377,16 +347,16 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/public/images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/js" />
       <recent name="$PROJECT_DIR$/public/partiel" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/public/js/controller" />
       <recent name="$PROJECT_DIR$/public/js/components" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/public/images" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.bin/www">
@@ -484,11 +454,12 @@
       <workItem from="1488290906426" duration="5060000" />
       <workItem from="1488463059038" duration="5334000" />
       <workItem from="1488488601654" duration="242000" />
+      <workItem from="1488829238114" duration="884000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="246988000" />
+    <option name="totallyTimeSpent" value="247872000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="-2" width="1922" height="1035" extended-state="6" />
@@ -499,19 +470,19 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27914798" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277405" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31614348" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27914798" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295964" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31614348" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +498,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server.js" />
     <entry file="file://$PROJECT_DIR$/public/js/controller/mapController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
@@ -588,6 +558,7 @@
         <state relative-caret-position="1152">
           <caret line="64" column="34" lean-forward="false" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
           <folding>
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
@@ -647,6 +618,7 @@
         <state relative-caret-position="846">
           <caret line="47" column="59" lean-forward="false" selection-start-line="47" selection-start-column="59" selection-end-line="47" selection-end-column="59" />
           <folding>
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
@@ -793,13 +765,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/components/MarkerObject.js" />
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2214">
-          <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/images/weather-icon/cloudy.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -921,14 +886,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="38" column="58" lean-forward="false" selection-start-line="38" selection-start-column="58" selection-end-line="38" selection-end-column="58" />
+        <state relative-caret-position="191">
+          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/images/logo.svg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="620">
+          <caret line="75" column="41" lean-forward="false" selection-start-line="75" selection-start-column="41" selection-end-line="75" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>

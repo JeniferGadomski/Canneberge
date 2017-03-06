@@ -11,38 +11,43 @@ export class CannebergeApiService {
 
   serverUrl = "http://api.canneberge.io/api";
   headers = new Headers();
-  apiKey = '5894a2f1df1f28501873a566';
+  apiKey :string;
 
   constructor(
     private _http : Http
-  ) {
+  )
+  {
+
+  }
+
+  getApiKey(){
     this.headers.append('x-access-token', this.apiKey);
 
     // Getting apiKey from portail.canneberge.io
     let remoteStorage = new CrossDomainStorage("http://portail.canneberge.io", "/retrieve");
-    remoteStorage.requestValue("apiKey", function(key, value){
+    remoteStorage.requestValue("apiKey", (key, value) => {
       console.log('Key : ' + key + '   value : ' + value);
+      console.log(this.apiKey);
       if(value === null){
         // $window.location = 'http://portail.canneberge.io';
       }
       else{
-        console.log(this.headers);
         this.headers.append('x-access-token', value);
+        console.log(this.headers);
+        this.apiKey = value;
+        console.log(this.apiKey);
         // apiService.headers.headers['x-access-token'] = value;
         // initFerme();
       }
     });
-
-    remoteStorage.requestValue('apiKey')
-
   }
 
 
 
 
   getUsers(){
-      return this._http.get(this.serverUrl + '/users', {headers : this.headers})
-        .map(res => res.json());
+    return this._http.get(this.serverUrl + '/users', {headers : this.headers})
+      .map(res => res.json());
   }
 
   getUser(id : number | string) {
@@ -87,9 +92,9 @@ export class CannebergeApiService {
     let url = this.serverUrl + '/shapefile-to-geojson';
     let formData:FormData = new FormData();
     formData.append('shapefileZip', files[0], files[0].name);
-       return this._http.post(url, formData, {
-        headers: this.headers
-      }).map(res => res.json());
+    return this._http.post(url, formData, {
+      headers: this.headers
+    }).map(res => res.json());
   }
 
   getShapefile(geojson : any){

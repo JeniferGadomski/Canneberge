@@ -13,17 +13,18 @@ export class UsersComponent implements OnInit {
   selectedID : string;
 
   constructor(
-    private userService : CannebergeApiService,
+    private service : CannebergeApiService,
     private route: ActivatedRoute,
     private router: Router
   )
   { }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(users => {
+    this.service.getUsers().subscribe(users => {
       this.users = users;
     });
   }
+
 
   isSelected(user : any){
     return this.selectedID === user._id;

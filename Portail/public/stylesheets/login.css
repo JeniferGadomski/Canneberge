@@ -52,3 +52,7 @@ html, body{
 .under-title{
     margin-top : 50px;
 }
+
+.form-signin-heading{
+    text-align: center;
+}

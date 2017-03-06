@@ -36,3 +36,10 @@ option:hover{
   border: 1px solid #0CC1F3;
   border-radius: 2px;
 }
+
+.exemple{
+  font-size: smaller;
+  color: gray;
+  border-left: 1px solid gray;
+  padding-left: 10px;
+}
