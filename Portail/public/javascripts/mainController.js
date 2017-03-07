@@ -67,6 +67,9 @@ angular.module('app')
                         $scope.errorMessage = res.data.message;
                         console.log(res.data.message);
                     }
+                }, function (err) {
+                    $scope.errorMessage = err.data.message;
+                    console.log(err);
                 })
         };
 

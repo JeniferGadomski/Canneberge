@@ -29,6 +29,9 @@ angular.module('app')
                     if(res.data.success){
                         if(!alert("Merci, maintenant contacter le l\'administrater.")) $window.location = '/';
                     }
+                }, function (err) {
+                    console.log(err);
+                    $scope.errorMessage = err.data.message;
                 });
         };
 

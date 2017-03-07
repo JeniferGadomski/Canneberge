@@ -35,8 +35,10 @@ export class UsersDetailComponent implements OnInit {
 
   returnUsersList()
   {
-    this.router.navigate(['/utilisateurs']);
+    // this.router.navigate(['/utilisateurs']);
+    window.location.href = '/utilisateurs';
   }
+
 
   saveUser(user){
     this.service.saveUser(this.currentId, user).subscribe(

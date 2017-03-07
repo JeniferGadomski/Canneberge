@@ -29,7 +29,10 @@ router.post('/authentification', function(req, res) {
         } else if (user) {
             // check if password matches
             user.comparePassword(req.body.password, function (err, isMatch) {
-                if (isMatch && !err) {
+                if(user.authorization.blocked){
+                    res.status(403).send({success: false, message: 'Contacter l\'administrateur.'});
+                }
+                else if (isMatch && !err) {
                     res.json({
                         success: true,
                         message: 'Enjoy your token!',
@@ -45,11 +48,12 @@ router.post('/authentification', function(req, res) {
 
 router.post('/users', function(req, res) {
         var newUser = new User(req.body);
-        console.log(newUser);
+        // console.log(newUser);
         // save the user
         newUser.save(function (err) {
             if (err) {
-                return res.status(403).json({success: false, message: err.message});
+                console.log(err.message);
+                return res.status(403).send({success: false, message: err.message});
             }
             res.json({success: true, message: 'Successful created new user.', user : newUser});
         });
@@ -68,6 +72,7 @@ router.use(function(req, res, next) {
     if (token) {
         User.findById(token, function (err, user) {
             if(err) res.status(403).send({success: false, msg: 'Error token provided.'});
+            else if(user.authorization.blocked) res.status(403).send({success: false, msg: 'Blocked, contact administrator'});
             else if(!user) res.status(403).send({success: false, msg: 'Wrong token provided.'});
             else next();
         })

@@ -26,7 +26,7 @@ angular.module('apiServiceModule', [])
         };
 
         apiService.postUser = function (form) {
-            return $http.post(url + '/users', form);
+            return $http.post(url + 'users/', form);
         };
 
         return apiService;
