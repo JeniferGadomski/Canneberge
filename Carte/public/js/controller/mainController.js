@@ -27,7 +27,7 @@ angular.module('app')
 
 
         if(typeof $scope.fermeID === 'undefined'){
-            $scope.ferme.name = 'Aucune ferme';
+            $window.location = 'http://portail.canneberge.io';
             return;
         }
 

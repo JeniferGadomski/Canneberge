@@ -12,6 +12,12 @@ import {CannebergeApiService} from "./canneberge-api.service";
 export class AppComponent {
   title = 'Administrateur';
 
+  constructor(private service : CannebergeApiService){}
+
+  getName(){
+    return this.service.user.firstname + ' ' + this.service.user.lastname;
+  }
+
 
 
 

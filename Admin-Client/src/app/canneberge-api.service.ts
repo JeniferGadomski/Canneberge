@@ -1,7 +1,6 @@
-import {Injectable, ElementRef} from '@angular/core';
-import {Http, Headers, RequestOptions, Response, ResponseContentType, RequestMethod} from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Headers, ResponseContentType, RequestMethod} from '@angular/http';
 import 'rxjs/add/operator/map';
-import {Observable} from "rxjs";
 import * as FileSaver from "file-saver";
 
 declare var CrossDomainStorage: any;
@@ -12,12 +11,45 @@ export class CannebergeApiService {
   serverUrl = "http://api.canneberge.io/api";
   headers = new Headers();
   apiKey :string;
+  user : any = {};
 
   constructor(
     private _http : Http
   )
   {
 
+  }
+
+  // This is the method you want to call at bootstrap
+  // Important: It should return a Promise
+  load(): Promise<any> {
+    let p = new Promise((resolve, reject) => {
+      let remoteStorage = new CrossDomainStorage("http://portail.canneberge.io", "/retrieve");
+      remoteStorage.requestValue("apiKey", function(key, value){
+        resolve(value);
+      });
+    });
+
+    p.then((data) => {
+      console.log(data);
+      if(data === null){
+        console.log('no connection data');
+        window.location.href ='http://portail.canneberge.io';
+      }
+      else{
+        this.apiKey = data.toString();
+        this.headers.append('x-access-token', this.apiKey);
+        this.getUser(this.apiKey).subscribe(
+          user => {
+            this.user = user;
+            if(!this.user.authorization.admin)
+              window.location.href ='http://portail.canneberge.io';
+          });
+        console.log(this.headers);
+      }
+    });
+
+    return p;
   }
 
   getApiKey(){

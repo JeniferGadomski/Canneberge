@@ -50,7 +50,7 @@ export class ScriptComponent {
 
   ngAfterViewInit() {
 
-    this.service.getUser('5894a2f1df1f28501873a566').subscribe(
+    this.service.getUser(this.service.apiKey).subscribe(
       user => {
         this.scripsData = user.scripts;
         this.selectScript(0);
@@ -102,7 +102,7 @@ export class ScriptComponent {
 
   saveScripts(){
     this.updateCode();
-    this.service.saveUser('5894a2f1df1f28501873a566', {scripts : this.scripsData}).subscribe(
+    this.service.saveUser(this.service.apiKey, {scripts : this.scripsData}).subscribe(
       rep => console.log(rep)
     );
   }
