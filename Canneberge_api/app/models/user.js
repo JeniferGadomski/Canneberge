@@ -12,12 +12,12 @@ var userSchema = new Schema({
     lastname: {type : String},
     email: { type: String, required: true, unique: true },
     password: { type: String, default : 'default' },
-    admin: {type : Boolean, default : false},
     username: { type: String, required: true, unique: true },
     scripts : {type : Array},
     authorization : {
         admin : {type : Boolean, default : false},
-        fermes : {type : Array}
+        fermes : {type : Array},
+        blocked : {type : Boolean, default : true}
     }
 });
 

@@ -29,6 +29,10 @@ app.get('/retrieve', function (req, res) {
     res.render('./views/retrieve.html');
 });
 
+app.get('/register', function (req, res) {
+    res.render('./views/register.html');
+});
+
 app.listen(port);
 console.log('App listening on port ' + port);
 

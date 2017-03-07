@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="app">
+<head>
+    <link rel='stylesheet' href='../stylesheets/style.css' />
+    <link rel='stylesheet' href='../stylesheets/login.css' />
+    <link rel='stylesheet' href='../stylesheets/register.css' />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <meta charset="UTF-8">
+    <title>Nouveau</title>
+
+    <script src="../javascripts/app.js"></script>
+    <script src="../javascripts/apiService.js"></script>
+    <script src="../javascripts/registerController.js"></script>
+
+
+
+</head>
+<body ng-controller="registerController">
+
+<div class="container">
+    <div id="title" class="form-signin-heading">
+        <img src="../images/logo.svg" height="60" width="60">
+        <h1 class="text-center">Canneberge.io</h1>
+    </div>
+    <form>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="firstname">Prénom</label>
+                <input type="text" class="form-control" id="firstname"
+                       required
+                       ng-model="registerForm.firstname" name="firstname">
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label for="lastname">Nom</label>
+                <input type="text" class="form-control" id="lastname"
+                       required
+                       ng-model="registerForm.lastname" name="lastname">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Courriel</label>
+            <input type="text" class="form-control" id="email"
+                   required
+                   ng-model="registerForm.email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" class="form-control" id="username"
+                   required
+                   ng-model="registerForm.username" name="username">
+        </div>
+
+
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" id="password"
+                       required
+                       ng-model="registerForm.password" name="password">
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label for="passwordConfirm">Confirmation (mot de passe)</label>
+                <input type="password" class="form-control invalid" id="passwordConfirm"
+                       required
+                       ng-class="{ invalid : !form.validPassword()}"
+                       ng-model="registerForm.passwordConfirm" name="passwordConfirm">
+            </div>
+        </div>
+
+
+
+            <div style="text-align: center;">
+                <button ng-click="saveNewUser()"
+                        type="submit"
+                        style="width: 200px"
+                        class="btn btn-lg btn-primary bottom-form btn-success"
+                        ng-class="{ disabled : !form.valid()}">Confirmer</button>
+            </div>
+    </form>
+    <div class="button-div" style="    margin-top: 15px">
+        <a class="btn btn-block btn-lg btn-info " href="/" role="button">Annuler</a>
+    </div>
+</div>
+
+
+
+</body>
+</html>

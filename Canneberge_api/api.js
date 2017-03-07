@@ -10,10 +10,11 @@ var config = require('./app/config/config'); // get our config file
 var path = require('path');
 var multer = require('multer');
 var fileserver = require('./app/file_system_api/fileserver');
-
+var favicon = require('serve-favicon');
 
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(__dirname + '/app/favicon.ico'));
 
 var options = {
     server: {

@@ -29,6 +29,15 @@
            required
            [(ngModel)]="user.username" name="username">
   </div>
+
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input"
+             [(ngModel)]="user.authorization.blocked" name="blocked">
+      Bloquer
+    </label>
+  </div>
+
   <div class="form-check">
     <label class="form-check-label">
       <input type="checkbox" class="form-check-input"

@@ -52,31 +52,6 @@ export class CannebergeApiService {
     return p;
   }
 
-  getApiKey(){
-    this.headers.append('x-access-token', this.apiKey);
-
-    // Getting apiKey from portail.canneberge.io
-    let remoteStorage = new CrossDomainStorage("http://portail.canneberge.io", "/retrieve");
-    remoteStorage.requestValue("apiKey", (key, value) => {
-      console.log('Key : ' + key + '   value : ' + value);
-      console.log(this.apiKey);
-      if(value === null){
-        // $window.location = 'http://portail.canneberge.io';
-      }
-      else{
-        this.headers.append('x-access-token', value);
-        console.log(this.headers);
-        this.apiKey = value;
-        console.log(this.apiKey);
-        // apiService.headers.headers['x-access-token'] = value;
-        // initFerme();
-      }
-    });
-  }
-
-
-
-
   getUsers(){
     return this._http.get(this.serverUrl + '/users', {headers : this.headers})
       .map(res => res.json());

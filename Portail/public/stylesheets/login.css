@@ -33,7 +33,7 @@ html, body{
     margin-left: auto;
 }
 
-#bottom-form{
+.bottom-form{
     padding-top: 25px;
 }
 
@@ -43,6 +43,11 @@ html, body{
     margin-right: auto;
 }
 
+.button-div{
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .btn.disabled{
     background-color: rgba(255,255,255,0.1);

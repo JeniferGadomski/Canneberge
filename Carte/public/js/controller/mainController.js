@@ -22,10 +22,6 @@ angular.module('app')
             }
         });
 
-
-
-
-
         if(typeof $scope.fermeID === 'undefined'){
             $window.location = 'http://portail.canneberge.io';
             return;

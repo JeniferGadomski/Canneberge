@@ -43,6 +43,17 @@ router.post('/authentification', function(req, res) {
     });
 });
 
+router.post('/users', function(req, res) {
+        var newUser = new User(req.body);
+        console.log(newUser);
+        // save the user
+        newUser.save(function (err) {
+            if (err) {
+                return res.status(403).json({success: false, message: err.message});
+            }
+            res.json({success: true, message: 'Successful created new user.', user : newUser});
+        });
+    });
 
 /*
     From here
@@ -70,17 +81,6 @@ router.route('/users')
     .get(function (req, res) {
         User.find({}, function (err, users) {
             res.json(users);
-        });
-    })
-    .post(function(req, res) {
-        var newUser = new User(req.body);
-        console.log(newUser);
-        // save the user
-        newUser.save(function (err) {
-            if (err) {
-                return res.status(403).json({success: false, message: err.message});
-            }
-            res.json({success: true, message: 'Successful created new user.', user : newUser});
         });
     });
 

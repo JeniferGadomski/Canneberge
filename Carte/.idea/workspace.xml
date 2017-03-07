@@ -5,14 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2835dff-39db-4eff-87bf-acf7229e7296" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/app.component.html" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/app.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/app.component.ts" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/app.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/app.module.ts" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/app.module.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Canneberge_api/app/favicon.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Portail/public/javascripts/registerController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Portail/public/stylesheets/register.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Portail/public/views/register.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/canneberge-api.service.ts" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/canneberge-api.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/script/script.component.ts" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/script/script.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/users/users-detail.component.html" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/users/users-detail.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/users/users.component.html" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/users/users.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin-Client/src/app/users/users.component.ts" afterPath="$PROJECT_DIR$/../Admin-Client/src/app/users/users.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Canneberge_api/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/api.js" afterPath="$PROJECT_DIR$/../Canneberge_api/api.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/app/models/user.js" afterPath="$PROJECT_DIR$/../Canneberge_api/app/models/user.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Canneberge_api/app/routes/route.js" afterPath="$PROJECT_DIR$/../Canneberge_api/app/routes/route.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/controller/mainController.js" afterPath="$PROJECT_DIR$/public/js/controller/mainController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/portail.js" afterPath="$PROJECT_DIR$/../Portail/portail.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/index.html" afterPath="$PROJECT_DIR$/../Portail/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/javascripts/apiService.js" afterPath="$PROJECT_DIR$/../Portail/public/javascripts/apiService.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/javascripts/mainController.js" afterPath="$PROJECT_DIR$/../Portail/public/javascripts/mainController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/stylesheets/login.css" afterPath="$PROJECT_DIR$/../Portail/public/stylesheets/login.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/views/login.html" afterPath="$PROJECT_DIR$/../Portail/public/views/login.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -89,8 +102,8 @@
       <file leaf-file-name="mainController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/controller/mainController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="28" column="50" lean-forward="true" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
+            <state relative-caret-position="180">
+              <caret line="22" column="11" lean-forward="false" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -442,23 +455,23 @@
       <workItem from="1488463059038" duration="5334000" />
       <workItem from="1488488601654" duration="242000" />
       <workItem from="1488829238114" duration="884000" />
-      <workItem from="1488896620411" duration="857000" />
+      <workItem from="1488896620411" duration="1942000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="248729000" />
+    <option name="totallyTimeSpent" value="249814000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="-2" width="1922" height="1035" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19630606" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27914798" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27914798" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277405" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -835,8 +848,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/controller/mainController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="28" column="50" lean-forward="true" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
+        <state relative-caret-position="180">
+          <caret line="22" column="11" lean-forward="false" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
           <folding />
         </state>
       </provider>

@@ -5,12 +5,7 @@
 angular.module('app')
     .controller('mainController', function ($scope, $window, $location, apiService) {
 
-
-        
-
         $scope.userForm = {};
-
-
 
         $scope.apiKey = {
             value :  localStorage.getItem('apiKey'),

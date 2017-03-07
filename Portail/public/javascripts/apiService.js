@@ -25,5 +25,9 @@ angular.module('apiServiceModule', [])
             headers = {headers : {'x-access-token' : newApiKey}};
         };
 
+        apiService.postUser = function (form) {
+            return $http.post(url + '/users', form);
+        };
+
         return apiService;
     });
