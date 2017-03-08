@@ -46,6 +46,10 @@ router.post('/authentification', function(req, res) {
     });
 });
 
+
+/*
+    Public create new user
+ */
 router.post('/users', function(req, res) {
         var newUser = new User(req.body);
         // console.log(newUser);
@@ -82,20 +86,19 @@ router.use(function(req, res, next) {
 });
 
 
-router.route('/users')
-    .get(function (req, res) {
-        User.find({}, function (err, users) {
-            res.json(users);
-        });
-    });
-
+router.use('/users/:user_id/redirections', function (req, res, next) {
+    apiKey.sameUserOrAdmin(req, res, next);
+});
 router.get('/users/:user_id/redirections', function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
-
         res.json(user.getRedirections());
     });
 });
 
+
+router.use('/users/:user_id', function (req, res, next) {
+    apiKey.sameUserOrAdmin(req, res, next);
+});
 router.route('/users/:user_id')
     .get(function (req, res) {
         User.findById(req.params.user_id, function (err, user) {
@@ -127,6 +130,22 @@ router.route('/users/:user_id')
         });
     });
 
+
+router.use('/users', function (req, res, next) {
+    apiKey.isAdmin(req, res, next);
+});
+router.route('/users')
+    .get(function (req, res) {
+        User.find({}, function (err, users) {
+            res.json(users);
+        });
+    });
+
+
+
+
+
+
 /////////////////
 // Ferme route //
 /////////////////
@@ -150,34 +169,7 @@ function getGeoJSONFormData(path) {
     };
 }
 
-router.route('/fermes')
-    .get(function (req, res) {
-        var query = req.query;
-        if(query.hasOwnProperty('fermeId')){
-            Ferme.getFermeById(query.fermeId, function (ferme) {
-                res.json(ferme);
-            });
-        }
-        else if(query.hasOwnProperty('fermeName')){
-            Ferme.getFermeByName(query.fermeName, function (ferme) {
-                res.json(ferme);
-            })
-        }
-        else{
-            Ferme.find({}, function (err, fermes) {
-                res.json(fermes);
-            });
-        }
-    })
-    .post(function (req, res) {
-        var newferme = new Ferme(req.body);
-        newferme.save(function (err) {
-            if (err) {
-                return res.json({success: false, message: err.message});
-            }
-            res.json({success: true, message: 'Successful created new ferme.', ferme : newferme});
-        });
-    });
+
 
 router.post('/shapefile-to-geojson', upload.single('shapefileZip'), function (req, res) {
     request.post({url : "http://ogre.adc4gis.com/convert", formData: getGeoJSONFormData(req.file.path)},
@@ -224,6 +216,30 @@ router.post('/geojson-to-shapefile', function (req, res) {
     });
 });
 
+router.use('/fermes/data/:ferme_id', function (req, res, next) {
+    apiKey.fermeAuthorization(req, res, next);
+});
+router.route('/fermes/data/:ferme_id')
+    .get(function (req, res) {
+        Ferme.getFermeById(req.params.ferme_id, function (ferme) {
+            res.json(Ferme.geojsonToData(ferme.geojson));
+        });
+    })
+    .put(function (req, res) {
+        var body = JSON.parse(JSON.stringify(req.body));
+        if(!body.hasOwnProperty('data')){
+            res.statusMessage = 'Aucune donne, \'data\' doit etre fournie';
+            res.sendStatus(400);
+            return;
+        }
+        Ferme.getFermeById(req.params.ferme_id, function(ferme){
+            Ferme.updateDataFerme(req, res, ferme);
+        });
+    });
+
+router.use('/fermes/data', function (req, res, next) {
+    apiKey.fermeAuthorization(req, res, next);
+});
 router.route('/fermes/data')
     .get(function(req, res){
        var query = req.query;
@@ -264,24 +280,10 @@ router.route('/fermes/data')
         }
     });
 
-router.route('/fermes/data/:ferme_id')
-    .get(function (req, res) {
-        Ferme.getFermeById(req.params.ferme_id, function (ferme) {
-            res.json(Ferme.geojsonToData(ferme.geojson));
-        });
-    })
-    .put(function (req, res) {
-        var body = JSON.parse(JSON.stringify(req.body));
-        if(!body.hasOwnProperty('data')){
-            res.statusMessage = 'Aucune donne, \'data\' doit etre fournie';
-            res.sendStatus(400);
-            return;
-        }
-        Ferme.getFermeById(req.params.ferme_id, function(ferme){
-            Ferme.updateDataFerme(req, res, ferme);
-        });
-    });
 
+router.use('/fermes/:ferme_id', function (req, res, next) {
+    apiKey.fermeAuthorization(req, res, next);
+});
 router.route('/fermes/:ferme_id')
     .get(function (req, res) {
         Ferme.findById(req.params.ferme_id, function (err, ferme) {
@@ -335,6 +337,39 @@ router.route('/fermes/:ferme_id')
                 console.log(err);
             }
             res.sendStatus(200);
+        });
+    });
+
+
+router.use('/fermes', function (req, res, next) {
+    apiKey.isAdmin(req, res, next);
+});
+router.route('/fermes')
+    .get(function (req, res) {
+        var query = req.query;
+        if(query.hasOwnProperty('fermeId')){
+            Ferme.getFermeById(query.fermeId, function (ferme) {
+                res.json(ferme);
+            });
+        }
+        else if(query.hasOwnProperty('fermeName')){
+            Ferme.getFermeByName(query.fermeName, function (ferme) {
+                res.json(ferme);
+            })
+        }
+        else{
+            Ferme.find({}, function (err, fermes) {
+                res.json(fermes);
+            });
+        }
+    })
+    .post(function (req, res) {
+        var newferme = new Ferme(req.body);
+        newferme.save(function (err) {
+            if (err) {
+                return res.json({success: false, message: err.message});
+            }
+            res.json({success: true, message: 'Successful created new ferme.', ferme : newferme});
         });
     });
 

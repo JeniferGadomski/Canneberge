@@ -10,7 +10,7 @@ form{
 }
 
 .form-control.invalid{
-    background-color: indianred;
+    background-color: pink;
 }
 
 .btn-confirm{
