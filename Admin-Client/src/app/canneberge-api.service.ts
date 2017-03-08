@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import * as FileSaver from "file-saver";
 
 declare var CrossDomainStorage: any;
+declare var ga: any;
 
 @Injectable()
 export class CannebergeApiService {

@@ -11,7 +11,7 @@ var path = require('path');
 var multer = require('multer');
 var fileserver = require('./app/file_system_api/fileserver');
 var favicon = require('serve-favicon');
-
+var analytics = require('./app/routes/analytics');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(__dirname + '/app/favicon.ico'));
@@ -39,9 +39,6 @@ app.set('superSecret', config.secret); // secret variable
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 app.use(function(req, res, next) {
@@ -72,6 +69,7 @@ app.options('*', function (req, res) {
     res.end();
 });
 
+app.use(analytics);
 app.use('/api', routes);
 app.use('/api/file', fileserver);
 
