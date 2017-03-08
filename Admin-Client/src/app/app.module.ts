@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, APP_INITIALIZER} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
@@ -16,6 +16,10 @@ import {FermesDetailComponent} from "./fermes/fermes-detail.component";
 import { ScriptComponent } from './script/script.component';
 import {AceEditorDirective, AceEditorComponent} from 'ng2-ace-editor';
 import { FichierComponent } from './fichier/fichier.component';
+
+export function startupServiceFactory(startupService: CannebergeApiService): Function {
+  return () => startupService.load();
+}
 
 @NgModule({
   declarations: [
@@ -40,7 +44,14 @@ import { FichierComponent } from './fichier/fichier.component';
     AppRoutingModule
   ],
   providers: [
-    CannebergeApiService
+    CannebergeApiService,
+    {
+      // Provider for APP_INITIALIZER
+      provide: APP_INITIALIZER,
+      useFactory: startupServiceFactory,
+      deps: [CannebergeApiService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

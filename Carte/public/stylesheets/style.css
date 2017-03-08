@@ -40,6 +40,8 @@ img.weather {
 .ferme-title{
     padding:0;
     margin:0;
+    display: initial;
+    padding-left: 10px;
 }
 
 

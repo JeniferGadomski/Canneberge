@@ -12,6 +12,7 @@ declare var swal: any;
 export class UsersDetailComponent implements OnInit {
 
   user: User;
+  listFermes : any;
   private currentId;
 
   constructor(
@@ -19,7 +20,9 @@ export class UsersDetailComponent implements OnInit {
     private router: Router,
     private service: CannebergeApiService
   )
-  { }
+  {
+    this.getFermes();
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -32,8 +35,10 @@ export class UsersDetailComponent implements OnInit {
 
   returnUsersList()
   {
-    this.router.navigate(['/utilisateurs']);
+    // this.router.navigate(['/utilisateurs']);
+    window.location.href = '/utilisateurs';
   }
+
 
   saveUser(user){
     this.service.saveUser(this.currentId, user).subscribe(
@@ -50,7 +55,21 @@ export class UsersDetailComponent implements OnInit {
       );
       this.returnUsersList()
     }
+  }
 
+  getFermes(){
+    this.service.getFermes().subscribe(
+      res => this.listFermes = res
+    )
+  }
+
+  isSelected(ferme){
+    for(let i = 0; i < this.user.authorization.fermes.length; i++){
+      if(this.user.authorization.fermes[i]._id === ferme._id){
+        return true;
+      }
+    }
+    return false;
   }
 
 

@@ -10,6 +10,8 @@ var fileSystemDir = __dirname + '/fileSystem';
 var express = require('express');
 var router = express.Router();
 var filePrefix =  __dirname + '/fileSystem';
+var apiKey = require('../models/apiKey');
+var fs = require('fs');
 
 router.get(/^\/(.+\/)?$/, getDir);
 router.get( /^\/.+[^\/]$/, getFile);
@@ -38,42 +40,46 @@ function getDir (req, res, next) {
     return statFile(req, res, next);
   }
 
-  var dirPath =  getFilePath(req);
-  // var dirPath =  decodeURI(url.parse(req.url).pathname);
-  var isRecursive = req.query.recursive || "false";
-  var opts = req.body.opts;
+  getFilePath(req, function (dirPath) {
+      // var dirPath =  decodeURI(url.parse(req.url).pathname);
+      var isRecursive = req.query.recursive || "false";
+      var opts = req.body.opts;
 
-  var handList = function (err, files) {
-    if (err && err.code === 'ENOTDIR') {
-      // this this is a file, redirect to file path
-      var originalUrl = getOriginalpath(req);
-      // var originalUrl = url.parse(req.originalUrl);
-      originalUrl.pathname = originalUrl.pathname.substr(0, originalUrl.pathname.length - 1);
-      var target = url.format(originalUrl);
-      res.statusCode = 303;
-      res.setHeader('Location', target);
-      return res.end('Redirecting to ' + target);
-    }
-    if (files) {
-      for (var i = files.length - 1; i >= 0; i--) {
-        files[i] = formatOutData(req, files[i]);
+      var handList = function (err, files) {
+          if (err && err.code === 'ENOTDIR') {
+              // this this is a file, redirect to file path
+              var originalUrl = getOriginalpath(req);
+              // var originalUrl = url.parse(req.originalUrl);
+              originalUrl.pathname = originalUrl.pathname.substr(0, originalUrl.pathname.length - 1);
+              var target = url.format(originalUrl);
+              res.statusCode = 303;
+              res.setHeader('Location', target);
+              return res.end('Redirecting to ' + target);
+          }
+          if (files) {
+              for (var i = files.length - 1; i >= 0; i--) {
+                  files[i] = formatOutData(req, files[i]);
+              }
+          }
+          sendCode(200, req, res, next, files)(err);
+      };
+
+      if (isRecursive === "true") {
+          return fileDriver.listAll({
+              dirPath: dirPath,
+              opts: opts,
+              apiKey : apiKey.getApiFromReq(req)
+          }, handList);
+      } else {
+          return fileDriver.list({
+              dirPath: dirPath,
+              opts: opts,
+              apiKey : apiKey.getApiFromReq(req)
+          }, handList);
       }
-    }
-    sendCode(200, req, res, next, files)(err);
-  };
+  });
 
-  if (isRecursive === "true") {
-    return fileDriver.listAll({
-      dirPath: dirPath,
-      opts: opts
-    }, handList);
-  } else {
-    return fileDriver.list({
-      dirPath: dirPath,
-      opts: opts
-    }, handList);
-  }
-};
+}
 
 /* GET
   /path/to/file
@@ -91,31 +97,32 @@ function getFile(req, res, next) {
     return statFile(req, res, next);
   }
 
-    var filePath =  getFilePath(req);
-  // var filePath = decodeURI(url.parse(req.url).pathname);
-  var encoding = req.query.encoding || 'utf8';
-  var opts = req.body.opts;
+    getFilePath(req, function (filePath) {
+        // var filePath = decodeURI(url.parse(req.url).pathname);
+        var encoding = req.query.encoding || 'utf8';
+        var opts = req.body.opts;
 
-  fileDriver.readFile({
-    filePath: filePath,
-    encoding: encoding,
-    opts: opts
-  }, function(err, data) {
-    if (err && err.code === 'EISDIR') {
-      // this this is a dir, redirect to dir path
-      var originalUrl = getOriginalpath(req);
-      // var originalUrl = url.parse(req.originalUrl);
-      originalUrl.pathname += '/';
-      var target = url.format(originalUrl);
-      res.statusCode = 303;
-      res.setHeader('Location', target);
-      return res.end('Redirecting to ' + target);
-    }
-	// console.log(mime.lookup(filePath));
-    res.set('Content-Type', mime.lookup(filePath));
-    sendCode(200, req, res, next, data)(err);
-  });
-};
+        fileDriver.readFile({
+            filePath: filePath,
+            encoding: encoding,
+            opts: opts
+        }, function(err, data) {
+            if (err && err.code === 'EISDIR') {
+                // this this is a dir, redirect to dir path
+                var originalUrl = getOriginalpath(req);
+                // var originalUrl = url.parse(req.originalUrl);
+                originalUrl.pathname += '/';
+                var target = url.format(originalUrl);
+                res.statusCode = 303;
+                res.setHeader('Location', target);
+                return res.end('Redirecting to ' + target);
+            }
+            // console.log(mime.lookup(filePath));
+            res.set('Content-Type', mime.lookup(filePath));
+            sendCode(200, req, res, next, data)(err);
+        });
+    });
+}
 
 /* POST
   /path/to/file/or/dir
@@ -137,65 +144,67 @@ function getFile(req, res, next) {
 */
  function postFileOrDir(req, res, next) {
      // console.log(req);
-    var dirPath =  getFilePath(req);
-  // var dirPath =  decodeURI(url.parse(req.url).pathname);
-  var isDir = dirPath.substr(-1) === '/';
-  var options = {};
-  var isJson = false;
-  var opts = req.body.opts;
+    getFilePath(req, function (dirPath) {
+        // var dirPath =  decodeURI(url.parse(req.url).pathname);
+        var isDir = dirPath.substr(-1) === '/';
+        var options = {};
+        var isJson = false;
+        var opts = req.body.opts;
 
-  if (typeof req.headers['content-type'] === 'string') {
-    isJson = ~req.headers['content-type'].indexOf('application/json') === -1 ? true : false;
-  }
-  // move/rename if newPath exists
-  if (req.body.newPath) {
-    options.clobber = req.body.clobber || false;
-    options.mkdirp = req.body.mkdirp || false;
-    var newPath = filePrefix + req.body.newPath;
-    console.log(newPath);
-    if (isDir && newPath.substr(-1) !== '/') {
-      newPath = newPath + '/';
-    }
-    return fileDriver.move({
-      dirPath: dirPath,
-      newPath: newPath,
-      options: options,
-      opts: opts
-    }, sendCode(200, req, res, next, formatOutData(req, newPath)));
-  }
+        if (typeof req.headers['content-type'] === 'string') {
+            isJson = ~req.headers['content-type'].indexOf('application/json') === -1 ? true : false;
+        }
+        // move/rename if newPath exists
+        if (req.body.newPath) {
+            options.clobber = req.body.clobber || false;
+            options.mkdirp = req.body.mkdirp || false;
+            var newPath = filePrefix + '/' + apiKey.getApiFromReq(req) + req.body.newPath;
+            // console.log(newPath);
+            if (isDir && newPath.substr(-1) !== '/') {
+                newPath = newPath + '/';
+            }
+            return fileDriver.move({
+                dirPath: dirPath,
+                newPath: newPath,
+                options: options,
+                opts: opts
+            }, sendCode(200, req, res, next, formatOutData(req, newPath)));
+        }
 
-  if (isDir) {
-    var mode = req.body.mode || 511;
-    return fileDriver.mkdir({
-      dirPath: dirPath,
-      mode: mode,
-      opts: opts
-    }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
-  }
+        if (isDir) {
+            var mode = req.body.mode || 511;
+            return fileDriver.mkdir({
+                dirPath: dirPath,
+                mode: mode,
+                opts: opts
+            }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
+        }
 
-  if (!isJson) {
-    // default is to not clobber
-    options.encoding = req.query.encoding  || 'utf8';
-    options.mode = req.query.mode || 438;
-    options.flags =  req.query.clobber === 'true' ? 'w' : 'wx';
+        if (!isJson) {
+            // default is to not clobber
+            options.encoding = req.query.encoding  || 'utf8';
+            options.mode = req.query.mode || 438;
+            options.flags =  req.query.clobber === 'true' ? 'w' : 'wx';
 
-    return fileDriver.writeFileStream({
-      dirPath: dirPath,
-      stream: req,
-      options: options,
-      opts: opts
-    }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
-  }
+            return fileDriver.writeFileStream({
+                dirPath: dirPath,
+                stream: req,
+                options: options,
+                opts: opts
+            }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
+        }
 
-  options.encoding = req.body.encoding  || 'utf8';
-  options.mode = req.body.mode || 438;
-  var data = req.body.content || '';
-  fileDriver.writeFile({
-    dirPath: dirPath,
-    data: data,
-    options: options,
-    opts: opts
-  }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
+        options.encoding = req.body.encoding  || 'utf8';
+        options.mode = req.body.mode || 438;
+        var data = req.body.content || '';
+        fileDriver.writeFile({
+            dirPath: dirPath,
+            data: data,
+            options: options,
+            opts: opts
+        }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
+    });
+
 }
 
 /* PUT
@@ -212,30 +221,31 @@ function getFile(req, res, next) {
   }
 */
  function putFileOrDir(req, res, next) {
-    var dirPath =  getFilePath(req);
-    // var dirPath =  decodeURI(url.parse(req.url).pathname);
-  var isDir = dirPath.substr(-1) === '/';
-  var options = {};
-  var opts = req.body.opts;
+    getFilePath(req, function (dirPath) {
+        // var dirPath =  decodeURI(url.parse(req.url).pathname);
+        var isDir = dirPath.substr(-1) === '/';
+        var options = {};
+        var opts = req.body.opts;
 
-  if (isDir) {
-    var mode = req.body.mode || 511;
-    fileDriver.mkdir({
-      dirPath: dirPath,
-      mode: mode,
-      opts: opts
-    }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
-  } else {
-    options.encoding = req.body.encoding  || 'utf8';
-    options.mode = req.body.mode  || 438;
-    var data = req.body.content || '';
-    fileDriver.writeFile({
-      dirPath: dirPath,
-      data: data,
-      options: options,
-      opts: opts
-    }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
-  }
+        if (isDir) {
+            var mode = req.body.mode || 511;
+            fileDriver.mkdir({
+                dirPath: dirPath,
+                mode: mode,
+                opts: opts
+            }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
+        } else {
+            options.encoding = req.body.encoding  || 'utf8';
+            options.mode = req.body.mode  || 438;
+            var data = req.body.content || '';
+            fileDriver.writeFile({
+                dirPath: dirPath,
+                data: data,
+                options: options,
+                opts: opts
+            }, sendCode(201, req, res, next, formatOutData(req, dirPath)));
+        }
+    });
 }
 
 /* DEL
@@ -249,16 +259,18 @@ function getFile(req, res, next) {
 */
 
 function delDir(req, res, next) {
-    var dirPath =  getFilePath(req);
-    // var dirPath =  decodeURI(url.parse(req.url).pathname);
-  var clobber = req.body.clobber  || false;
-  var opts = req.body.opts;
+    getFilePath(req, function (dirPath) {
+        // var dirPath =  decodeURI(url.parse(req.url).pathname);
+        var clobber = req.body.clobber  || false;
+        var opts = req.body.opts;
 
-  fileDriver.rmdir({
-    dirPath: dirPath,
-    clobber: clobber,
-    opts: opts
-  }, sendCode(200, req, res, next, {}));
+        fileDriver.rmdir({
+            dirPath: dirPath,
+            clobber: clobber,
+            opts: opts
+        }, sendCode(200, req, res, next, {}));
+    });
+
 }
 
 /* DEL
@@ -270,14 +282,16 @@ function delDir(req, res, next) {
 */
 
 function delFile(req, res, next) {
-    var dirPath =  getFilePath(req);
-    // var dirPath =  decodeURI(url.parse(req.url).pathname);
-  var opts = req.body.opts;
+    getFilePath(req, function (dirPath) {
+        // var dirPath =  decodeURI(url.parse(req.url).pathname);
+        var opts = req.body.opts;
 
-  fileDriver.unlink({
-    dirPath: dirPath,
-    opts: opts
-  }, sendCode(200, req, res, next, {}));
+        fileDriver.unlink({
+            dirPath: dirPath,
+            opts: opts
+        }, sendCode(200, req, res, next, {}));
+    });
+
 }
 
 /* GET
@@ -303,16 +317,18 @@ function delFile(req, res, next) {
   }
 */
 function statFile(req, res, next) {
-    var filePath =  getFilePath(req);
-    // var filePath = decodeURI(url.parse(req.url).pathname);
-  var opts = req.body.opts;
+    getFilePath(req, function (filePath) {
+        // var filePath = decodeURI(url.parse(req.url).pathname);
+        var opts = req.body.opts;
 
-  fileDriver.stat({
-    filePath: filePath,
-    opts: opts
-  }, function(err, stats) {
-    sendCode(200, req, res, next, stats)(err);
-  });
+        fileDriver.stat({
+            filePath: filePath,
+            opts: opts
+        }, function(err, stats) {
+            sendCode(200, req, res, next, stats)(err);
+        });
+    });
+
 }
 
 // Helpers
@@ -328,6 +344,7 @@ function formatOutData(req, filepath) {
 }
 
 function sendCode(code, req, res, next, out) {
+    // console.log(code + req + res + out);
   return function (err) {
     if (err) {
       error('ERROR', req.url, err);
@@ -358,9 +375,12 @@ function sendCode(code, req, res, next, out) {
 }
 
 
-function getFilePath(req){
-    return fileSystemDir + decodeURI(url.parse(req.url).pathname);
-    // return decodeURI(url.parse(req.url).pathname);
+function getFilePath(req, cb){
+    var userFolder = fileSystemDir + '/' + apiKey.getApiFromReq(req);
+    var fullPath = userFolder + decodeURI(url.parse(req.url).pathname);
+    fs.mkdir(userFolder, function(err) {
+        cb(fullPath);
+    });
 }
 
 function getOriginalpath(req){

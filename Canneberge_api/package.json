@@ -17,7 +17,6 @@
     "findit": "^1.2.0",
     "jimp": "^0.2.27",
     "jsonwebtoken": "^7.2.1",
-    "jwt-simple": "^0.5.1",
     "middleware-flow": "^0.5.1",
     "mime": "^1.2.11",
     "mongoose": "^4.7.6",

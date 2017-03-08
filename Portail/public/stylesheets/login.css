@@ -1,0 +1,63 @@
+html, body{
+    width:100%;
+    background: url("/images/cranberry_background.png") no-repeat fixed;
+    background-size:cover;
+    /*background: #c2e59c; !* fallback for old browsers *!*/
+    /*background: -webkit-linear-gradient(to left, #c2e59c , #64b3f4); !* Chrome 10-25, Safari 5.1-6 *!*/
+    /*background: linear-gradient(to left, #c2e59c , #64b3f4); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#title{
+    /*padding-top: 350px;*/
+    color: white;
+    border-bottom: solid;
+    margin-left: 75px;
+    margin-right: 75px;
+    font-family: monospace;
+}
+
+.h1{
+    font-size: 48px;
+}
+
+#form-login{
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.bottom-form{
+    padding-top: 25px;
+}
+
+#btn-login{
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button-div{
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn.disabled{
+    background-color: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.1);
+}
+
+.under-title{
+    margin-top : 50px;
+}
+
+.form-signin-heading{
+    text-align: center;
+}

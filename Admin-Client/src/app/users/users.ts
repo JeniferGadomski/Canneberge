@@ -6,6 +6,7 @@ export class User
   public lastname : string,
   public username : string,
   public email : string,
-  public admin : boolean
+  public admin : boolean,
+  public authorization : any
   ) {}
 }

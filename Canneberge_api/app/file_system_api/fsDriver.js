@@ -47,7 +47,7 @@ var list = function(args, cb) {
         else {
           var isDir = stat.isDirectory() ? '/' : '';
           var file = path.join(dirPath, files[index], isDir);
-          filesList.push(file);
+          filesList.push(file.replace(args.apiKey + '/', ''));
         }
 
         cnt++;
@@ -115,10 +115,15 @@ var writeFileStream = function(args, cb)  {
   var stream = args.stream;
   var options = args.options;
   var file = fs.createWriteStream(dirPath, options);
+  var erroOccurs = false;
 
-  file.on('error', cb);
-  file.on('finish', function() {
-    cb();
+  file.on('error', function (err) {
+    erroOccurs = !erroOccurs;
+      cb(err);
+  });
+  file.on('close', function() {
+    if(!erroOccurs)
+      cb();
   });
   stream.pipe(file);
 };

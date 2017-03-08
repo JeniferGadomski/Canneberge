@@ -34,7 +34,7 @@ export class FichierComponent implements OnInit {
       this.getListInFolder(folderPath);
     }
     else{
-      window.open(this.service.serverUrl + '/file' + folderPath);
+      window.open(this.service.serverUrl + '/file' + folderPath + "?apiKey=" + this.service.apiKey);
     }
   }
 
@@ -89,6 +89,8 @@ export class FichierComponent implements OnInit {
     this.listFiles = [];
     for(let i = 0; i < reqFileList.length; i++){
       let p = reqFileList[i];
+      // p = p.replace(this.currentPathString, '');
+      // p = p.replace('/' + this.service.apiKey, '');
       this.listFiles.push({
         name : p.replace(this.currentPathString, ''),
         path : p

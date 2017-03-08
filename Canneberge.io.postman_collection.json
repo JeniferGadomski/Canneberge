@@ -1,0 +1,1325 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Canneberge.io",
+		"_postman_id": "53aeec66-86de-e80b-6a0c-b785061ecdb7",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentification",
+			"description": "",
+			"item": [
+				{
+					"name": "Good authentification admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Body success\"] = jsonData.success === true;",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"admin-apiKey\", jsonData.apiKey);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/authentification",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "bhacaz@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Bad authentificaiton",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Body false\"] = jsonData.success === false;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/authentification",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "bhacaz@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default1",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Good authentificaiton no-admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Body false\"] = jsonData.success === true;",
+									"",
+									"postman.setEnvironmentVariable(\"user-apiKey\", jsonData.apiKey);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/authentification",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "abc@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "apiKey query",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Get some users\"] = jsonData.length > 0;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users?apiKey={{admin-apiKey}}",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "apiKey body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/executeR",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "apiKey",
+									"value": "{{admin-apiKey}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "command",
+									"value": "print(2)",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ferme check all data",
+			"description": "",
+			"item": [
+				{
+					"name": "/fermes/:ferme_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Right name\"] = jsonData.ferme.name === 'Pampev' ;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"As weather info\"] = jsonData.hasOwnProperty('weather');",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampev-id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/:ferme_id no weather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Right name\"] = jsonData.ferme.name === 'Pampev' ;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"As weather info\"] = !jsonData.hasOwnProperty('weather');",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampev-id}}?weather=false",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes query fermeId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Right name\"] = jsonData.name === 'Pampev' ;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"As weather info\"] = !jsonData.hasOwnProperty('weather');",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes?fermeId={{pampev-id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes query fermeName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Right name\"] = jsonData.name === 'Pampev' ;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"As weather info\"] = !jsonData.hasOwnProperty('weather');",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes?fermeName=Pampev",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/data query fermeId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"length > 0\"] = jsonData.length > 0;",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data?fermeId={{pampev-id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/data query fermeName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"length > 0\"] = jsonData.length > 0;",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data?fermeName=Pampev",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/data path fermeId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"length > 0\"] = jsonData.length > 0;",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data/{{pampev-id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/data query no",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fermes",
+			"description": "",
+			"item": [
+				{
+					"name": "/fermes admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Length > 0\"] = jsonData.length > 0;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Right ferme name\"] = jsonData.ferme.name === 'PostMan';",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"new-ferme-id\", jsonData.ferme._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "PostMan",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/:id_ferme admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Right ferme name\"] = jsonData.ferme.name === 'PostMan';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{new-ferme-id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "PostMan",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/:id_ferme admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Right ferme name\"] = jsonData.ferme.name === 'PostMan-new-name';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{new-ferme-id}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "PostMan-new-name",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/:id_ferme admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"postman.clearEnvironmentVariable(\"new-ferme-id\");"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{new-ferme-id}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"description": "",
+			"item": [
+				{
+					"name": "/file get root",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file post file error no path dont exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/business.png",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file create new folder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"tests[\"Body is correct\"] = responseBody === \"/\" + postman.getEnvironmentVariable(\"admin-apiKey\") + '/PostMan/';",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/PostMan/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "/users admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Size users > 0\"] = jsonData.length > 0;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/users no-admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{user-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/users admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Api get email\"] = jsonData.user.email === 'postman@gmail.com';",
+									"",
+									"postman.setEnvironmentVariable(\"new-apiKey\", jsonData.user._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Postman",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "firstname",
+									"value": "Post",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "lastname",
+									"value": "Man",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "email",
+									"value": "postman@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "admin",
+									"value": "true",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id_users admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Right id\"] = jsonData.user._id === postman.getEnvironmentVariable('admin-apiKey');"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{admin-apiKey}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstname",
+									"value": "PostUpdate",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id_users admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Your test name\"] = jsonData.user.firstname === 'PostUpdate';"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{user-apiKey}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstname",
+									"value": "PostUpdate",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id_users admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{new-apiKey}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id_users deleted user admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 404\"] = responseCode.code === 404;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{new-apiKey}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstname",
+									"value": "PostUpdate",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Weather",
+			"description": "",
+			"item": [
+				{
+					"name": "/weather no params",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 400\"] = responseCode.code === 400;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/weather",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/weather lat lng",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"As forecast\"] = jsonData.hasOwnProperty('forecast');",
+									"tests[\"As current_observation\"] = jsonData.hasOwnProperty('current_observation');"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/weather?lat=46&lng=-72",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/weather fermeId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"As forecast\"] = jsonData.hasOwnProperty('forecast');",
+									"tests[\"As current_observation\"] = jsonData.hasOwnProperty('current_observation');"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/weather?fermeId={{pampev-id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/weather fermeName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"As forecast\"] = jsonData.hasOwnProperty('forecast');",
+									"tests[\"As current_observation\"] = jsonData.hasOwnProperty('current_observation');"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/weather?fermeName=Pampev",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/weather query simple",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"As forecast\"] = !jsonData.hasOwnProperty('forecast');",
+									"tests[\"As current_observation\"] = !jsonData.hasOwnProperty('current_observation');",
+									"tests[\"length data\"] = jsonData.length === 4;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/weather?lat=46&lng=-72&simple=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/weather wrong fermeId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 404\"] = responseCode.code === 404",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/weather?fermeId=-1&simple=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/weather bad lat lng",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 404\"] = responseCode.code === 404",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/weather?fermeName=-1&simple=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -12,9 +12,13 @@ var userSchema = new Schema({
     lastname: {type : String},
     email: { type: String, required: true, unique: true },
     password: { type: String, default : 'default' },
-    admin: {type : Boolean, default : false},
     username: { type: String, required: true, unique: true },
-    scripts : {type : Array}
+    scripts : {type : Array},
+    authorization : {
+        admin : {type : Boolean, default : false},
+        fermes : {type : Array},
+        blocked : {type : Boolean, default : true}
+    }
 });
 
 userSchema.pre('save', function (next) {
@@ -44,6 +48,31 @@ userSchema.methods.comparePassword = function (passw, cb) {
         }
         cb(null, isMatch);
     });
+};
+
+userSchema.methods.getSimplifyUserData = function(user){
+    return {
+        _id : user._id,
+        email : user.email,
+        username : user.username,
+        admin : user.admin
+    };
+};
+
+userSchema.methods.getRedirections = function () {
+    var url = [];
+    if(this.authorization.admin)
+        url.push({
+            name : 'Page administrateur',
+            url : 'http://admin.canneberge.io'
+        });
+    this.authorization.fermes.forEach(function (f) {
+        url.push({
+            name : f.name,
+            url : 'http://carte.canneberge.io/?fermeId=' + f._id
+        });
+    });
+    return url;
 };
 
 // make this available to our users in our Node applications
