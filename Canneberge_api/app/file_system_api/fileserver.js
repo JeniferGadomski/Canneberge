@@ -159,7 +159,7 @@ function getFile(req, res, next) {
             options.clobber = req.body.clobber || false;
             options.mkdirp = req.body.mkdirp || false;
             var newPath = filePrefix + '/' + apiKey.getApiFromReq(req) + req.body.newPath;
-            console.log(newPath);
+            // console.log(newPath);
             if (isDir && newPath.substr(-1) !== '/') {
                 newPath = newPath + '/';
             }
@@ -344,7 +344,7 @@ function formatOutData(req, filepath) {
 }
 
 function sendCode(code, req, res, next, out) {
-    console.log(code + req + res + out);
+    // console.log(code + req + res + out);
   return function (err) {
     if (err) {
       error('ERROR', req.url, err);

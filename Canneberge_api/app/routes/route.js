@@ -125,7 +125,7 @@ router.route('/users/:user_id')
             if (err) {
                 console.log(err);
             }
-            console.log(result);
+            // console.log(result);
             res.sendStatus(200);
         });
     });
@@ -182,7 +182,7 @@ router.post('/shapefile-to-geojson', upload.single('shapefileZip'), function (re
 });
 
 function responseFile(filePath, fileName, response) {
-    console.log(filePath);
+    // console.log(filePath);
     // Check if file specified by the filePath exists
     fs.exists(filePath, function(exists){
         if (exists) {
@@ -202,12 +202,12 @@ function responseFile(filePath, fileName, response) {
 router.post('/geojson-to-shapefile', function (req, res) {
     var fileName;
     var url = 'http://ogre.adc4gis.com/convertJson';
-    console.log(req.body.geojson);
+    // console.log(req.body.geojson);
     var r = request.post({url: url, formData : {json : req.body.geojson}});
     r.on('response',  function (response) {
         fileName = 'shapefile' + Date.now() + '.zip';
         var filePath = './uploads/' + fileName;
-        console.log(fileName);
+        // console.log(fileName);
         var p = response.pipe(fs.createWriteStream(filePath));
         p.on('finish', function () {
             responseFile(filePath, fileName, res);
@@ -381,13 +381,13 @@ router.post('/executeR', upload.any(), function (req, response) {
         }
         else{
             // res = JSON.parse(res);
-            console.log(res);
+            // console.log(res);
             response.json({output : res});
         }
     }
 
     if(typeof req.body.command !== 'undefined'){
-        console.log(req.body.command);
+        // console.log(req.body.command);
         rio.e({
             command : req.body.command,
             callback : sendResponseBack
@@ -414,7 +414,7 @@ router.post('/executeR', upload.any(), function (req, response) {
     else{
         // var filename = '../../uploads/' + req.body.filename;
         var filename = './uploads/scirpt.R';
-        console.log(filename);
+        // console.log(filename);
         rio.e({
             filename : filename,
             callback : sendResponseBack,

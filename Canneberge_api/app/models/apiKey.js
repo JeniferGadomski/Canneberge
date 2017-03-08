@@ -16,7 +16,7 @@ apiKey.isAdmin = function (req, res, next) {
 apiKey.sameUserOrAdmin = function (req, res, next) {
     var id = this.getApiFromReq(req);
     User.findById(id, function (err, user) {
-        console.log(req.params.user_id === id);
+        // console.log(req.params.user_id === id);
         if(user.authorization.admin || req.params.user_id === id) return next();
         else res.status(401).send({success : false, message : 'unauthorized'})
     })
