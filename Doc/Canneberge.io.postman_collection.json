@@ -745,39 +745,6 @@
 					"response": []
 				},
 				{
-					"name": "/file post file error no path dont exist",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 201\"] = responseCode.code === 201;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/file/business.png",
-						"method": "POST",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{admin-apiKey}}",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "file",
-							"file": {
-								"src": ""
-							}
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
 					"name": "/file create new folder",
 					"event": [
 						{
@@ -803,6 +770,1267 @@
 							{
 								"key": "x-access-token",
 								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file create new file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"tests[\"Body is correct\"] = responseBody === \"/\" + postman.getEnvironmentVariable(\"admin-apiKey\") + '/PostMan/buiness.png';",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/PostMan/buiness.png",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file move file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Body is correct\"] = responseBody === \"/\" + postman.getEnvironmentVariable(\"admin-apiKey\") + '/buiness.png';",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/PostMan/buiness.png",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newPath",
+									"value": "/buiness.png",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file get stats file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/buiness.png?stat=true",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newPath",
+									"value": "/buiness.png",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file delete file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Empty body\"] = Object.keys(jsonData).length === 0 && jsonData.constructor === Object;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/buiness.png",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file delete folder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Empty body\"] = Object.keys(jsonData).length === 0 && jsonData.constructor === Object;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/PostMan/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File error",
+			"description": "",
+			"item": [
+				{
+					"name": "/file post file error no path dont exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 404\"] = responseCode.code === 404;",
+									"",
+									"tests['Server doesn\\'t crash'] = responseBody.substring(1,0) !== '/';",
+									"",
+									"if(tests['Server doesn\\'t crash']){",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"Error type\"] = jsonData.stack.indexOf('no such file or directory') !== -1;",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/PostMan/test.png",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file delete unexist file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 404\"] = responseCode.code === 404;",
+									"",
+									"tests['Server doesn\\'t crash'] = responseBody.substring(1,0) !== '/';",
+									"",
+									"if(tests['Server doesn\\'t crash']){",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"Error type\"] = jsonData.stack.indexOf('no such file or directory') !== -1;",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/not-a-file.txt",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file delete unexist dir copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests['Server doesn\\'t crash'] = responseBody.substring(1,0) !== '/';",
+									"",
+									"if(tests['Server doesn\\'t crash']){",
+									"    var jsonData = JSON.parse(responseBody);",
+									"    tests[\"Empty body\"] = Object.keys(jsonData).length === 0 && jsonData.constructor === Object;",
+									"}",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/file/not-a-dir/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Middleware Ferme",
+			"description": "",
+			"item": [
+				{
+					"name": "Get user Pampev apiKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"pampevUserApiKey\", jsonData.apiKey);",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/authentification",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "pampev@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user Blandford apiKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"blandfordUserApiKey\", jsonData.apiKey);",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/authentification",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "blandford@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user admin apiKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"admin-apiKey\", jsonData.apiKey);",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/authentification",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "bhacaz@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all fermes admin autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setEnvironmentVariable(\"pampevId\", jsonData[0]._id);",
+									"postman.setEnvironmentVariable(\"blandfordId\", jsonData[1]._id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all fermes  unautho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{pampevUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme info admin  autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme info user  autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{pampevUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme info user unautho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{blandfordUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme/data/_id admin autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data/{{pampevId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme/data/_id user autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data/{{pampevId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{pampevUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme/data/_id user unautho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data/{{pampevId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{blandfordUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme/data query name admin autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data?fermeName=Pampev",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme/data query name user autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data?fermeName=Pampev",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{pampevUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme/data query name user unautho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data?fermeName=Pampev",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{blandfordUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme/data query _id admin autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data?fermeId={{pampevId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme/data query _id user autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data?fermeId={{pampevId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{pampevUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get ferme/data query _id user unautho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/data?fermeId={{pampevId}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{blandfordUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Middleware User",
+			"description": "",
+			"item": [
+				{
+					"name": "Get user Pampev apiKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"pampevUserApiKey\", jsonData.apiKey);",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/authentification",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "pampev@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user Blandford apiKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"blandfordUserApiKey\", jsonData.apiKey);",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/authentification",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "blandford@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user admin apiKey",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"admin-apiKey\", jsonData.apiKey);",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/authentification",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "bhacaz@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user self redirections autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{pampevUserApiKey}}/redirections",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{pampevUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user admin redirections autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{blandfordUserApiKey}}/redirections",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "bhacaz@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user other redirections unautho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{blandfordUserApiKey}}/redirections",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{pampevUserApiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "bhacaz@gmail.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "default",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user self data autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{pampevUserApiKey}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{pampevUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user admin data autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{pampevUserApiKey}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get user other data unautho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users/{{pampevUserApiKey}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{blandfordUserApiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all user data admin autho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all user data unautho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"tests[\"Status code is 401\"] = responseCode.code === 401;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/users",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{pampevUserApiKey}}",
 								"description": ""
 							}
 						],
@@ -1007,7 +2235,7 @@
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/users/{{user-apiKey}}",
+						"url": "api.canneberge.io/api/users/{{new-apiKey}}",
 						"method": "PUT",
 						"header": [
 							{

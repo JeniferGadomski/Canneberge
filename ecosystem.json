@@ -1,0 +1,36 @@
+{
+  "apps" : [{
+    "name"        : "API",
+    "script"      : "./api.js",
+    "watch"       : false,
+    "cwd"	: "./API/"
+  },
+  {
+  	"name"        : "Portail",
+    "script"      : "./portail.js",
+    "watch"       : false,
+    "cwd"	: "./Portail/"
+  },
+  {
+  	"name"        : "Carte",
+    "script"      : "./carte.js",
+    "watch"       : false,
+    "cwd"	: "./Carte/"
+  },
+  {
+  	"name"        : "Admin",
+    "script"      : "/usr/bin/http-server",
+    "watch"       : false,
+    "cwd"	: "./Admin/dist/",
+    "args" : "-p 8000"
+  },
+  {
+  	"name"        : "R",
+    "script"      : "/var/FastRWeb/code/start",
+    "watch"       : false,
+    "interpreter" : "bash",
+    "args" : "-d",
+    "out_file" : "/dev/null",
+  }
+  ]
+}
