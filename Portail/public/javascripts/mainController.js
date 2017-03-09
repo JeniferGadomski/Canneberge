@@ -56,6 +56,8 @@ angular.module('app')
                 .then(function (res) {
                     if(res.data.success)
                     {
+                        ga('set', 'userId', res.data.apiKey); // Définir l'ID utilisateur à partir du paramètre user_id de l'utilisateur connecté.
+                        ga('send', 'pageview');
                         localStorage.setItem('apiKey', res.data.apiKey);
                         $scope.apiKey.value = res.data.apiKey;
                         console.log(res.data.apiKey);

@@ -29,7 +29,8 @@
     "request": "^2.79.0",
     "rimraf": "^2.2.8",
     "rio": "^2.4.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "universal-analytics": "^0.4.10"
   },
   "devDependencies": {
     "async": "*",
