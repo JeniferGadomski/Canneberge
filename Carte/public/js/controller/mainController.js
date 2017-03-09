@@ -17,6 +17,8 @@ angular.module('app')
                 $window.location = 'http://portail.canneberge.io';
             }
             else{
+                ga('set', 'userId', value); // Définir l'ID utilisateur à partir du paramètre user_id de l'utilisateur connecté.
+                ga('send', 'pageview');
                 apiService.headers.headers['x-access-token'] = value;
                 initFerme();
             }

@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
         t : 'pageview',
         dp : req.url,
         ua : req.headers['user-agent'],
-        cid : apiKey.getApiFromReq(req),
+        uid : apiKey.getApiFromReq(req),
         dt : 'api'
     };
     request.post({url : url, qs : qs }, function (err, res) {

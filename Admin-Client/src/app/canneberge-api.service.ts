@@ -39,11 +39,13 @@ export class CannebergeApiService {
       }
       else{
         this.apiKey = data.toString();
+        ga('set', 'userId', this.apiKey); // Définir l'ID utilisateur à partir du paramètre user_id de l'utilisateur connecté.
+        ga('send', 'pageview');
         this.headers.append('x-access-token', this.apiKey);
         this.getUser(this.apiKey).subscribe(
           user => {
             this.user = user;
-            if(!this.user.authorization.admin)
+            if(!this.user.authorization.admin || this.user.authorization.blocked)
               window.location.href ='http://portail.canneberge.io';
           });
         console.log(this.headers);
