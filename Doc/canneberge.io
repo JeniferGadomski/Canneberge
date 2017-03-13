@@ -1,6 +1,21 @@
 server {
     listen 80;
 
+    server_name admin.canneberge.io;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+server {
+    listen 80;
+
     server_name api.canneberge.io;
 
     location / {
@@ -28,13 +43,14 @@ server {
     }
 }
 
+
 server {
     listen 80;
 
-    server_name admin.canneberge.io;
+    server_name carte.canneberge.io;
 
     location / {
-        proxy_pass http://localhost:8000;
+        proxy_pass http://localhost:3001;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -46,10 +62,10 @@ server {
 server {
     listen 80;
 
-    server_name carte.canneberge.io;
+    server_name portail.canneberge.io;
 
     location / {
-        proxy_pass http://localhost:3001;
+        proxy_pass http://localhost:8002;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';

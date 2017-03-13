@@ -18,9 +18,10 @@
 Exemple :
 
 	127.0.0.1	admin.canneberge.io
-	127.0.0.1	api.canneberge.io
-	127.0.0.1	carte.canneberge.io
+	127.0.0.1	portail.canneberge.io
 	127.0.0.1	r.canneberge.io
+	127.0.0.1	carte.canneberge.io
+	127.0.0.1	api.canneberge.io
 
 
 
