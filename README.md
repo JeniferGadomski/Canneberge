@@ -1,29 +1,43 @@
 # Platforme Canneberge
 
+
+Configuration :
+
+- OS : Ubuntu 16.04 LTS
+- Node JS : v6.10.0
+- npm : 3.10.10
+- bower : 1.8.0
+- ng : 1.0.0-beta.28.3
+- pm2 : 2.4.0
+
 ## Installation de dependance
 
     $ sudo apt-get install nodejs npm
     $ sudo ln -s /usr/bin/nodejs /usr/bin/node
-    $ sudo npm install -g angular-cli
-    $ sudo npm install -g bower
+    $ sudo npm install -g angular-cli bower pm2
 
 ## Cloner le projet
 Téléchargement du la platforme localement
 
     $ git clone https://github.com/Bhacaz/Platforme-Canneberge.git
-    
+
 ## Initialiser
 Ouvrer un terminal (Ctlr + Alt + T) et naviguer jusqu'au dossier Platforme-Canneberge
-### Canneberge_api
+### API
 
-    $ cd Canneberge_api
+    $ cd API
     $ npm install
 
-### Admin_Client
+### Admin
 
-    $ cd Admin_Client
-    $ npm install
-    
+	$ cd Admin
+	$ npm install
+
+Pour compiler le projet Admin
+
+	$ cd Admin
+	$ ng build
+
 ### Carte
 
     $ cd Carte
@@ -31,15 +45,18 @@ Ouvrer un terminal (Ctlr + Alt + T) et naviguer jusqu'au dossier Platforme-Canne
     $ cd public
     $ bower install
 
-## Partir les 3 serveurs 
+### Portail
 
-    $ ./start_platform.sh <<ADDRESSE IP>>
+	$ cd Portail
+	$ npm install
+	$ cd public
+	$ bower install
 
-Ouvrir un  navigateur web : "ADRESSE IP":8000
+## Partir les 3 serveurs
 
-Exemple : _10.248.196.99:8000_
+	$ pm2 start ecosystem.json
 
-# Base de données
+## Base de données MongoDB
 Connection avec Robomongo
 
  * Adresse : ds139969.mlab.com
@@ -48,68 +65,11 @@ Connection avec Robomongo
     * Databse : canneberge-database
     * User Name : bhacaz
     * Password : "Demander"
-    
-    
-    
-# Serveur pour R
-
-	$ sudo apt-get install r-base
-	$ sudo R
-	
-## Installer Rserve
-
-	> install.packages("Rserve")
-
-## Demarer le serveur
-
-	> require('Rserve')
-	> Rserve()
-	
-## FastRWeb
-
-	$ sudo apt-get install libcairo2-dev
-	$ sudo apt-get install libxt-dev 
-	$ sudo apt-get install libxml2-dev
-	$ sudo apt-get install libcurl4-openssl-dev libssl-dev
-
-	> install.packages('Cairo')
-	> install.packages('FastRWeb')
-	> install.packages('XML')
-	> install.packages('httr')
-	$ sudo .~/R/***/FastRWeb/install.sh
-	
-### Changement de congif
-
-/var/FastRWeb/code/rserve.conf
-
-	http.port 8888
-	remote enable
-	source /var/FastRWeb/code/rserve.R
-	control enable
-	
-
-/var/FastRWeb/code/rserve.R
-
-	...
-	## as well as define any global variables you want all
-	## scripts to see
-
-	## Today, pretty much everyone speaks UTF-8, it makes the life easier
-	library(FastRWeb)
-	.http.request <- FastRWeb:::.http.request
-
-	Sys.setlocale(,"en_US.UTF-8")
-
-	...
-	
-Ajouter un lien 
-
-	$ ln -s ~/Documents/Platforme-Canneberge/Canneberge_api/uploads/filetext.R
 
 
-## Start FastRWeb
+## Interpréteur R
+Consulteur le fichier /Doc/R/Installation_Rserve.md
 
-	$ sudo ./var/FastRWeb/code/start
-	
-Exemple : http://localhost:8888/example2
-	
+## Document pour les bugs
+
+[Bugs -> Google Calc, Feuille 2](https://docs.google.com/spreadsheets/d/1C3X9shZRBUGFJRZjLsi7VNtN8FvPP1UO5NXW6SVH7Mw/edit?usp=sharing) 
