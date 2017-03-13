@@ -37,10 +37,13 @@ jspm_packages
 .node_repl_history
 
 # bower
-**/bower_components
+bower_components
 
 #uploads file
 uploads/*
 
 #File system folder
 fileSystem/*
+
+#fileText.R qui change test souvent selon lutilisateur actif
+filetext.R
