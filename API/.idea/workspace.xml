@@ -2,26 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6bbfeec-e0c8-4138-abab-040d88e9d06c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/route.js" afterPath="$PROJECT_DIR$/app/routes/route.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/app.routes.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/app.routes.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/canneberge-api.service.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/canneberge-api.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-add.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-add.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-add.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-add.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.routes.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.routes.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/public/js/cannebergeApiService.js" afterPath="$PROJECT_DIR$/../Carte/public/js/cannebergeApiService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/public/js/controller/mainController.js" afterPath="$PROJECT_DIR$/../Carte/public/js/controller/mainController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/public/js/controller/mapController.js" afterPath="$PROJECT_DIR$/../Carte/public/js/controller/mapController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/public/stylesheets/style.css" afterPath="$PROJECT_DIR$/../Carte/public/stylesheets/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/stylesheets/login.css" afterPath="$PROJECT_DIR$/../Portail/public/stylesheets/login.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -491,16 +474,16 @@
       <workItem from="1488807515317" duration="35932000" />
       <workItem from="1488996842829" duration="12929000" />
       <workItem from="1489082437530" duration="2000" />
-      <workItem from="1489504734435" duration="4040000" />
+      <workItem from="1489504734435" duration="4631000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="277988000" />
+    <option name="totallyTimeSpent" value="278579000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="-2" width="1922" height="1035" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19472295" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
