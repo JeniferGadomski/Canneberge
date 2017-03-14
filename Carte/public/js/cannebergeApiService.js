@@ -15,6 +15,10 @@ angular.module('apiServiceModule', [])
         cannerberApi.putFerme = function (fermeID, fermeData) {
             return $http.put(url + 'fermes/' + fermeID, fermeData, cannerberApi.headers)
         };
+        
+        cannerberApi.getWeahter = function (fermeID) {
+            return $http.get(url + 'weather?fermeId=' + fermeID, cannerberApi.headers);
+        };
 
         return cannerberApi;
 

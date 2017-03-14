@@ -60,14 +60,18 @@ router.post('/users', function(req, res) {
                 return res.status(403).send({success: false, message: err.message});
             }
             res.json({success: true, message: 'Successful created new user.', user : newUser});
+            fs.mkdir(__dirname + '/../file_system_api/fileSystem/' + newUser._id, function () {
+
+            });
         });
     });
+
+
 
 /*
     From here
     A partir d'ici un token avec un _id de user doit etre fournis
  */
-
 
 router.use(function(req, res, next) {
     // check header or url parameters or post parameters for token
@@ -161,18 +165,20 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-function getGeoJSONFormData(path) {
+function getGeoJSONFormData(path, sourceSrs) {
+    var newSourceSrs = "epsg:26918";
+    if(typeof sourceSrs != 'undefined')
+        newSourceSrs = 'epsg:' + sourceSrs;
+    console.log(newSourceSrs);
     return {
-        sourceSrs : "epsg:26918",
+        sourceSrs : newSourceSrs,
         targetSrs : "epsg:4326",
         upload : fs.createReadStream(path)
     };
 }
 
-
-
 router.post('/shapefile-to-geojson', upload.single('shapefileZip'), function (req, res) {
-    request.post({url : "http://ogre.adc4gis.com/convert", formData: getGeoJSONFormData(req.file.path)},
+    request.post({url : "http://ogre.adc4gis.com/convert", formData: getGeoJSONFormData(req.file.path, req.query.sourceSrs)},
         function (err, httpResponse, body) {
             if (err) {
                 return console.error('upload failed:', err);

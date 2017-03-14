@@ -1,11 +1,25 @@
 html, body{
-    width:100%;
-    background: url("/images/cranberry_background.png") no-repeat fixed;
-    background-size:cover;
+    /*width:100%;*/
+    /*background: url("/images/cranberry_background.png") no-repeat fixed;*/
+    /*background-size:cover;*/
+
+
     /*background: #c2e59c; !* fallback for old browsers *!*/
     /*background: -webkit-linear-gradient(to left, #c2e59c , #64b3f4); !* Chrome 10-25, Safari 5.1-6 *!*/
     /*background: linear-gradient(to left, #c2e59c , #64b3f4); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+
+    background:
+        /* top, transparent red, faked with gradient */
+            linear-gradient(
+                    rgba(200, 0, 0, 0.1),
+                    rgba(200, 0, 0, 0.1)
+            ),
+                /* bottom, image */
+            url("/images/cranberry_background.png") no-repeat fixed;
+    background-size: cover;
 }
+
+
 
 .container {
     position: absolute;

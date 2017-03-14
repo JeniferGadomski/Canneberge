@@ -49,6 +49,13 @@
 
   <div *ngIf="!user.authorization.admin" class="form-group">
     <label for="exampleSelect2">Ferme, (Ctrl + Click)</label>
+    <button
+      style="width: 75px;
+    float: right;"
+      class="btn btn-outline-warning btn-sm"
+      (click)="user.authorization.fermes = []">
+      Aucun
+    </button>
     <select multiple class="form-control select-multiple" id="exampleSelect2" name="ferme" [(ngModel)]="user.authorization.fermes" >
       <option *ngFor="let ferme of listFermes"
               [ngValue]="{name : ferme.name, _id : ferme._id}"
@@ -60,9 +67,9 @@
 
   <div>Clé api <br> {{user._id}}
     <br>
-  <div class="exemple">
-    ?apiKey={{user._id}}
-  </div>
+    <div class="exemple">
+      ?apiKey={{user._id}}
+    </div>
   </div>
 
 

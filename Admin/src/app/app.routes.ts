@@ -8,11 +8,11 @@ import {FichierComponent} from "./fichier/fichier.component";
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/utilisateurs', pathMatch: 'full' },
-  ...usersRoutes,
-  ...fermesRoutes,
   {path: 'scripts', component : ScriptComponent},
   {path : 'fichiers', component : FichierComponent},
+    ...usersRoutes,
+    ...fermesRoutes,
+  { path: '', redirectTo: '/utilisateurs', pathMatch : 'full'},
   { path : "**", redirectTo: '/utilisateurs'}
 ];
 

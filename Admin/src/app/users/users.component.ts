@@ -25,14 +25,6 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  ngOnChanges(){
-    console.log('change utilisatatuers');
-    this.service.getUsers().subscribe(users => {
-      this.users = users;
-    });
-  }
-
-
   isSelected(user : any){
     return this.selectedID === user._id;
   }
