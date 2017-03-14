@@ -37,7 +37,7 @@ angular.module('app')
                 });
             },
             getLatLngString : function (des) {
-            return des.latLng.lat.toFixed(6) + ", " + des.latLng.lng.toFixed(6);
+                return des.latLng.lat.toFixed(6) + ", " + des.latLng.lng.toFixed(6);
             },
             getUtmString : function (des) {
                 var utm = getUtmFromLatLng(des.latLng.lat, des.latLng.lng);
@@ -51,7 +51,7 @@ angular.module('app')
         var initialize = function (event) {
             console.log('intiMap');
             if(map == null){
-               map = init();
+                map = init();
             }
 
             map.data.addGeoJson($scope.ferme.geojson);
@@ -134,11 +134,10 @@ angular.module('app')
 
             if(typeof $scope.ferme.centerCoordinate === 'undefined'){
                 apiService.putFerme($scope.fermeID, {centerCoordinate : map.getCenter()})
-                    .then(
-                        function (response) {
-                            console.log(response);
-                        }
-                    )
+                    .then(function (response) {
+                        console.log(response);
+                        $rootScope.$emit('updateWeather');
+                    });
             }
 
             map.data.addListener('click', function(event) {
@@ -197,7 +196,7 @@ angular.module('app')
         };
 
         $scope.$watch('currentMarkerDescritor.title', function () {
-                $scope.currentMarker.setTitle($scope.currentMarkerDescritor.title);
+            $scope.currentMarker.setTitle($scope.currentMarkerDescritor.title);
         });
 
         var selectFiledId;

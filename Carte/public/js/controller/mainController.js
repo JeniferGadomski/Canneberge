@@ -47,9 +47,17 @@ angular.module('app')
 
         }
 
+        $rootScope.$on('updateWeather', function (event) {
+            apiService.getWeahter($scope.fermeID)
+                .then(function (res) {
+                    console.log(res.data);
+                    $scope.weather = res.data;
+                });
+        });
+
 
         $scope.pop = function () {
-            swal("Oops!", "Something went wrong on the page!", "error");
+            swal("Comeback later!", "Nothing for the moment!", "error");
         };
 
         $scope.saveFerme = function () {

@@ -88,7 +88,7 @@ export class CannebergeApiService {
 
   getFermes()
   {
-    return this._http.get(this.serverUrl + '/fermes', {headers : this.headers})
+    return this._http.get(this.serverUrl + '/fermes?weather=false', {headers : this.headers})
       .map(res => res.json());
   }
 
@@ -98,8 +98,9 @@ export class CannebergeApiService {
       .map(res => res.json());
   }
 
-  getGeojson (files: File[]) {
-    let url = this.serverUrl + '/shapefile-to-geojson';
+  getGeojson (files: File[], espg) {
+    let tmpEspg = espg || 26918;
+    let url = this.serverUrl + '/shapefile-to-geojson?sourceSrs=' + tmpEspg;
     let formData:FormData = new FormData();
     formData.append('shapefileZip', files[0], files[0].name);
     return this._http.post(url, formData, {
@@ -111,11 +112,12 @@ export class CannebergeApiService {
     let url = this.serverUrl + '/geojson-to-shapefile';
     console.log('api getshapefile');
     console.log(geojson);
-    this.headers.append('responseType', 'arraybuffer');
+    // this.headers.append('responseType', 'arraybuffer');
+    this.headers.append('Content-type', 'application/json');
     return this._http.post(url, {geojson : JSON.stringify(geojson)}, {
       method: RequestMethod.Post,
       responseType: ResponseContentType.Blob,
-      headers: new Headers({'Content-type': 'application/json'})
+      headers: this.headers
     })
       .subscribe(
         (response) => {
@@ -186,7 +188,7 @@ export class CannebergeApiService {
   }
 
   getInfoPath(path){
-    return this._http.get(this.serverUrl + '/file' + path + '?stat=true')
+    return this._http.get(this.serverUrl + '/file' + path + '?stat=true', {headers : this.headers})
       .map(res => res.json());
   }
 
