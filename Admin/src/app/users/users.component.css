@@ -6,6 +6,7 @@
 .list-user{
   overflow: auto;
   display: inline-block;
+  width: 500px;
 }
 
 

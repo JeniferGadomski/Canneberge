@@ -11,7 +11,6 @@ import {UsersAddComponent} from "./users-add.component";
 // Route Configuration
 export const usersRoutes: Routes = [
   { path: 'utilisateurs/nouveau', component: UsersAddComponent},
-  { path: 'utilisateurs', component: UsersComponent , children : [
-    { path: ':id', component: UsersDetailComponent }
-  ]}
+  { path: 'utilisateurs', component: UsersComponent },
+  { path: 'utilisateurs/:id', component: UsersDetailComponent }
 ];
