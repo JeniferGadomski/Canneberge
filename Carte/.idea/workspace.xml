@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d2835dff-39db-4eff-87bf-acf7229e7296" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../API/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../API/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes.routes.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes.routes.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.component.css" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.component.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.routes.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.routes.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/index.html" afterPath="$PROJECT_DIR$/../Admin/src/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/index.html" afterPath="$PROJECT_DIR$/../Portail/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/views/register.html" afterPath="$PROJECT_DIR$/../Portail/public/views/register.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -31,19 +28,29 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mainController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/controller/mainController.js">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
+            <state relative-caret-position="271">
+              <caret line="83" column="18" lean-forward="true" selection-start-line="83" selection-start-column="18" selection-end-line="83" selection-end-column="18" />
               <folding>
-                <marker date="1489519180174" expanded="true" signature="161:2355" ph="{...}" />
+                <element signature="n#style#0;n#a#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cannebergeApiService.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mainController.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/js/controller/mainController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="394">
+              <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cannebergeApiService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/cannebergeApiService.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="414">
@@ -78,7 +85,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>newObjects</find>
       <find>importCsvClosure</find>
       <find>createCsvObjects</find>
       <find>importerProcessHeaders</find>
@@ -108,6 +114,7 @@
       <find>id</find>
       <find>init</find>
       <find>$scope.ferme</find>
+      <find>connec</find>
     </findStrings>
     <replaceStrings>
       <replace>ferme.markers</replace>
@@ -145,11 +152,11 @@
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/carte.js" />
         <option value="$PROJECT_DIR$/public/images/logo.svg" />
-        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/js/controller/mainController.js" />
         <option value="$PROJECT_DIR$/public/js/controller/mapController.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/public/js/cannebergeApiService.js" />
+        <option value="$PROJECT_DIR$/public/index.html" />
       </list>
     </option>
   </component>
@@ -451,12 +458,12 @@
       <workItem from="1489008745756" duration="632000" />
       <workItem from="1489073840460" duration="32000" />
       <workItem from="1489073884081" duration="38000" />
-      <workItem from="1489510452140" duration="2523000" />
+      <workItem from="1489510452140" duration="4224000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="253039000" />
+    <option name="totallyTimeSpent" value="254740000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="-2" width="1922" height="1035" extended-state="6" />
@@ -798,34 +805,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="60" column="11" lean-forward="false" selection-start-line="60" selection-start-column="11" selection-end-line="60" selection-end-column="11" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/retrieveApiKey.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/controller/mainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
-          <folding>
-            <marker date="1489519180174" expanded="true" signature="161:2355" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -852,6 +837,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="83" column="18" lean-forward="true" selection-start-line="83" selection-start-column="18" selection-end-line="83" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/controller/mainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
           <folding />
         </state>
       </provider>

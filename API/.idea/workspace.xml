@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6bbfeec-e0c8-4138-abab-040d88e9d06c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes.routes.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes.routes.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.component.css" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.component.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.routes.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.routes.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/index.html" afterPath="$PROJECT_DIR$/../Admin/src/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/public/index.html" afterPath="$PROJECT_DIR$/../Carte/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Portail/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/index.html" afterPath="$PROJECT_DIR$/../Portail/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Portail/public/views/register.html" afterPath="$PROJECT_DIR$/../Portail/public/views/register.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
