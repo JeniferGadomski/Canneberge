@@ -57,6 +57,8 @@ Pour compiler le projet Admin
 ## Partir les 3 serveurs
 
 	$ pm2 start ecosystem.json
+	
+Penser a builder l'application Administrateur
 
 ## Base de données MongoDB
 Connection avec Robomongo
