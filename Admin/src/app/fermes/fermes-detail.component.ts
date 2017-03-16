@@ -29,8 +29,8 @@ export class FermesDetailComponent implements OnInit {
   }
 
   returnFermeList() {
-    // this.router.navigate(['/fermes']);
-    window.location.href = 'fermes';
+    this.router.navigate(['/fermes']);
+    // window.location.href = 'fermes';
   }
 
   saveFerme() {

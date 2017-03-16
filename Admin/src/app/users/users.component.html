@@ -6,7 +6,7 @@
     <!--</div>-->
   <!--</div>-->
   <div class="row" style="padding-top: 50px; padding-bottom: 50px; height: 100%">
-    <div class="col-sm-5 list-user">
+    <div class="list-user">
       <a class="list-group-item list-group-item-action flex-column align-items-start"
          *ngFor="let user of users | sortBy : 'lastname'"
          [class.active]="isSelected(user)"
@@ -23,9 +23,8 @@
           {{ user.email}}
         </p>
       </a>
-    </div>
-    <div class="col-sm-7">
-      <router-outlet></router-outlet>
-    </div>
+
   </div>
 </div>
+
+<router-outlet></router-outlet>

@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d2835dff-39db-4eff-87bf-acf7229e7296" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../API/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../API/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes.routes.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes.routes.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users-detail.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.component.css" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.component.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.component.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.routes.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.routes.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -29,8 +35,10 @@
         <entry file="file://$PROJECT_DIR$/public/js/controller/mainController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="342">
-              <caret line="49" column="8" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
-              <folding />
+              <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
+              <folding>
+                <marker date="1489519180174" expanded="true" signature="161:2355" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -39,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/public/js/cannebergeApiService.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="414">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -49,8 +57,10 @@
         <entry file="file://$PROJECT_DIR$/public/js/controller/mapController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="232">
-              <caret line="139" column="23" lean-forward="true" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="23" />
-              <folding />
+              <caret line="139" column="23" lean-forward="false" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="23" />
+              <folding>
+                <marker date="1489519180174" expanded="true" signature="149:10000" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -136,10 +146,10 @@
         <option value="$PROJECT_DIR$/carte.js" />
         <option value="$PROJECT_DIR$/public/images/logo.svg" />
         <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/public/js/cannebergeApiService.js" />
         <option value="$PROJECT_DIR$/public/js/controller/mainController.js" />
         <option value="$PROJECT_DIR$/public/js/controller/mapController.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
+        <option value="$PROJECT_DIR$/public/js/cannebergeApiService.js" />
       </list>
     </option>
   </component>
@@ -813,8 +823,10 @@
     <entry file="file://$PROJECT_DIR$/public/js/controller/mainController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
-          <caret line="49" column="8" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
-          <folding />
+          <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
+          <folding>
+            <marker date="1489519180174" expanded="true" signature="161:2355" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -829,15 +841,17 @@
     <entry file="file://$PROJECT_DIR$/public/js/controller/mapController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
-          <caret line="139" column="23" lean-forward="true" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="23" />
-          <folding />
+          <caret line="139" column="23" lean-forward="false" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="23" />
+          <folding>
+            <marker date="1489519180174" expanded="true" signature="149:10000" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/cannebergeApiService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>

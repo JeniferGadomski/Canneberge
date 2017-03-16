@@ -9,9 +9,7 @@ import {FermesDetailComponent} from "./fermes-detail.component";
 // Route Configuration
 export const fermesRoutes: Routes = [
   { path: 'fermes/nouveau', component : FermesAddComponent},
-  { path: 'fermes', component: FermesComponent, children : [
-    {path : ':id', component : FermesDetailComponent}
-  ]
-  }
+  { path: 'fermes', component: FermesComponent},
+  {path : 'fermes/:id', component : FermesDetailComponent}
 
 ];

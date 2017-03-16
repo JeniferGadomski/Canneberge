@@ -35,8 +35,7 @@ export class UsersDetailComponent implements OnInit {
 
   returnUsersList()
   {
-    // this.router.navigate(['/utilisateurs']);
-    window.location.href = 'utilisateurs';
+    this.router.navigate(['/utilisateurs']);
   }
 
 
