@@ -2,7 +2,7 @@
  * Created by bhacaz on 08/03/17.
  */
 var request = require('request');
-var apiKey = require('../models/apiKey');
+var apiKey = require('../models/authorization');
 
 module.exports = function (req, res, next) {
     var tid = "UA-93251538-1";

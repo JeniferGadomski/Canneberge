@@ -37,7 +37,7 @@ mongoose.connect(config.database, options);
 app.set('superSecret', config.secret); // secret variable
 
 // use body parser so we can get info from POST and/or URL parameters
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
@@ -72,7 +72,6 @@ app.options('*', function (req, res) {
 app.use(analytics);
 app.use('/api', routes);
 app.use('/api/file', fileserver);
-
 
 app.listen(port);
 console.log('Magic happens at http://localhost:' + port);

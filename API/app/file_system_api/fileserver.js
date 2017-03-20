@@ -3,14 +3,11 @@ var fileDriver = require('./fsDriver.js');
 var url = require('url');
 var mime = require('mime');
 var path = require('path');
-var flow = require('middleware-flow');
 var morgan = require('morgan');
 var error = require('debug')('rest-fs:fileserver');
-var fileSystemDir = __dirname + '/fileSystem';
 var express = require('express');
-var router = express.Router();
-var filePrefix =  __dirname + '/fileSystem';
-var apiKey = require('../models/apiKey');
+var router = express.Router({mergeParams: true});
+var authorization = require('../models/authorization');
 var fs = require('fs');
 
 router.get(/^\/(.+\/)?$/, getDir);
@@ -19,6 +16,10 @@ router.post( "/*", postFileOrDir);
 router.put( "/*", putFileOrDir);
 router.delete( /^\/.+\/$/, delDir);
 router.delete( /^\/.+[^\/]$/, delFile);
+
+var fileSystemDir = function (req) {
+    return  __dirname + '/fileSystem/' + (req.params.ferme_id || authorization.getApiFromReq(req));
+};
 
 
 /* GET
@@ -67,14 +68,12 @@ function getDir (req, res, next) {
       if (isRecursive === "true") {
           return fileDriver.listAll({
               dirPath: dirPath,
-              opts: opts,
-              apiKey : apiKey.getApiFromReq(req)
+              opts: opts
           }, handList);
       } else {
           return fileDriver.list({
               dirPath: dirPath,
-              opts: opts,
-              apiKey : apiKey.getApiFromReq(req)
+              opts: opts
           }, handList);
       }
   });
@@ -158,7 +157,7 @@ function getFile(req, res, next) {
         if (req.body.newPath) {
             options.clobber = req.body.clobber || false;
             options.mkdirp = req.body.mkdirp || false;
-            var newPath = filePrefix + '/' + apiKey.getApiFromReq(req) + req.body.newPath;
+            var newPath = fileSystemDir(req) + req.body.newPath;
             // console.log(newPath);
             if (isDir && newPath.substr(-1) !== '/') {
                 newPath = newPath + '/';
@@ -336,7 +335,7 @@ function statFile(req, res, next) {
 // formats out data based on client spec.
 function formatOutData(req, filepath) {
   var out = filepath;
-  out = out.replace(fileSystemDir, '');
+  out = out.replace(fileSystemDir(req), '');
   if (typeof req.modifyOut === 'function') {
     out = req.modifyOut(out);
   }
@@ -376,7 +375,9 @@ function sendCode(code, req, res, next, out) {
 
 
 function getFilePath(req, cb){
-    var userFolder = fileSystemDir + '/' + apiKey.getApiFromReq(req);
+    // var userFolder = fileSystemDir + '/' + authorization.getApiFromReq(req);
+    var userFolder = fileSystemDir(req);
+    // console.log(req);
     var fullPath = userFolder + decodeURI(url.parse(req.url).pathname);
     fs.mkdir(userFolder, function(err) {
         cb(fullPath);

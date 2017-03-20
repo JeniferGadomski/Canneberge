@@ -34,3 +34,11 @@ html, body{
 .btn-link.remove{
   /*color: black;*/
 }
+
+
+.exemple{
+  font-size: smaller;
+  color: gray;
+  border-left: 1px solid gray;
+  padding-left: 10px;
+}

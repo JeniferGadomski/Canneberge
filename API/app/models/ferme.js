@@ -71,8 +71,7 @@ function tryToParseJson(data){
     try{data = JSON.parse(data);}
     catch(e) {}
     return data;
-};
-
+}
 
 // make this available to our users in our Node applications
 module.exports = Ferme;
