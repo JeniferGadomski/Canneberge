@@ -1,19 +1,20 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-5">
-      <button routerLink="nouveau" class="btn btn-outline-primary add-btn">Nouveau</button>
-    </div>
+    <button routerLink="nouveau" class="btn btn-outline-primary add-btn">Nouveau</button>
   </div>
 
 
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-8">
       <a class="list-group-item list-group-item-action flex-column align-items-start"
-         *ngFor="let ferme of fermes | sortBy : 'name'"
-        (click)="onSelectFerme(ferme)">
+         (mouseenter)="ferme.show = true"
+         (mouseleave)="ferme.show = false"
+         *ngFor="let ferme of fermes | sortBy : 'name'">
         <div class="d-flex w-100 justify-content-between">
-          <h5 style="width: auto">{{ferme.name}}</h5>
-          <div>
+          <a href='javascript:void(0)' style="color:black; margin-top: 6px" (click)="onSelectFerme(ferme)"><h5>{{ferme.name}}</h5></a>
+          <div [ngClass]="{invisible : !ferme.show}">
+            <button class="btn btn-primary btn-sm" title="Ajouter un raster (.tif)">+.tif</button>
+            <a class="btn btn-default" routerLink="/fichiers/{{ferme._id}}" title="Fichier de la ferme"><i class="fa fa-folder"></i></a>
             <button (click)="getShapefile(ferme)" class="btn btn-link" title="Télécharger shapefile"><i class="fa fa-download"></i></button>
             <a class="btn btn-default" target="_blank" href="http://carte.canneberge.io/?fermeId={{ferme._id}}" title="Voir la carte"><i class="fa fa-map-o"></i></a>
           </div>
@@ -21,9 +22,7 @@
 
       </a>
     </div>
-    <div class="col-sm-7">
-      <router-outlet></router-outlet>
-    </div>
+
   </div>
 
 

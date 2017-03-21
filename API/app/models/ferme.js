@@ -10,7 +10,8 @@ var fermeSchema = new Schema({
     name: { type: String, required: false},
     geojson : {type : Object},
     centerCoordinate : {type : Object},
-    markers : {type : Array, default : []}
+    markers : {type : Array, default : []},
+    rasters : {type : Array, default : []}
 });
 
 
@@ -46,12 +47,9 @@ Ferme.dataToGeojson = function(data, geojson){
 
 Ferme.updateDataFerme = function (req, res, ferme){
     var data = tryToParseJson(req.body.data);
-    if(data.length != ferme.geojson.features.length){
-        res.statusMessage = 'Le nombre de ligne de \'data\' ne concorde pas';
-        res.sendStatus(400);
-        return;
-    }
-    Ferme.update({_id : ferme._id}, {geojson : Ferne.dataToGeojson(req.body.data ,ferme.geojson)}, function (err, result) {
+    if(data.length != ferme.geojson.features.length)
+        return res.status(400).send({sucess : false, message : 'Le nombre de ligne de \'data\' ne concorde pas'});
+    Ferme.update({_id : ferme._id}, {geojson : this.dataToGeojson(req.body.data ,ferme.geojson)}, function (err, result) {
         if(err)
             console.log(err);
         res.sendStatus(200);

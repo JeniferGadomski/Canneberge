@@ -264,8 +264,11 @@ router.post('/geojson-to-shapefile', function (req, res) {
 //     });
 
 router.use('/fermes/:ferme_id/*', function (req, res, next) {
-    authorization.fermeAuthorization(req, res, next);
     authorization.fermeExiste(req, res, next);
+});
+
+router.use('/fermes/:ferme_id*', function (req, res, next) {
+    authorization.fermeAuthorization(req, res, next);
 });
 
 router.route('/fermes/:ferme_id/data')
@@ -290,10 +293,12 @@ router.get('/fermes/:ferme_id/weather', function (req, res) {
     var simple = req.query.simple || false;
     Ferme.getFermeById(req.params.ferme_id, function (ferme) {
         Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
+            if(typeof weather.message !== 'undefined') res.status(404);
             res.send(weather);
         });
     });
 });
+
 
 router.use('/fermes/:ferme_id/file', fileserver);
 
@@ -305,31 +310,16 @@ router.route('/fermes/:ferme_id')
 
             var send = {ferme : ferme};
             send['weather'] = {};
-            if(!ferme){
-                res.json({});
-                return
-            }
+            if(!ferme)
+                return res.json({});
 
-            if(req.query.weather === 'false' || typeof ferme.centerCoordinate === 'undefined'){
-                res.json({ferme : ferme});
-                return
-            }
-            var coord = ferme.centerCoordinate.lat.toString() + "," + ferme.centerCoordinate.lng.toString();
-            var weatherRequest = {};
-            var weatherJsonUrl = "http://api.wunderground.com/api/" + config.wu_key +"/forecast/q/" + coord + ".json";
-            weatherRequest.forecast = request.get(weatherJsonUrl, function(err, httpResponse, body){
-                if(err){
-                    return console.error(err);
-                }
-                send.weather['forecast'] = JSON.parse(body).forecast;
-                weatherJsonUrl = "http://api.wunderground.com/api/" + config.wu_key +"/conditions/q/" + coord + ".json";
-                weatherRequest.conditions = request.get(weatherJsonUrl, function(err, httpResponse, body){
-                    if(err){
-                        return console.error(err);
-                    }
-                    send.weather['current_observation'] = JSON.parse(body).current_observation;
-                    res.json(send);
-                });
+            if(req.query.weather === 'false' || typeof ferme.centerCoordinate === 'undefined')
+                return res.json({ferme : ferme});
+
+            Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, false, function (weather) {
+                if(typeof weather.message !== 'undefined') res.status(404);
+                send.weather = weather;
+                res.send(send);
             });
         });
     })
@@ -428,20 +418,11 @@ router.get('/weather', function (req, res) {
     var query = req.query;
     var simple = req.query.simple || false;
     if(query.hasOwnProperty('lat') && query.hasOwnProperty('lng')){
-        Weather.getWeatherByLatLng(query.lat, query.lng, simple, function (w) {
-            res.json(w);
+        Weather.getWeatherByLatLng(query.lat, query.lng, simple, function (weather) {
+            if(typeof weather.message !== 'undefined') res.status(404);
+            res.send(weather);
         });
     }
-    // else if(query.hasOwnProperty('fermeName')){
-    //     Ferme.getFermeByName(query.fermeName, function (ferme) {
-    //         if(!ferme) res.status(404).send({message : 'No ferme found'});
-    //         else{
-    //             Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
-    //                 res.json(weather);
-    //             })
-    //         }
-    //     })
-    // }
     else res.status(400).send({message : 'Liste des paramètres valide : lat, lng'});
 });
 

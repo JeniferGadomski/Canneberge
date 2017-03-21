@@ -42,3 +42,7 @@ html, body{
   border-left: 1px solid gray;
   padding-left: 10px;
 }
+
+.invisible{
+  display: none;
+}

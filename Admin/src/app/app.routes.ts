@@ -10,6 +10,7 @@ import {FichierComponent} from "./fichier/fichier.component";
 const routes: Routes = [
   {path: 'scripts', component : ScriptComponent},
   {path : 'fichiers', component : FichierComponent},
+  {path : 'fichiers/:fermeId', component : FichierComponent},
     ...usersRoutes,
     ...fermesRoutes,
   { path: '', redirectTo: '/utilisateurs', pathMatch : 'full'},
