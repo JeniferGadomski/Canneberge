@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6bbfeec-e0c8-4138-abab-040d88e9d06c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/raster.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ferme.js" afterPath="$PROJECT_DIR$/app/models/ferme.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/weather.js" afterPath="$PROJECT_DIR$/app/models/weather.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/file_system_api/fileserver.js" afterPath="$PROJECT_DIR$/app/file_system_api/fileserver.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/raster.js" afterPath="$PROJECT_DIR$/app/models/raster.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/route.js" afterPath="$PROJECT_DIR$/app/routes/route.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/app.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/app.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/app.routes.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/app.routes.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/canneberge-api.service.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/canneberge-api.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fichier/fichier.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fichier/fichier.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/users/users.component.css" afterPath="$PROJECT_DIR$/../Admin/src/app/users/users.component.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/styles.css" afterPath="$PROJECT_DIR$/../Admin/src/styles.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,8 +35,8 @@
       <file leaf-file-name="fileserver.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/file_system_api/fileserver.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="49" />
+            <state relative-caret-position="291">
+              <caret line="381" column="70" lean-forward="false" selection-start-line="381" selection-start-column="32" selection-end-line="381" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -54,18 +45,18 @@
       <file leaf-file-name="route.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/route.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="301" column="0" lean-forward="true" selection-start-line="301" selection-start-column="0" selection-end-line="301" selection-end-column="0" />
+            <state relative-caret-position="306">
+              <caret line="305" column="0" lean-forward="true" selection-start-line="305" selection-start-column="0" selection-end-line="305" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="raster.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="raster.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/raster.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="24" lean-forward="false" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+            <state relative-caret-position="305">
+              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
               </folding>
@@ -73,11 +64,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TiffToOverlay.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ferme.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/ferme.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TiffToOverlay.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/TiffToOverlay.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="365">
+              <caret line="23" column="21" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -114,8 +115,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>postFileOrDir</find>
-      <find>res</find>
       <find>header</find>
       <find>send</find>
       <find>send(</find>
@@ -144,6 +143,8 @@
       <find>404</find>
       <find>args.apiKey</find>
       <find>replace</find>
+      <find>writeF</find>
+      <find>writeFile</find>
     </findStrings>
     <replaceStrings>
       <replace>fileSystemDir</replace>
@@ -174,11 +175,11 @@
         <option value="$PROJECT_DIR$/app/file_system_api/fsDriver.js" />
         <option value="$PROJECT_DIR$/api.js" />
         <option value="$PROJECT_DIR$/app/models/apiKey.js" />
-        <option value="$PROJECT_DIR$/app/file_system_api/fileserver.js" />
         <option value="$PROJECT_DIR$/app/models/authorization.js" />
         <option value="$PROJECT_DIR$/app/models/weather.js" />
-        <option value="$PROJECT_DIR$/app/routes/route.js" />
         <option value="$PROJECT_DIR$/app/models/ferme.js" />
+        <option value="$PROJECT_DIR$/app/routes/route.js" />
+        <option value="$PROJECT_DIR$/app/file_system_api/fileserver.js" />
         <option value="$PROJECT_DIR$/app/models/raster.js" />
       </list>
     </option>
@@ -264,12 +265,78 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="API" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="API" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="file_system_api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="API" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="API" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="file_system_api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fileSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="API" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="API" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="file_system_api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fileSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="58c8226d78024e673e5fa9a1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../BebeBastien" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_interpreter_path" value="/usr/bin/nodejs" />
     <property name="javascript.nodejs.core.library.configured.version" value="4.2.6" />
@@ -455,18 +522,18 @@
       <workItem from="1488996842829" duration="12929000" />
       <workItem from="1489082437530" duration="2000" />
       <workItem from="1489504734435" duration="4631000" />
-      <workItem from="1490012843105" duration="45507000" />
+      <workItem from="1490012843105" duration="53702000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="330296000" />
+    <option name="totallyTimeSpent" value="338491000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="-2" width="1922" height="1035" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19472295" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19472295" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847533" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -494,19 +561,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="66" />
+      <option name="time" value="67" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="23" lean-forward="false" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -713,47 +772,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="751">
-          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/file_system_api/fileSystem/589b68bf90d51c42998c017d/1427048653194.jpg">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/file_system_api/fsDriver.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/weather.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
           <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/file_system_api/fileserver.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/ferme.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -766,29 +793,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/file_system_api/fsDriver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="101" column="13" lean-forward="false" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/file_system_api/fileSystem/58c8226d78024e673e5fa9a1/RDT_Bland.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/TiffToOverlay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="23" column="21" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/ferme.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="751">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/route.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="301" column="0" lean-forward="true" selection-start-line="301" selection-start-column="0" selection-end-line="301" selection-end-column="0" />
+        <state relative-caret-position="306">
+          <caret line="305" column="0" lean-forward="true" selection-start-line="305" selection-start-column="0" selection-end-line="305" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/file_system_api/fileserver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="381" column="70" lean-forward="false" selection-start-line="381" selection-start-column="32" selection-end-line="381" selection-end-column="70" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/raster.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="24" lean-forward="false" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+        <state relative-caret-position="305">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/TiffToOverlay.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
