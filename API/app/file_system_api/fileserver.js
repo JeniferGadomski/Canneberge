@@ -370,7 +370,8 @@ function sendCode(code, req, res, next, out) {
       }
     }
     res.status(code).send(out);
-    next();
+    if(!err)
+        next();
   };
 }
 

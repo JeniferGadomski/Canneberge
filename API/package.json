@@ -19,6 +19,7 @@
     "jsonwebtoken": "^7.2.1",
     "middleware-flow": "^0.5.1",
     "mime": "^1.2.11",
+    "mkdirp": "^0.5.1",
     "mongoose": "^4.7.6",
     "morgan": "^1.7.0",
     "multer": "^1.2.1",

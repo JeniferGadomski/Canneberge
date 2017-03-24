@@ -10,6 +10,7 @@ var error = require('debug')('rest-fs:fsDriver');
 // returns array of files and dir. trailing slash determines type.
 var listAll = function(args, cb) {
   var dirPath = args.dirPath;
+  console.log(dirPath);
   var finder = findit(dirPath);
   var files = [];
 

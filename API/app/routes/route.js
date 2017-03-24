@@ -12,8 +12,6 @@ var path = require('path');
 var rio = require('rio');
 var authorization = require('../models/authorization');
 var fileserver = require('../file_system_api/fileserver');
-var raster = require('../models/raster');
-
 
 router.get('/', function(req, res) {
     res.send('Hello! The API is at http://api.canneberge.io/api');
@@ -301,11 +299,10 @@ router.get('/fermes/:ferme_id/weather', function (req, res) {
     });
 });
 
-router.use('/fermes/:ferme_id/raster', fileserver);
-router.use('/fermes/:ferme_id/raster', raster);
-
 router.use('/fermes/:ferme_id/file', fileserver);
 
+var rasters = require('../routes/rasters');
+router.use('/fermes/:ferme_id/rasters', rasters);
 
 router.route('/fermes/:ferme_id')
     .get(function (req, res) {
