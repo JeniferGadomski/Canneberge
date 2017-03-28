@@ -16,7 +16,7 @@ router.get('/', getAllRasterObject);
 router.post('/:raster_name', postNewRaster);
 router.get('/:raster_id', getRasterObject);
 router.delete('/:raster_id', deleteRaster);
-router.get('/:raster_id/:file_type', getRasterFileByType);
+// router.get('/:raster_id/:file_type', getRasterFileByType);
 
 function getAllRasterObject(req, res, next) {
     Ferme.getFermeById(req.params.ferme_id, function (ferme) {
@@ -44,8 +44,8 @@ function postNewRaster(req, res, next) {
     rasterData.date.time = queryDate.getTime();
     rasterData.name = raster_name;
     rasterData.path = {};
-    rasterData.path.tif = '/api/fermes/' + ferme_id + '/rasters/' + rasterData._id + '/tif' ;
-    rasterData.path.png = rasterData.path.tif.replace('/tif', '/png');
+    rasterData.path.tif = '/api/fermes/' + ferme_id + '/rasters/' + rasterData._id + '.tif' ;
+    rasterData.path.png = rasterData.path.tif.replace('.tif', '.png');
 
     if (typeof req.headers['content-type'] === 'string') {
         var isJson = ~req.headers['content-type'].indexOf('application/json') === -1 ? true : false;
@@ -93,23 +93,28 @@ function postNewRaster(req, res, next) {
 }
 
 function getRasterObject(req, res, next) {
+    var raster_id = (req.params.raster_id).toLowerCase();
+    if(raster_id.indexOf('.png') !== -1 || raster_id.indexOf('.tif') !== -1 )
+         return getRasterFileByType(req, res, next);
+
     Ferme.getFermeById(req.params.ferme_id, function (ferme) {
         for(var i = 0; i < ferme.rasters.length; i++){
             if(ferme.rasters[i]._id === req.params.raster_id)
                 return res.status(200).send(ferme.rasters[i]);
         }
+        return res.status(404).send({success : false, message : 'No raster found'});
     });
 }
 
 function getRasterFileByType(req, res, next) {
     var ferme_id = req.params.ferme_id;
     var raster_id = req.params.raster_id;
-    var file_type = (req.params.file_type).toLowerCase();
+    // var file_type = (req.params.file_type).toLowerCase();
 
-    if(file_type !== 'png' && file_type !== 'tif')
-        return res.status(400).send({success : false, message : 'File type must be \'png\' or \'tif\''});
+    // if(file_type !== 'png' && file_type !== 'tif')
+    //     return res.status(400).send({success : false, message : 'File type must be \'png\' or \'tif\''});
 
-    var filePath = __dirname + '/../file_system_api/fileSystem/' + ferme_id + '_rasters/' + raster_id + '.' + file_type;
+    var filePath = __dirname + '/../file_system_api/fileSystem/' + ferme_id + '_rasters/' + raster_id;
 
     var encoding = req.query.encoding || 'utf8';
     var opts = req.body.opts;

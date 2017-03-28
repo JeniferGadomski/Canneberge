@@ -209,6 +209,21 @@ export class CannebergeApiService {
       .map(res => res);
   }
 
+  /*
+  Service for rasters
+   */
+
+  postNewRaster(time, ferme_id, file){
+    console.log(file);
+    let inputFile = new Blob(file);
+    return this._http.post(this.serverUrl + '/fermes/' + ferme_id + '/rasters/' + file[0].name + '?date=' + time, inputFile, {headers : this.headers})
+      .map(res => res);
+  }
+
+  deleteRaster(ferme_id, raster_id){
+    return this._http.delete(this.serverUrl + '/fermes/' + ferme_id + '/rasters/' + raster_id, {headers : this.headers})
+      .map(res => res);
+  }
 
 
 
