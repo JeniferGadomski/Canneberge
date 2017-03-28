@@ -135,7 +135,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "abc@gmail.com",
+									"value": "pampev@gmail.com",
 									"type": "text",
 									"enabled": true
 								},
@@ -296,79 +296,7 @@
 					"response": []
 				},
 				{
-					"name": "/fermes query fermeId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"Right name\"] = jsonData.name === 'Pampev' ;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"As weather info\"] = !jsonData.hasOwnProperty('weather');",
-									"",
-									""
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/fermes?fermeId={{pampev-id}}",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{admin-apiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "/fermes query fermeName",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"Right name\"] = jsonData.name === 'Pampev' ;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"As weather info\"] = !jsonData.hasOwnProperty('weather');",
-									"",
-									""
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/fermes?fermeName=Pampev",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{admin-apiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "/fermes/data query fermeId",
+					"name": "/fermes/:id/data path fermeId",
 					"event": [
 						{
 							"listen": "test",
@@ -380,13 +308,15 @@
 									"var jsonData = JSON.parse(responseBody);",
 									"tests[\"length > 0\"] = jsonData.length > 0;",
 									"",
-									""
+									"jsonData[0].Nappe = -500;",
+									"",
+									"postman.setEnvironmentVariable(\"data\", JSON.stringify(jsonData));"
 								]
 							}
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/fermes/data?fermeId={{pampev-id}}",
+						"url": "api.canneberge.io/api/fermes/{{pampev-id}}/data",
 						"method": "GET",
 						"header": [
 							{
@@ -401,7 +331,7 @@
 					"response": []
 				},
 				{
-					"name": "/fermes/data query fermeName",
+					"name": "/fermes/:id/data path fermeId copy",
 					"event": [
 						{
 							"listen": "test",
@@ -413,13 +343,53 @@
 									"var jsonData = JSON.parse(responseBody);",
 									"tests[\"length > 0\"] = jsonData.length > 0;",
 									"",
-									""
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"data\", jsonData);"
 								]
 							}
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/fermes/data?fermeName=Pampev",
+						"url": "api.canneberge.io/api/fermes/{{pampev-id}}/data",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "data",
+									"value": "{{data}}",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/:id/weather",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/weather",
 						"method": "GET",
 						"header": [
 							{
@@ -434,7 +404,44 @@
 					"response": []
 				},
 				{
-					"name": "/fermes/data path fermeId",
+					"name": "/fermes/:id/data bad fermeName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is NOT 200\"] = responseCode.code !== 200;",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/abc/data",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ferme file",
+			"description": "",
+			"item": [
+				{
+					"name": "get FermeID",
 					"event": [
 						{
 							"listen": "test",
@@ -444,15 +451,13 @@
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
 									"",
 									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"length > 0\"] = jsonData.length > 0;",
-									"",
-									""
+									"postman.setEnvironmentVariable(\"pampevId\", jsonData[1]._id);"
 								]
 							}
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/fermes/data/{{pampev-id}}",
+						"url": "api.canneberge.io/api/fermes?weather=false",
 						"method": "GET",
 						"header": [
 							{
@@ -467,14 +472,46 @@
 					"response": []
 				},
 				{
-					"name": "/fermes/data query no",
+					"name": "get root file",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"tests[\"Status code is 400\"] = responseCode.code === 400;",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/file",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file create new folder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"tests[\"Body is correct\"] = responseBody === '/PostMan/';",
+									"",
 									"",
 									"",
 									""
@@ -483,7 +520,196 @@
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/fermes/data",
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/file/PostMan/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file create new file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"tests[\"Body is correct\"] = responseBody === '/PostMan/favicon.jpg';",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/file/PostMan/favicon.jpg",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file move file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Body is correct\"] = responseBody === '/buiness.jpg';",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/file/PostMan/favicon.jpg",
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newPath",
+									"value": "/buiness.jpg",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file delete file",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Empty body\"] = Object.keys(jsonData).length === 0 && jsonData.constructor === Object;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/file/buiness.jpg",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/file delete folder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Empty body\"] = Object.keys(jsonData).length === 0 && jsonData.constructor === Object;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/file/PostMan/",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get root ferme not exist",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/data",
 						"method": "GET",
 						"header": [
 							{
@@ -523,6 +749,34 @@
 					],
 					"request": {
 						"url": "api.canneberge.io/api/fermes",
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-apiKey}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/fermes/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}",
 						"method": "GET",
 						"header": [
 							{
@@ -754,7 +1008,7 @@
 								"exec": [
 									"tests[\"Status code is 201\"] = responseCode.code === 201;",
 									"",
-									"tests[\"Body is correct\"] = responseBody === \"/\" + postman.getEnvironmentVariable(\"admin-apiKey\") + '/PostMan/';",
+									"tests[\"Body is correct\"] = responseBody === '/PostMan/';",
 									"",
 									"",
 									"",
@@ -793,7 +1047,7 @@
 								"exec": [
 									"tests[\"Status code is 201\"] = responseCode.code === 201;",
 									"",
-									"tests[\"Body is correct\"] = responseBody === \"/\" + postman.getEnvironmentVariable(\"admin-apiKey\") + '/PostMan/buiness.png';",
+									"tests[\"Body is correct\"] = responseBody === '/PostMan/buiness.png';",
 									"",
 									"",
 									"",
@@ -832,7 +1086,7 @@
 								"exec": [
 									"tests[\"Status code is 200\"] = responseCode.code === 200;",
 									"",
-									"tests[\"Body is correct\"] = responseBody === \"/\" + postman.getEnvironmentVariable(\"admin-apiKey\") + '/buiness.png';",
+									"tests[\"Body is correct\"] = responseBody === '/buiness.png';",
 									"",
 									"",
 									"",
@@ -885,7 +1139,7 @@
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/file/buiness.png?stat=true",
+						"url": "api.canneberge.io/api/file/PostMan/?stat=true",
 						"method": "GET",
 						"header": [
 							{
@@ -1256,8 +1510,8 @@
 									"",
 									"var jsonData = JSON.parse(responseBody);",
 									"",
-									"postman.setEnvironmentVariable(\"pampevId\", jsonData[0]._id);",
-									"postman.setEnvironmentVariable(\"blandfordId\", jsonData[1]._id);"
+									"postman.setEnvironmentVariable(\"pampevId\", jsonData[1]._id);",
+									"postman.setEnvironmentVariable(\"blandfordId\", jsonData[0]._id);"
 								]
 							}
 						}
@@ -1403,7 +1657,7 @@
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/fermes/data/{{pampevId}}",
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/data",
 						"method": "GET",
 						"header": [
 							{
@@ -1431,7 +1685,7 @@
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/fermes/data/{{pampevId}}",
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/data",
 						"method": "GET",
 						"header": [
 							{
@@ -1459,175 +1713,7 @@
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/fermes/data/{{pampevId}}",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{blandfordUserApiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get ferme/data query name admin autho",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/fermes/data?fermeName=Pampev",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{admin-apiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get ferme/data query name user autho",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/fermes/data?fermeName=Pampev",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{pampevUserApiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get ferme/data query name user unautho",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 401\"] = responseCode.code === 401;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/fermes/data?fermeName=Pampev",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{blandfordUserApiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get ferme/data query _id admin autho",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/fermes/data?fermeId={{pampevId}}",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{admin-apiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get ferme/data query _id user autho",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/fermes/data?fermeId={{pampevId}}",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{pampevUserApiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get ferme/data query _id user unautho",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 401\"] = responseCode.code === 401;"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/fermes/data?fermeId={{pampevId}}",
+						"url": "api.canneberge.io/api/fermes/{{pampevId}}/data",
 						"method": "GET",
 						"header": [
 							{
@@ -2084,7 +2170,7 @@
 							"script": {
 								"type": "text/javascript",
 								"exec": [
-									"tests[\"Status code is 403\"] = responseCode.code === 403;"
+									"tests[\"Status code is NOT 200\"] = responseCode.code !== 200;"
 								]
 							}
 						}
@@ -2409,39 +2495,7 @@
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/weather?fermeId={{pampev-id}}",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{admin-apiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "/weather fermeName",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 200\"] = responseCode.code === 200;",
-									"",
-									"var jsonData = JSON.parse(responseBody);",
-									"tests[\"As forecast\"] = jsonData.hasOwnProperty('forecast');",
-									"tests[\"As current_observation\"] = jsonData.hasOwnProperty('current_observation');"
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/weather?fermeName=Pampev",
+						"url": "api.canneberge.io/api/fermes/{{pampev-id}}/weather",
 						"method": "GET",
 						"header": [
 							{
@@ -2490,35 +2544,6 @@
 					"response": []
 				},
 				{
-					"name": "/weather wrong fermeId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"tests[\"Status code is 404\"] = responseCode.code === 404",
-									""
-								]
-							}
-						}
-					],
-					"request": {
-						"url": "api.canneberge.io/api/weather?fermeId=-1&simple=true",
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"value": "{{admin-apiKey}}",
-								"description": ""
-							}
-						],
-						"body": {},
-						"description": ""
-					},
-					"response": []
-				},
-				{
 					"name": "/weather bad lat lng",
 					"event": [
 						{
@@ -2533,7 +2558,7 @@
 						}
 					],
 					"request": {
-						"url": "api.canneberge.io/api/weather?fermeName=-1&simple=true",
+						"url": "api.canneberge.io/api/weather?lat=200&lng=300",
 						"method": "GET",
 						"header": [
 							{

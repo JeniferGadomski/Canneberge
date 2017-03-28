@@ -19,10 +19,6 @@ TiffToOverlay.convert = function(tiffFilePath){
     });
     var data =  _this.getLatLngBoundsLiteral(tiffFilePath);
     return {
-        path : {
-            tif : tiffFilePath,
-            png : namePng
-        },
         bounds : data.bounds,
         band : data.band
     };
