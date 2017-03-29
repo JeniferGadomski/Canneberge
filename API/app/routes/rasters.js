@@ -37,6 +37,7 @@ function postNewRaster(req, res, next) {
     }
 
     var dirPath = __dirname + '/../file_system_api/fileSystem/' + ferme_id + '_rasters/' + _id + '.tif';
+
     var rasterData = {};
     rasterData._id = _id;
     rasterData.date = {};
@@ -77,16 +78,18 @@ function postNewRaster(req, res, next) {
             stream: req,
             options: options,
             opts: opts
-        }, function () { // Convert .tif file
-            rasterData = Object.assign({}, rasterData, tiffToOverlay.convert(dirPath));
-            // rasterData = tiffToOverlay.convert(dirPath);
-
-            Ferme.update({_id : req.params.ferme_id},
-                { $push : {rasters : rasterData} }
-                , function () {
-                    res.status(200).send(rasterData);
-                }
-            );
+        }, function (err) { // Convert .tif file
+            if(err) return console.log(err);
+            // rasterData = Object.assign({}, rasterData, tiffToOverlay.convert(dirPath));
+            tiffToOverlay.convert(dirPath, function (tiffData) {
+                rasterData = Object.assign({}, rasterData, tiffData);
+                Ferme.update({_id : req.params.ferme_id},
+                    { $push : {rasters : rasterData} }
+                    , function () {
+                        res.status(200).send(rasterData);
+                    }
+                );
+            });
         });
     }
     else res.status(400).send({success : false, message : 'The body must be a raw stream'});
@@ -109,11 +112,6 @@ function getRasterObject(req, res, next) {
 function getRasterFileByType(req, res, next) {
     var ferme_id = req.params.ferme_id;
     var raster_id = req.params.raster_id;
-    // var file_type = (req.params.file_type).toLowerCase();
-
-    // if(file_type !== 'png' && file_type !== 'tif')
-    //     return res.status(400).send({success : false, message : 'File type must be \'png\' or \'tif\''});
-
     var filePath = __dirname + '/../file_system_api/fileSystem/' + ferme_id + '_rasters/' + raster_id;
 
     var encoding = req.query.encoding || 'utf8';
@@ -128,7 +126,6 @@ function getRasterFileByType(req, res, next) {
         res.set('Content-Type', mime.lookup(filePath));
         res.send(data);
     })
-
 }
 
 function deleteRaster(req, res, next) {
@@ -162,5 +159,7 @@ function deleteRastersFile(ferme_id, raster_id) {
         }
     });
 }
+
+
 
 module.exports = router;

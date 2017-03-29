@@ -7,21 +7,22 @@ var exec = require('child_process').exec;
 
 var TiffToOverlay = {};
 
-TiffToOverlay.convert = function(tiffFilePath){
+TiffToOverlay.convert = function(tiffFilePath, cb){
     var _this = this;
+    console.log(tiffFilePath);
     var namePng = tiffFilePath.replace('.tif', '.png');
     exec('gdal_translate -a_nodata 0 -of PNG -scale ' + tiffFilePath + ' ' + namePng, function(error, stdout, stderr) {
-        console.log('stdout: ' + stdout);
-        console.log('stderr: ' + stderr);
+        // console.log('stdout: ' + stdout);
+        // console.log('stderr: ' + stderr);
         if (error !== null) {
             console.log('exec error: ' + error);
         }
+        var data =  _this.getLatLngBoundsLiteral(tiffFilePath);
+        cb({
+            bounds : data.bounds,
+            band : data.band
+        });
     });
-    var data =  _this.getLatLngBoundsLiteral(tiffFilePath);
-    return {
-        bounds : data.bounds,
-        band : data.band
-    };
 };
 
 TiffToOverlay.getLatLngBoundsLiteral = function (tiffFilePath) {

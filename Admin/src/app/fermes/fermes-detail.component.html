@@ -51,9 +51,9 @@
           (mouseenter)="raster.show = true"
           (mouseleave)="raster.show = false">
 
-        <div style="width: 100px; height: 100px">
+        <a style="width: 100px; height: 100px" target="_blank" [href]="getPngSrc(raster)">
           <img alt="{{raster.name}}" [src]="getPngSrc(raster)" height="100%">
-        </div>
+        </a>
 
         <div class="raster-info" style="width: 200px">
           <div class="little-title">{{raster.name}}</div>

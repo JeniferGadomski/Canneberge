@@ -108,6 +108,20 @@ var writeFile = function(args, cb)  {
   fs.writeFile(dirPath, data, options, cb);
 };
 
+var myMkdirSync = function(dir){
+    if (fs.existsSync(dir)){
+        return
+    }
+    try{
+        fs.mkdirSync(dir)
+    }catch(err){
+        if(err.code == 'ENOENT'){
+            myMkdirSync(path.dirname(dir)); //create parent dir
+            myMkdirSync(dir); //create dir
+        }
+    }
+};
+
 /*
   write file with stream
 */
@@ -115,7 +129,8 @@ var writeFileStream = function(args, cb)  {
   var dirPath = args.dirPath;
   var stream = args.stream;
   var options = args.options;
-  var file = fs.createWriteStream(dirPath, options);
+
+  myMkdirSync(path.dirname(dirPath)); var file = fs.createWriteStream(dirPath, options);
   var erroOccurs = false;
 
   file.on('error', function (err) {

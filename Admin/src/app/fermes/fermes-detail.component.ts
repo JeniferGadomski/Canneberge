@@ -95,6 +95,8 @@ export class FermesDetailComponent implements OnInit {
       return;
     }
     let file = event.srcElement.files[0];
+    event.srcElement.value = '';
+    console.log(event.srcElement);
     let dateSelected = new Date(parseInt(this.date.year), parseInt(this.date.month) - 1, parseInt(this.date.day));
     this.service.postNewRaster(dateSelected.getTime(), this.ferme._id, [file]).subscribe(
       req => {

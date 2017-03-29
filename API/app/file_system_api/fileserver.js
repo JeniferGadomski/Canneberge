@@ -375,9 +375,7 @@ function sendCode(code, req, res, next, out) {
 
 
 function getFilePath(req, cb){
-    // var userFolder = fileSystemDir + '/' + authorization.getApiFromReq(req);
     var userFolder = fileSystemDir(req);
-    // console.log(req);
     var fullPath = userFolder + decodeURI(url.parse(req.url).pathname);
     fs.mkdir(userFolder, function(err) {
         cb(fullPath);
