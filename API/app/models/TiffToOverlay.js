@@ -11,16 +11,17 @@ TiffToOverlay.convert = function(tiffFilePath, cb){
     var _this = this;
     console.log(tiffFilePath);
     var namePng = tiffFilePath.replace('.tif', '.png');
-    exec('gdal_translate -a_nodata 0 -of PNG -scale ' + tiffFilePath + ' ' + namePng, function(error, stdout, stderr) {
-        // console.log('stdout: ' + stdout);
-        // console.log('stderr: ' + stderr);
-        if (error !== null) {
-            console.log('exec error: ' + error);
-        }
-        var data =  _this.getLatLngBoundsLiteral(tiffFilePath);
-        cb({
-            bounds : data.bounds,
-            band : data.band
+    var trans_tif = tiffFilePath.replace('.tif', '_4326.tif');
+
+    exec('gdalwarp -t_srs EPSG:4326 ' + tiffFilePath + ' ' + trans_tif, function(error, stdout, stderr) {
+        if (error !== null) console.log('exec error: ' + error);
+        exec('gdal_translate -a_nodata 0 -of PNG -scale ' + trans_tif + ' ' + namePng, function(error, stdout, stderr) {
+            if (error !== null) console.log('exec error: ' + error);
+            var data =  _this.getLatLngBoundsLiteral(tiffFilePath);
+            cb({
+                bounds : data.bounds,
+                band : data.band
+            });
         });
     });
 };
@@ -36,7 +37,7 @@ TiffToOverlay.getLatLngBoundsLiteral = function (tiffFilePath) {
     });
 
     var NorthWestX = dataset.geoTransform[0];
-    var NorthWestY =dataset.geoTransform[3];
+    var NorthWestY = dataset.geoTransform[3];
     var resolutionX = dataset.geoTransform[1];
     var resolutionY = dataset.geoTransform[5];
 

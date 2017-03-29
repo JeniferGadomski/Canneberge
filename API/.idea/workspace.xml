@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6bbfeec-e0c8-4138-abab-040d88e9d06c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/file_system_api/fileserver.js" afterPath="$PROJECT_DIR$/app/file_system_api/fileserver.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/file_system_api/fsDriver.js" afterPath="$PROJECT_DIR$/app/file_system_api/fsDriver.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/TiffToOverlay.js" afterPath="$PROJECT_DIR$/app/models/TiffToOverlay.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/rasters.js" afterPath="$PROJECT_DIR$/app/routes/rasters.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.html" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" afterPath="$PROJECT_DIR$/../Admin/src/app/fermes/fermes-detail.component.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/public/js/controller/mapController.js" afterPath="$PROJECT_DIR$/../Carte/public/js/controller/mapController.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -46,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rasters.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="rasters.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/rasters.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="86" column="54" lean-forward="true" selection-start-line="86" selection-start-column="54" selection-end-line="86" selection-end-column="54" />
+            <state relative-caret-position="108">
+              <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
               </folding>
@@ -61,8 +57,8 @@
       <file leaf-file-name="route.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/route.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="299" column="3" lean-forward="false" selection-start-line="299" selection-start-column="3" selection-end-line="299" selection-end-column="3" />
+            <state relative-caret-position="227">
+              <caret line="178" column="1" lean-forward="true" selection-start-line="178" selection-start-column="1" selection-end-line="178" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -88,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TiffToOverlay.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TiffToOverlay.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/models/TiffToOverlay.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="24" column="7" lean-forward="false" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+            <state relative-caret-position="347">
+              <caret line="24" column="11" lean-forward="true" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -137,8 +133,8 @@
       <find>remove</find>
       <find>rasterDate</find>
       <find>morgan</find>
-      <find>fs</find>
       <find>delete</find>
+      <find>fs</find>
     </findStrings>
     <replaceStrings>
       <replace>fileSystemDir</replace>
@@ -171,12 +167,12 @@
         <option value="$PROJECT_DIR$/app/models/weather.js" />
         <option value="$PROJECT_DIR$/app/models/raster.js" />
         <option value="$PROJECT_DIR$/app/models/ferme.js" />
-        <option value="$PROJECT_DIR$/app/routes/route.js" />
         <option value="$PROJECT_DIR$/api.js" />
         <option value="$PROJECT_DIR$/app/file_system_api/fileserver.js" />
-        <option value="$PROJECT_DIR$/app/models/TiffToOverlay.js" />
         <option value="$PROJECT_DIR$/app/routes/rasters.js" />
         <option value="$PROJECT_DIR$/app/file_system_api/fsDriver.js" />
+        <option value="$PROJECT_DIR$/app/routes/route.js" />
+        <option value="$PROJECT_DIR$/app/models/TiffToOverlay.js" />
       </list>
     </option>
   </component>
@@ -537,18 +533,18 @@
       <workItem from="1489082437530" duration="2000" />
       <workItem from="1489504734435" duration="4631000" />
       <workItem from="1490012843105" duration="77317000" />
-      <workItem from="1490628058085" duration="29682000" />
+      <workItem from="1490628058085" duration="34748000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="391788000" />
+    <option name="totallyTimeSpent" value="396854000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="-2" width="1922" height="1035" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29709762" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23957783" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847533" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -581,8 +577,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/images/Farm-Icon.png" />
-    <entry file="file://$PROJECT_DIR$/public/images/f07c895b68afc851ebec8f5d9324d8ea" />
     <entry file="file://$PROJECT_DIR$/public/images/61330cc8d61d294dce5e83c89f591e0a" />
     <entry file="file://$PROJECT_DIR$/public/images/3b9ef03879431bcf328b9537cfd5a07e" />
     <entry file="file://$PROJECT_DIR$/uploads/scirpt.R">
@@ -748,14 +742,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/route.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="299" column="3" lean-forward="false" selection-start-line="299" selection-start-column="3" selection-end-line="299" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="341">
@@ -795,14 +781,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/TiffToOverlay.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="24" column="7" lean-forward="false" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/file_system_api/fileserver.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
@@ -819,13 +797,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/file_system_api/fileSystem/589b68bf90d51c42998c017d_rasters/149079711347056.png.aux.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/file_system_api/fileSystem/589b68bf90d51c42998c017d_rasters/149079763772469.png.aux.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/route.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="178" column="1" lean-forward="true" selection-start-line="178" selection-start-column="1" selection-end-line="178" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/rasters.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="86" column="54" lean-forward="true" selection-start-line="86" selection-start-column="54" selection-end-line="86" selection-end-column="54" />
+        <state relative-caret-position="108">
+          <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/TiffToOverlay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="24" column="11" lean-forward="true" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>

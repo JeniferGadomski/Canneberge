@@ -54,7 +54,7 @@ angular.module('app')
                 map = init();
             }
 
-            map.data.addGeoJson($scope.ferme.geojson);
+            // map.data.addGeoJson($scope.ferme.geojson);
             map.data.setStyle({
                 fillColor: '#485B6B',
                 strokeColor : '#DDED36',
@@ -153,6 +153,15 @@ angular.module('app')
                 $scope.currentMarker = $scope.markerFunction.getMarkerFromMarkerDescriptor(v, map);
                 initMarker(false);
             });
+
+            /*
+            Test show raster on map
+             */
+            var imageBounds = $scope.ferme.rasters[0].bounds;
+            raster1 = new google.maps.GroundOverlay(
+                'http://api.canneberge.io' + $scope.ferme.rasters[0].path.png +'?apiKey=5894a2f1df1f28501873a566',
+                imageBounds);
+            raster1.setMap(map);
 
             return map;
         };
