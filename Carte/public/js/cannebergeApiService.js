@@ -17,7 +17,7 @@ angular.module('apiServiceModule', [])
         };
         
         cannerberApi.getWeahter = function (fermeID) {
-            return $http.get(url + 'weather?fermeId=' + fermeID, cannerberApi.headers);
+            return $http.get(url + 'fermes/' + fermeID + '/weather', cannerberApi.headers);
         };
 
         return cannerberApi;
