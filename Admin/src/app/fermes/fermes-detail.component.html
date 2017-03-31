@@ -68,7 +68,7 @@
 
         <div class="raster-options" [ngClass]="{invisible : !raster.show}">
           <a class="btn btn-link" [href]="getTifSrc(raster)" title="Télécharger le raster (.tif)"><i class="fa fa-download"></i></a>
-          <a class="btn btn-default" href="#" target="_blank" title="Voir sur la carte"><i class="fa fa-eye"></i></a>
+          <a class="btn btn-default" [href]="getUrlSeeRasterOnCarte(raster)" target="_blank" title="Voir sur la carte"><i class="fa fa-eye"></i></a>
           <button class="btn btn-link hover-red" (click)="deleteRaster(raster)" title="Supprimer"><i class="fa fa-times"></i></button>
         </div>
       </li>

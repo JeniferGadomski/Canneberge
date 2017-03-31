@@ -84,7 +84,12 @@ function postNewRaster(req, res, next) {
             tiffToOverlay.convert(dirPath, function (tiffData) {
                 rasterData = Object.assign({}, rasterData, tiffData);
                 Ferme.update({_id : req.params.ferme_id},
-                    { $push : {rasters : rasterData} }
+                    { $push : {
+                        rasters : {
+                            $each : [rasterData],
+                            $sort : {"date.time" : 1}
+                        }}
+                    }
                     , function () {
                         res.status(200).send(rasterData);
                     }
@@ -98,7 +103,7 @@ function postNewRaster(req, res, next) {
 function getRasterObject(req, res, next) {
     var raster_id = (req.params.raster_id).toLowerCase();
     if(raster_id.indexOf('.png') !== -1 || raster_id.indexOf('.tif') !== -1 )
-         return getRasterFileByType(req, res, next);
+        return getRasterFileByType(req, res, next);
 
     Ferme.getFermeById(req.params.ferme_id, function (ferme) {
         for(var i = 0; i < ferme.rasters.length; i++){
