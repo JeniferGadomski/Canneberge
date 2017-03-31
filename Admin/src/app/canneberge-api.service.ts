@@ -13,6 +13,7 @@ export class CannebergeApiService {
   headers = new Headers();
   apiKey :string;
   user : any = {};
+  fileSubPath = '/file';
 
   constructor(
     private _http : Http
@@ -88,7 +89,7 @@ export class CannebergeApiService {
 
   getFermes()
   {
-    return this._http.get(this.serverUrl + '/fermes?weather=false', {headers : this.headers})
+    return this._http.get(this.serverUrl + '/fermes', {headers : this.headers})
       .map(res => res.json());
   }
 
@@ -160,43 +161,69 @@ export class CannebergeApiService {
     }).map(res => res.json());
   }
 
+/*
+*  -------------------
+*   File service
+* ---------------------
+*/
+
+  setFileSubPath(fermeId){
+    if(typeof fermeId !== "undefined")
+      this.fileSubPath = '/fermes/'+ fermeId + '/file';
+    else this.fileSubPath = '/file';
+  }
 
   getFile(path){
-    return this._http.get(this.serverUrl + '/file' + path, {headers : this.headers})
+    return this._http.get(this.serverUrl + this.fileSubPath + path, {headers : this.headers})
       .map(res => res.json());
   }
 
   postNewFolder(path){
-    return this._http.post(this.serverUrl + '/file' + path, {}, {headers : this.headers})
+    return this._http.post(this.serverUrl + this.fileSubPath + path, {}, {headers : this.headers})
       .map(res => res);
   }
 
   deleteWithPath(path){
-    return this._http.delete(this.serverUrl + '/file' + path, {headers : this.headers})
+    return this._http.delete(this.serverUrl + this.fileSubPath + path, {headers : this.headers})
       .map(res => res);
   }
 
   postNewFile(path, file){
     let inputFile = new Blob(file);
-    return this._http.post(this.serverUrl + '/file' + path, inputFile, {headers : this.headers})
+    return this._http.post(this.serverUrl + this.fileSubPath + path, inputFile, {headers : this.headers})
       .map(res => res);
   }
 
   renameFile(path, newPath){
-    return this._http.post(this.serverUrl + '/file' + path, {newPath : newPath}, {headers : this.headers})
+    return this._http.post(this.serverUrl + this.fileSubPath + path, {newPath : newPath}, {headers : this.headers})
       .map(res => res);
   }
 
   getInfoPath(path){
-    return this._http.get(this.serverUrl + '/file' + path + '?stat=true', {headers : this.headers})
+    return this._http.get(this.serverUrl + this.fileSubPath + path + '?stat=true', {headers : this.headers})
       .map(res => res.json());
   }
 
   postMoveFile(originalPath, moveToPath){
-    return this._http.post(this.serverUrl + '/file' + originalPath, {newPath : moveToPath}, {headers : this.headers})
+    return this._http.post(this.serverUrl + this.fileSubPath + originalPath, {newPath : moveToPath}, {headers : this.headers})
       .map(res => res);
   }
 
+  /*
+  Service for rasters
+   */
+
+  postNewRaster(time, ferme_id, file){
+    console.log(file);
+    let inputFile = new Blob(file);
+    return this._http.post(this.serverUrl + '/fermes/' + ferme_id + '/rasters/' + file[0].name + '?date=' + time, inputFile, {headers : this.headers})
+      .map(res => res);
+  }
+
+  deleteRaster(ferme_id, raster_id){
+    return this._http.delete(this.serverUrl + '/fermes/' + ferme_id + '/rasters/' + raster_id, {headers : this.headers})
+      .map(res => res);
+  }
 
 
 

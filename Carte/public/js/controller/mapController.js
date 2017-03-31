@@ -4,6 +4,9 @@
 angular.module('app')
     .controller('mapController', function ($scope, $rootScope, $compile, apiService) {
 
+        $scope.showRasters = false;
+        $scope.showShapefile = true;
+        $scope.groundOverlay = null;
 
         var map = null;
         $scope.currentCoord = {};
@@ -45,14 +48,14 @@ angular.module('app')
             }
         };
 
-
-
-
         var initialize = function (event) {
             console.log('intiMap');
+            setCenterCoordinate();
             if(map == null){
                 map = init();
             }
+
+            $scope.sliderRaster.range.max = $scope.ferme.rasters.length - 1;
 
             map.data.addGeoJson($scope.ferme.geojson);
             map.data.setStyle({
@@ -76,22 +79,50 @@ angular.module('app')
             }
         }
 
+        function setCenterCoordinate() {
+            if(typeof $scope.ferme.centerCoordinate !== 'undefined') return;
+            var arrayLng = [];
+            var arrayLat = [];
+
+            var features = $scope.ferme.geojson.features;
+            for(var i = 0; i < features.length; i++){
+                var coord = features[i].geometry.coordinates[0];
+                for(var j = 0; j < coord.length; j++){
+                    arrayLng.push(coord[j][0]);
+                    arrayLat.push(coord[j][1])
+                }
+            }
+
+            var minLng = Math.min.apply(null, arrayLng);
+            var minLat = Math.min.apply(null, arrayLat);
+            var maxLng = Math.max.apply(null, arrayLng);
+            var maxLat = Math.max.apply(null, arrayLat);
+
+            var center = {
+                lat : (maxLat - minLat)/2 + minLat,
+                lng : (maxLng - minLng)/2 + minLng
+            };
+            $scope.ferme.centerCoordinate = center;
+            apiService.putFerme($scope.fermeID, {centerCoordinate : center})
+                .then(function (response) {
+                    console.log(response);
+                    $rootScope.$emit('updateWeather');
+                });
+        }
+
         var init = function () {
             map = new google.maps.Map(document.getElementById('map'), {
                 mapTypeId: 'hybrid',
-                center: {
-                    lat: 46.450515,
-                    lng: -72.821154
-                },
-                zoom: 8
+                center : $scope.ferme.centerCoordinate,
+                zoom: 15
             });
 
-            var bounds = new google.maps.LatLngBounds();
-            map.data.addListener('addfeature', function(e) {
-                processPoints(e.feature.getGeometry(), bounds.extend, bounds);
-                map.fitBounds(bounds);
-            });
-            console.log(map.data);
+            // var bounds = new google.maps.LatLngBounds();
+            // map.data.addListener('addfeature', function(e) {
+            //     processPoints(e.feature.getGeometry(), bounds.extend, bounds);
+            //     map.fitBounds(bounds);
+            // });
+            // console.log(map.data);
 
             var drawingManager = new google.maps.drawing.DrawingManager({
                 drawingControl: true,
@@ -132,14 +163,6 @@ angular.module('app')
                 updateLatLng(event);
             });
 
-            if(typeof $scope.ferme.centerCoordinate === 'undefined'){
-                apiService.putFerme($scope.fermeID, {centerCoordinate : map.getCenter()})
-                    .then(function (response) {
-                        console.log(response);
-                        $rootScope.$emit('updateWeather');
-                    });
-            }
-
             map.data.addListener('click', function(event) {
                 var rowId = event.feature.getProperty('id');
                 colorizeField(rowId);
@@ -153,6 +176,8 @@ angular.module('app')
                 $scope.currentMarker = $scope.markerFunction.getMarkerFromMarkerDescriptor(v, map);
                 initMarker(false);
             });
+
+
 
             return map;
         };
@@ -254,6 +279,44 @@ angular.module('app')
         }
 
 
+        $scope.toggleShapefile = function () {
+            // console.log($scope.showShapefile);
+            if($scope.showShapefile){
+                map.data.addGeoJson($scope.ferme.geojson);
+                map.data.setStyle({
+                    fillColor: '#485B6B',
+                    strokeColor : '#DDED36',
+                    strokeWeight : 1.5
+                });
+            }
+            else{
+                map.data.forEach(function(feature) {
+                    map.data.remove(feature);
+                });
+            }
+        };
+
+        $scope.toggleRasters = function () {
+            var indexRaster = $scope.sliderRaster.value;
+            if($scope.groundOverlay !== null) $scope.groundOverlay.setMap(null);
+            if($scope.showRasters){
+                var imageBounds = $scope.ferme.rasters[indexRaster].bounds;
+                $scope.groundOverlay = new google.maps.GroundOverlay(
+                    'http://api.canneberge.io' + $scope.ferme.rasters[indexRaster].path.png +'?apiKey=5894a2f1df1f28501873a566',
+                    imageBounds);
+                $scope.groundOverlay.setMap(map);
+            }
+        };
+
+        $scope.sliderRaster = {
+            range : {
+                min : 0,
+                max : 0,
+                step : 1
+            },
+            value : 0
+
+        }
 
 
 

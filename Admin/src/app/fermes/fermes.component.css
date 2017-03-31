@@ -1,0 +1,77 @@
+
+.container{
+  height: 100%;
+}
+
+.list-user{
+  overflow: auto;
+  display: inline-block;
+  width: 500px;
+}
+
+
+.badge{
+  height: 20px;
+}
+
+.footer-btn{
+  margin-top: 40px;
+  padding-bottom: 50px;
+}
+
+.add-btn{
+  float: left;
+  margin-bottom: 40px;
+  margin-left: 15px;
+}
+
+.list-group-item.active{
+  background-color: lightgray;
+  border-color: lightgray;
+}
+
+.container.main{
+  max-width: 800px;
+}
+
+.select-multiple{
+  height: 175px;
+}
+
+option{
+  height: 25px;
+}
+
+option:hover{
+  background-color: #eee;
+}
+
+.selected{
+  border: 1px solid #0CC1F3;
+  border-radius: 2px;
+}
+
+.sub-text{
+  color: gray;
+}
+
+.little-title{
+  font-weight: bold;
+}
+
+.raster-options{
+  float: right;
+  margin-left: auto;
+}
+
+.hover-red:hover{
+  color : red;
+}
+
+.raster-band{
+  margin-left: 40px;
+  border-left: 1px solid grey;
+  padding-left: 10px;
+  font-size: small;
+  color: gray;
+}

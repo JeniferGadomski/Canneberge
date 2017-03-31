@@ -21,15 +21,19 @@ export class UsersDetailComponent implements OnInit {
     private service: CannebergeApiService
   )
   {
-    this.getFermes();
+
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.currentId  = params['id'];
       // Retrieve Pet with Id route param
-      this.service.getUser(this.currentId).subscribe(user => this.user = user);
-      console.log(this.user);
+      this.service.getUser(this.currentId).subscribe(user => {
+        this.user = user;
+        console.log(this.user);
+      });
+
+      this.getFermes();
     });
   }
 

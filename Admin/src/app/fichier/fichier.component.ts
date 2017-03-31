@@ -9,6 +9,7 @@ import {CannebergeApiService} from "../canneberge-api.service";
 })
 export class FichierComponent implements OnInit {
 
+  fermeFolder = '';
   currentPathList = [];
   currentPathString  = '/';
   listFiles = [];
@@ -26,7 +27,12 @@ export class FichierComponent implements OnInit {
   {  }
 
   ngOnInit() {
-    this.getListInFolder('/');
+    this.route.params.subscribe(params => {
+      this.fermeFolder = params['fermeId'];
+      this.service.setFileSubPath(this.fermeFolder);
+      this.getListInFolder('/');
+    });
+
   }
 
   clickFolder(folderPath){
@@ -34,7 +40,7 @@ export class FichierComponent implements OnInit {
       this.getListInFolder(folderPath);
     }
     else{
-      window.open(this.service.serverUrl + '/file' + folderPath + "?apiKey=" + this.service.apiKey);
+      window.open(this.service.serverUrl + this.service.fileSubPath + folderPath + "?apiKey=" + this.service.apiKey);
     }
   }
 

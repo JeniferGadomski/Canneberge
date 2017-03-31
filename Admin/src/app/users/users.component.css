@@ -20,8 +20,9 @@
 }
 
 .add-btn{
-  float: right;
+  float: left;
   margin-bottom: 40px;
+  margin-left: 15px;
 }
 
 .list-group-item.active{
@@ -50,9 +51,4 @@ option:hover{
   border-radius: 2px;
 }
 
-.exemple{
-  font-size: smaller;
-  color: gray;
-  border-left: 1px solid gray;
-  padding-left: 10px;
-}
+

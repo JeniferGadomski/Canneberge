@@ -16,6 +16,7 @@ Weather.getWeatherByLatLng = function (lat, lng, simple, next){
             return console.error(err);
         }
         weather['forecast'] = JSON.parse(body).forecast;
+        if(!weather.forecast) return next({success : false, message : 'Bad coordinates'});
         if(!simple){
             weatherJsonUrl = "http://api.wunderground.com/api/" + config.wu_key +"/conditions/q/" + coord + ".json";
             weatherRequest.conditions = request.get(weatherJsonUrl, function(err, httpResponse, body){

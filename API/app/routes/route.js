@@ -10,7 +10,8 @@ var multer = require('multer');
 var request = require('request');
 var path = require('path');
 var rio = require('rio');
-var apiKey = require('../models/apiKey');
+var authorization = require('../models/authorization');
+var fileserver = require('../file_system_api/fileserver');
 
 router.get('/', function(req, res) {
     res.send('Hello! The API is at http://api.canneberge.io/api');
@@ -48,34 +49,34 @@ router.post('/authentification', function(req, res) {
 
 
 /*
-    Public create new user
+ Public create new user
  */
 router.post('/users', function(req, res) {
-        var newUser = new User(req.body);
-        // console.log(newUser);
-        // save the user
-        newUser.save(function (err) {
-            if (err) {
-                console.log(err.message);
-                return res.status(403).send({success: false, message: err.message});
-            }
-            res.json({success: true, message: 'Successful created new user.', user : newUser});
-            fs.mkdir(__dirname + '/../file_system_api/fileSystem/' + newUser._id, function () {
+    var newUser = new User(req.body);
+    // console.log(newUser);
+    // save the user
+    newUser.save(function (err) {
+        if (err) {
+            console.log(err.message);
+            return res.status(403).send({success: false, message: err.message});
+        }
+        res.json({success: true, message: 'Successful created new user.', user : newUser});
+        fs.mkdir(__dirname + '/../file_system_api/fileSystem/' + newUser._id, function () {
 
-            });
         });
     });
+});
 
 
 
 /*
-    From here
-    A partir d'ici un token avec un _id de user doit etre fournis
+ From here
+ A partir d'ici un token avec un _id de user doit etre fournis
  */
 
 router.use(function(req, res, next) {
     // check header or url parameters or post parameters for token
-    var token = apiKey.getApiFromReq(req);
+    var token = authorization.getApiFromReq(req);
     // decode token
     if (token) {
         User.findById(token, function (err, user) {
@@ -91,7 +92,7 @@ router.use(function(req, res, next) {
 
 
 router.use('/users/:user_id/redirections', function (req, res, next) {
-    apiKey.sameUserOrAdmin(req, res, next);
+    authorization.sameUserOrAdmin(req, res, next);
 });
 router.get('/users/:user_id/redirections', function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
@@ -101,7 +102,7 @@ router.get('/users/:user_id/redirections', function (req, res) {
 
 
 router.use('/users/:user_id', function (req, res, next) {
-    apiKey.sameUserOrAdmin(req, res, next);
+    authorization.sameUserOrAdmin(req, res, next);
 });
 router.route('/users/:user_id')
     .get(function (req, res) {
@@ -136,7 +137,7 @@ router.route('/users/:user_id')
 
 
 router.use('/users', function (req, res, next) {
-    apiKey.isAdmin(req, res, next);
+    authorization.isAdmin(req, res, next);
 });
 router.route('/users')
     .get(function (req, res) {
@@ -222,10 +223,55 @@ router.post('/geojson-to-shapefile', function (req, res) {
     });
 });
 
-router.use('/fermes/data/:ferme_id', function (req, res, next) {
-    apiKey.fermeAuthorization(req, res, next);
+
+
+// router.use('/fermes/data', function (req, res, next) {
+//     authorization.fermeAuthorization(req, res, next);
+// });
+// router.route('/fermes/data')
+//     .get(function(req, res){
+//         var query = req.query;
+//         if(query.hasOwnProperty('fermeName')){
+//             Ferme.getFermeByName(query.fermeName, function (ferme) {
+//                 res.json(Ferme.geojsonToData(ferme.geojson));
+//             })
+//         }
+//         else {
+//             res.status(400).send({message : 'Aucune ferme demander'});
+//         }
+//     })
+//     .put(function (req, res) {
+//         var query = req.query;
+//         var body = JSON.parse(JSON.stringify(req.body));
+//         if(!body.hasOwnProperty('data')){
+//             res.statusMessage = 'Aucune donne, \'data\' doit etre fournie';
+//             res.sendStatus(400);
+//         }
+//         else if(query.hasOwnProperty('fermeId')){
+//             Ferme.getFermeById(query.fermeId, function (ferme) {
+//                 Ferme.updateDataFerme(req, res, ferme);
+//             });
+//         }
+//         else if(query.hasOwnProperty('fermeName')){
+//             Ferme.getFermeByName(query.fermeName, function (ferme) {
+//                 Ferme.updateDataFerme(req, res, ferme);
+//             })
+//         }
+//         else{
+//             res.statusMessage = "Parametre valide : fermeId, fermeName";
+//             res.sendStatus(400);
+//         }
+//     });
+
+router.use('/fermes/:ferme_id/*', function (req, res, next) {
+    authorization.fermeExiste(req, res, next);
 });
-router.route('/fermes/data/:ferme_id')
+
+router.use('/fermes/:ferme_id*', function (req, res, next) {
+    authorization.fermeAuthorization(req, res, next);
+});
+
+router.route('/fermes/:ferme_id/data')
     .get(function (req, res) {
         Ferme.getFermeById(req.params.ferme_id, function (ferme) {
             res.json(Ferme.geojsonToData(ferme.geojson));
@@ -243,53 +289,21 @@ router.route('/fermes/data/:ferme_id')
         });
     });
 
-router.use('/fermes/data', function (req, res, next) {
-    apiKey.fermeAuthorization(req, res, next);
-});
-router.route('/fermes/data')
-    .get(function(req, res){
-       var query = req.query;
-       if(query.hasOwnProperty('fermeId')){
-            Ferme.getFermeById(query.fermeId, function (ferme) {
-                res.json(Ferme.geojsonToData(ferme.geojson));
-            })
-       }
-       else if(query.hasOwnProperty('fermeName')){
-            Ferme.getFermeByName(query.fermeName, function (ferme) {
-                res.json(Ferme.geojsonToData(ferme.geojson));
-            })
-       }
-       else {
-           res.status(400).send({message : 'Aucune ferme demander'});
-       }
-    })
-    .put(function (req, res) {
-        var query = req.query;
-        var body = JSON.parse(JSON.stringify(req.body));
-        if(!body.hasOwnProperty('data')){
-            res.statusMessage = 'Aucune donne, \'data\' doit etre fournie';
-            res.sendStatus(400);
-        }
-        else if(query.hasOwnProperty('fermeId')){
-            Ferme.getFermeById(query.fermeId, function (ferme) {
-                Ferme.updateDataFerme(req, res, ferme);
-            });
-        }
-        else if(query.hasOwnProperty('fermeName')){
-            Ferme.getFermeByName(query.fermeName, function (ferme) {
-                Ferme.updateDataFerme(req, res, ferme);
-            })
-        }
-        else{
-            res.statusMessage = "Parametre valide : fermeId, fermeName";
-            res.sendStatus(400);
-        }
+router.get('/fermes/:ferme_id/weather', function (req, res) {
+    var simple = req.query.simple || false;
+    Ferme.getFermeById(req.params.ferme_id, function (ferme) {
+        Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
+            if(typeof weather.message !== 'undefined') res.status(404);
+            res.send(weather);
+        });
     });
-
-
-router.use('/fermes/:ferme_id', function (req, res, next) {
-    apiKey.fermeAuthorization(req, res, next);
 });
+
+router.use('/fermes/:ferme_id/file', fileserver);
+
+var rasters = require('../routes/rasters');
+router.use('/fermes/:ferme_id/rasters', rasters);
+
 router.route('/fermes/:ferme_id')
     .get(function (req, res) {
         Ferme.findById(req.params.ferme_id, function (err, ferme) {
@@ -298,31 +312,16 @@ router.route('/fermes/:ferme_id')
 
             var send = {ferme : ferme};
             send['weather'] = {};
-            if(!ferme){
-                res.json({});
-                return
-            }
+            if(!ferme)
+                return res.json({});
 
-            if(req.query.weather === 'false' || typeof ferme.centerCoordinate === 'undefined'){
-                res.json({ferme : ferme});
-                return
-            }
-            var coord = ferme.centerCoordinate.lat.toString() + "," + ferme.centerCoordinate.lng.toString();
-            var weatherRequest = {};
-            var weatherJsonUrl = "http://api.wunderground.com/api/" + config.wu_key +"/forecast/q/" + coord + ".json";
-            weatherRequest.forecast = request.get(weatherJsonUrl, function(err, httpResponse, body){
-                if(err){
-                    return console.error(err);
-                }
-                send.weather['forecast'] = JSON.parse(body).forecast;
-                weatherJsonUrl = "http://api.wunderground.com/api/" + config.wu_key +"/conditions/q/" + coord + ".json";
-                weatherRequest.conditions = request.get(weatherJsonUrl, function(err, httpResponse, body){
-                    if(err){
-                        return console.error(err);
-                    }
-                    send.weather['current_observation'] = JSON.parse(body).current_observation;
-                    res.json(send);
-                });
+            if(req.query.weather === 'false' || typeof ferme.centerCoordinate === 'undefined')
+                return res.json({ferme : ferme});
+
+            Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, false, function (weather) {
+                if(typeof weather.message !== 'undefined') res.status(404);
+                send.weather = weather;
+                res.send(send);
             });
         });
     })
@@ -348,26 +347,13 @@ router.route('/fermes/:ferme_id')
 
 
 router.use('/fermes', function (req, res, next) {
-    apiKey.isAdmin(req, res, next);
+    authorization.isAdmin(req, res, next);
 });
 router.route('/fermes')
     .get(function (req, res) {
-        var query = req.query;
-        if(query.hasOwnProperty('fermeId')){
-            Ferme.getFermeById(query.fermeId, function (ferme) {
-                res.json(ferme);
-            });
-        }
-        else if(query.hasOwnProperty('fermeName')){
-            Ferme.getFermeByName(query.fermeName, function (ferme) {
-                res.json(ferme);
-            })
-        }
-        else{
             Ferme.find({}, function (err, fermes) {
                 res.json(fermes);
             });
-        }
     })
     .post(function (req, res) {
         var newferme = new Ferme(req.body);
@@ -378,6 +364,7 @@ router.route('/fermes')
             res.json({success: true, message: 'Successful created new ferme.', ferme : newferme});
         });
     });
+
 
 router.post('/executeR', upload.any(), function (req, response) {
     function sendResponseBack(err, res){
@@ -402,10 +389,10 @@ router.post('/executeR', upload.any(), function (req, response) {
     else if(typeof req.body.filetext !== 'undefined'){
         var filename = './uploads/filetext.R';
         var filecontent =
-                "run <- function(){ \n" +
-                "setwd('" + __dirname + "/../file_system_api/fileSystem/" + apiKey.getApiFromReq(req) +"')\n" +
-                req.body.filetext +
-                "\n }";
+            "run <- function(){ \n" +
+            "setwd('" + __dirname + "/../file_system_api/fileSystem/" + authorization.getApiFromReq(req) +"')\n" +
+            req.body.filetext +
+            "\n }";
 
         fs.writeFile(filename, filecontent, function(err) {
             if(err) {
@@ -433,31 +420,12 @@ router.get('/weather', function (req, res) {
     var query = req.query;
     var simple = req.query.simple || false;
     if(query.hasOwnProperty('lat') && query.hasOwnProperty('lng')){
-            Weather.getWeatherByLatLng(query.lat, query.lng, simple, function (w) {
-                res.json(w);
-            });
+        Weather.getWeatherByLatLng(query.lat, query.lng, simple, function (weather) {
+            if(typeof weather.message !== 'undefined') res.status(404);
+            res.send(weather);
+        });
     }
-    else if(query.hasOwnProperty('fermeId')){
-        Ferme.getFermeById(query.fermeId, function (ferme) {
-            if(!ferme) res.status(404).send({message : 'No ferme found'});
-            else{
-                Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
-                    res.json(weather);
-                })
-            }
-        })
-    }
-    else if(query.hasOwnProperty('fermeName')){
-        Ferme.getFermeByName(query.fermeName, function (ferme) {
-            if(!ferme) res.status(404).send({message : 'No ferme found'});
-            else{
-                Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, simple, function (weather) {
-                    res.json(weather);
-                })
-            }
-        })
-    }
-    else res.status(400).send({message : 'Liste des paramètres valide : lat, lng -- fermeId -- fermeName'});
+    else res.status(400).send({message : 'Liste des paramètres valide : lat, lng'});
 });
 
 
