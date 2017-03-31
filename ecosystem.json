@@ -13,9 +13,10 @@
   },
   {
   	"name"        : "Carte",
-    "script"      : "./carte.js",
+    "script"      : "/usr/bin/http-server",
     "watch"       : false,
-    "cwd"	: "./Carte/"
+    "cwd"	: "./Carte/",
+    "args" : "-p 3001"
   },
   {
   	"name"        : "Admin",

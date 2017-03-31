@@ -2,8 +2,10 @@
  * Created by bhacaz on 24/01/17.
  */
 angular.module('app')
-    .controller('mapController', function ($scope, $rootScope, $compile, apiService) {
+    .controller('mapController', function ($scope, $rootScope, $compile, $location, apiService) {
 
+        $scope.rasterId = $location.search().rasterId;
+        console.log($scope.rasterId);
         $scope.showRasters = false;
         $scope.showShapefile = true;
         $scope.groundOverlay = null;
@@ -28,6 +30,14 @@ angular.module('app')
         ];
 
 
+        $scope.sliderRaster = {
+            range : {
+                min : 0,
+                max : 0,
+                step : 1
+            },
+            value : 0
+        };
 
         $scope.markerFunction = {
             getMarkerFromMarkerDescriptor : function (markerDescriptor, map) {
@@ -48,6 +58,19 @@ angular.module('app')
             }
         };
 
+        function initRaster() {
+            if($scope.rasterId){
+                for(var i = 0; i < $scope.ferme.rasters.length; i++){
+                    if($scope.ferme.rasters[i]._id === $scope.rasterId){
+                        $scope.showRasters = true;
+                        $scope.sliderRaster.value = i;
+                        $scope.toggleRasters();
+                        return;
+                    }
+                }
+            }
+        }
+
         var initialize = function (event) {
             console.log('intiMap');
             setCenterCoordinate();
@@ -56,6 +79,7 @@ angular.module('app')
             }
 
             $scope.sliderRaster.range.max = $scope.ferme.rasters.length - 1;
+            initRaster();
 
             map.data.addGeoJson($scope.ferme.geojson);
             map.data.setStyle({
@@ -308,15 +332,7 @@ angular.module('app')
             }
         };
 
-        $scope.sliderRaster = {
-            range : {
-                min : 0,
-                max : 0,
-                step : 1
-            },
-            value : 0
 
-        }
 
 
 

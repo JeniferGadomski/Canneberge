@@ -56,9 +56,10 @@ angular.module('app')
                 }
             }
             colNames = [];
-            $scope.columns.forEach(function (v) {
-                colNames.push(v.field);
-            });
+            for (var i = 0; i < $scope.columns.length; i++) {
+                var obj = $scope.columns[i];
+                colNames.push(obj.field);
+            }
             for(var attrname in newObjects[0]){
                 if(colNames.indexOf(attrname) === -1){
                     $scope.columns.push({

@@ -85,6 +85,13 @@ export class FermesDetailComponent implements OnInit {
     return url;
   }
 
+  getUrlSeeRasterOnCarte(raster){
+    let url = 'http://carte.canneberge.io/';
+    url += '?fermeId=' + this.ferme._id;
+    url += '&rasterId=' + raster._id;
+    return url;
+  }
+
   addFile(newFileInput){
     newFileInput.click();
   }

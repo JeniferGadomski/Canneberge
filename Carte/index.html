@@ -2,6 +2,8 @@
 <html ng-app="app">
 <head>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
@@ -108,6 +110,11 @@
                     <div ng-if="currentField.hectare !== undefined" style="padding-top: 5px;">
                         {{currentField.hectare}} ha
                     </div>
+                    <div ng-class="{invisible : !showRasters}" >
+                        <div class="max rasters-band">Max. :  {{ferme.rasters[sliderRaster.value].band.max.toFixed(2)}}</div>
+                        <div class="mean rasters-band">Moy. : {{ferme.rasters[sliderRaster.value].band.mean.toFixed(2)}}</div>
+                        <div class="min rasters-band">Min. : {{ferme.rasters[sliderRaster.value].band.min.toFixed(2)}}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,17 +145,11 @@
                                 tooltip="hide"></slider>
                     </div>
                 </div>
-                <div ng-class="{invisible : !showRasters}" class="row w-100" style="padding-left: 15px">
-                    <div class="rasters-title col-sm-8">
+                <div ng-class="{invisible : !showRasters}" class="w-100" style="padding-left: 15px">
+                    <div class="rasters-title">
                         <h4>{{ferme.rasters[sliderRaster.value].name}}</h4>
                         <h5>{{ferme.rasters[sliderRaster.value].date.string}}</h5>
                     </div>
-                    <div class="col-sm-4">
-                        <span class="max rasters-band">Max. : </span> {{ferme.rasters[sliderRaster.value].band.max.toFixed(2)}} <br>
-                        <span class="mean rasters-band">Moy. : </span> {{ferme.rasters[sliderRaster.value].band.mean.toFixed(2)}} <br>
-                        <span class="min rasters-band">Min. : </span> {{ferme.rasters[sliderRaster.value].band.min.toFixed(2)}}
-                    </div>
-
                 </div>
 
             </div>
