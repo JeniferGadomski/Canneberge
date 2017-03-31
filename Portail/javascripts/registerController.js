@@ -5,7 +5,6 @@
 angular.module('app')
     .controller('registerController', function ($scope, $window, $location, apiService) {
 
-        console.log('Controller works');
         $scope.registerForm = {password : ''};
 
         $scope.form = {
@@ -27,7 +26,7 @@ angular.module('app')
             apiService.postUser(copieForm)
                 .then(function (res) {
                     if(res.data.success){
-                        if(!alert("Merci, maintenant contacter le l\'administrater.")) $window.location = '/';
+                        if(!alert("Merci, maintenant contacter le l\'administrater.")) $location.path('/redireciton');
                     }
                 }, function (err) {
                     console.log(err);

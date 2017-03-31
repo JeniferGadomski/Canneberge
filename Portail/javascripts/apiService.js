@@ -6,14 +6,14 @@ angular.module('apiServiceModule', [])
         var apiService = {};
         var url = 'http://api.canneberge.io/api/';
         var headers = {headers : {'x-access-token' : ''}};
+        var serviceApiKey;
 
-
-        apiService.getRedirection = function(apiKey){
-            return  $http.get(url + 'users/' + apiKey + '/redirections', headers);
+        apiService.getRedirection = function(){
+            return  $http.get(url + 'users/' + serviceApiKey + '/redirections', headers);
         };
 
-        apiService.getUser = function(apiKey){
-            return  $http.get(url + 'users/' + apiKey, headers);
+        apiService.getUser = function(){
+            return  $http.get(url + 'users/' + serviceApiKey, headers);
         };
 
         apiService.authentification = function(userForm){
@@ -22,6 +22,7 @@ angular.module('apiServiceModule', [])
 
         apiService.setApiKey = function (newApiKey) {
             console.log(newApiKey);
+            serviceApiKey = newApiKey;
             headers = {headers : {'x-access-token' : newApiKey}};
         };
 

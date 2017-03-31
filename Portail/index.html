@@ -3,7 +3,7 @@
 <head>
   <title> Portail </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel='stylesheet' href='/stylesheets/style.css' />
+
 
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.js"></script>
@@ -19,6 +19,10 @@
   <script src="../javascripts/app.js"></script>
   <script src="../javascripts/apiService.js"></script>
   <script src="../javascripts/mainController.js"></script>
+  <script src="../javascripts/registerController.js"></script>
+  <script src="../javascripts/redirectionController.js"></script>
+
+  <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 
     <!-- Google Analytics -->
@@ -34,9 +38,18 @@
     <!-- End Google Analytics -->
 
 </head>
-<body ng-controller="mainController">
 
-<div data-ng-include="getViewPath()" ></div>
+
+<div class="container">
+  <div id="title" class="form-signin-heading">
+    <img src="../images/logo.svg" height="60" width="60">
+    <h1 class="text-center">Canneberge.io</h1>
+  </div>
+
+  <div ng-view></div>
+
+</div>
+<!--<div data-ng-include="getViewPath()" ></div>-->
 
 
 

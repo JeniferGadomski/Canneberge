@@ -7,36 +7,44 @@ angular.module('app')
 
         $scope.userForm = {};
 
+
         $scope.apiKey = {
-            value :  localStorage.getItem('apiKey'),
             isUndefined : function () {
                 return this.value === null
             }
-
         };
 
-        apiService.setApiKey($scope.apiKey.value);
+        $scope.apiKey.value = localStorage.getItem('apiKey');
 
-        $scope.getViewPath = function (){
-            console.log($scope.apiKey.value);
-            return $scope.apiKey.isUndefined() ? 'views/login.html' : 'views/redirections.html';
-        };
-
-        function getRedirection(){
-            apiService.getRedirection($scope.apiKey.value)
-                .then(function (res) {
-                    console.log(res.data);
-                    $scope.redirections = res.data;
-                });
+        if(!$scope.apiKey.isUndefined()){
+            console.log('setUndefined');
+            apiService.setApiKey($scope.apiKey.value);
+            $location.path('/redireciton');
         }
 
-        function getUser() {
-            apiService.getUser($scope.apiKey.value)
-                .then(function (res) {
-                    console.log(res.data);
-                    $scope.user = res.data.user;
-                });
-        }
+
+
+        // $scope.getViewPath = function (){
+        //     console.log($scope.apiKey.value);
+        //     return $scope.apiKey.isUndefined() ? 'views/login.html' : 'views/redirection.html';
+        // };
+
+        // function getRedirection(){
+        //     $window.location.href= '#/redirections';
+        //     // apiService.getRedirection($scope.apiKey.value)
+        //     //     .then(function (res) {
+        //     //         console.log(res.data);
+        //     //         $scope.redirections = res.data;
+        //     //     });
+        // }
+
+        // function getUser() {
+        //     apiService.getUser($scope.apiKey.value)
+        //         .then(function (res) {
+        //             console.log(res.data);
+        //             $scope.user = res.data.user;
+        //         });
+        // }
 
 
 
@@ -62,8 +70,9 @@ angular.module('app')
                         $scope.apiKey.value = res.data.apiKey;
                         console.log(res.data.apiKey);
                         apiService.setApiKey(res.data.apiKey);
-                        getUser();
-                        getRedirection();
+                        $location.path('/redireciton');
+                        // getUser();
+                        // getRedirection();
                     }
                     else{
                         $scope.errorMessage = res.data.message;
@@ -74,23 +83,4 @@ angular.module('app')
                     console.log(err);
                 })
         };
-
-        if(!$scope.apiKey.isUndefined()){
-            getUser();
-            getRedirection();
-        }
-        
-        function handleLogout() {
-            if($window.location.pathname.split('/')[1] === 'logout')
-            {
-                $window.localStorage.clear();
-                $window.location.href = '/';
-            }
-        }
-        handleLogout();
-
-
-
-
-
     });

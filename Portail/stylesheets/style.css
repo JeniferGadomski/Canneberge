@@ -1,0 +1,148 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+.alert{
+  margin-top: 20px;
+}
+
+label{
+  color : white;
+}
+
+form{
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+}
+
+.form-control.invalid{
+  background-color: pink;
+}
+
+.btn-confirm{
+  width: 200px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+a.list-group-item{
+
+  height: 50px;
+  margin-bottom: 15px;
+  text-align: center;
+  border-radius: 5px;
+  font-size: large;
+  background-color: rgba(255,255,255,0.3);
+  color: white;
+}
+
+.list-group-item:hover{
+  color: black;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+
+.list-group{
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#user-info{
+  text-align: right;
+  font-size: larger;
+  padding-right: 75px;
+  color:white;
+  font-family: monospace;
+}
+
+.bottom-option{
+  width: 100%;
+  text-align: right;
+}
+
+html, body{
+  /*width:100%;*/
+  /*background: url("/images/cranberry_background.png") no-repeat fixed;*/
+  /*background-size:cover;*/
+
+
+  /*background: #c2e59c; !* fallback for old browsers *!*/
+  /*background: -webkit-linear-gradient(to left, #c2e59c , #64b3f4); !* Chrome 10-25, Safari 5.1-6 *!*/
+  /*background: linear-gradient(to left, #c2e59c , #64b3f4); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+
+  background:
+    /* top, transparent red, faked with gradient */
+          linear-gradient(
+                  rgba(200, 0, 0, 0.1),
+                  rgba(200, 0, 0, 0.1)
+          ),
+            /* bottom, image */
+          url("/images/cranberry_background.png") no-repeat fixed;
+  background-size: cover;
+}
+
+
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#title{
+  /*padding-top: 350px;*/
+  color: white;
+  border-bottom: solid;
+  margin-left: 75px;
+  margin-right: 75px;
+  font-family: monospace;
+}
+
+.h1{
+  font-size: 48px;
+}
+
+#form-login{
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.bottom-form{
+  margin-top: 25px;
+}
+
+#btn-login{
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button-div{
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn.disabled{
+  background-color: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.under-title{
+  margin-top : 50px;
+}
+
+.form-signin-heading{
+  text-align: center;
+}

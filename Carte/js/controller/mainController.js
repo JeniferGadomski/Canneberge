@@ -11,7 +11,7 @@ angular.module('app')
 
 
         // Getting apiKey from portail.canneberge.io
-        var remoteStorage = new CrossDomainStorage("http://portail.canneberge.io", "/retrieve");
+        var remoteStorage = new CrossDomainStorage("http://portail.canneberge.io", "/views/retrieve.html");
         remoteStorage.requestValue("apiKey", function(key, value){
             if(value === null){
                 $window.location = 'http://portail.canneberge.io';

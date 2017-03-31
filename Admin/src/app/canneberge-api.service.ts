@@ -26,7 +26,7 @@ export class CannebergeApiService {
   // Important: It should return a Promise
   load(): Promise<any> {
     let p = new Promise((resolve, reject) => {
-      let remoteStorage = new CrossDomainStorage("http://portail.canneberge.io", "/retrieve");
+      let remoteStorage = new CrossDomainStorage("http://portail.canneberge.io", "/views/retrieve.html");
       remoteStorage.requestValue("apiKey", function(key, value){
         resolve(value);
       });

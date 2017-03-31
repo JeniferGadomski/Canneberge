@@ -7,9 +7,10 @@
   },
   {
   	"name"        : "Portail",
-    "script"      : "./portail.js",
+    "script"      : "/usr/bin/http-server",
     "watch"       : false,
-    "cwd"	: "./Portail/"
+    "cwd"	: "./Portail/",
+    "args" : "-p 8002"
   },
   {
   	"name"        : "Carte",
