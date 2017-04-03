@@ -60,16 +60,17 @@ Pour compiler le projet Admin
 	
 Penser a builder l'application Administrateur
 
-## Base de données MongoDB
+## Base de données MongoDB (temporaire*)
 Connection avec Robomongo
 
  * Adresse : ds139969.mlab.com
  * Port : 39969
  * Authentificaiton
     * Databse : canneberge-database
-    * User Name : bhacaz
-    * Password : "Demander"
+    * User Name : canneberge
+    * Password : drainage
 
+\* L'utilisation de mlab est seulement utiliser pour le développement.
 
 ## Interpréteur R
 Consulteur le fichier /Doc/R/Installation_Rserve.md

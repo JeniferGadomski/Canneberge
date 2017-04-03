@@ -17,9 +17,48 @@ router.get('/', function(req, res) {
     res.send('Hello! The API is at http://api.canneberge.io/api');
 });
 
+
+/**
+ * @api {post} /authentification Authentification
+ * @apiName Authentification a user
+ * @apiGroup Authentification
+ *
+ * @apiDescription Authentificate a user with is email and password
+ *
+ * @apiParam {String} email Email of the user.
+ * @apiParam {String} password Password of the user.
+ *
+ *
+ * @apiSuccess {Boolean} success If the authentification has success.
+ * @apiSuccess {String} message Authentificaiton message success.
+ * @apiSuccess {String} apiKey The api key of the user.
+ * @apiSuccessExample {json} Success-Response:
+ *   {
+ *       "success": true,
+ *       "message": "Enjoy your token!",
+ *       "apiKey": "1234567890"
+ *   }
+ *
+ * @apiError UserNotFound Authentication failed. User not found.
+ * @apiError UserBlocked The user is blocked.
+ * @apiErrorExample {json} UserNotFound-Response
+ *  {
+ *       "success": false,
+ *      "message": "Authentication failed. User not found."
+ *  }
+ *
+ *  @apiErrorExample {json} UserBlocked-Response
+ *  {
+ *       "success": false,
+ *      "message": "Contacter l'administrateur."
+ *  }
+ *
+ */
 router.post('/authentification', function(req, res) {
     // find the user
     var email = req.body.email;
+
+    console.log(req.body);
 
     User.findOne({
         email: email
@@ -48,8 +87,78 @@ router.post('/authentification', function(req, res) {
 });
 
 
-/*
- Public create new user
+/**
+ * @apiDefine admin User with administrator authorization
+ * Only the users with the autority admin can use this function
+ */
+
+
+/**
+ * @apiDefine fermeAccess User with the right to access the farm
+ * Only the users with the autority to access this farm can access it.
+ */
+
+/**
+ * @apiDefine sameUser User must be admin or by the same user
+ * Only admin or user himself can acces to the user.
+ */
+
+/**
+ * @apiDefine apiKey The user must provide a api key
+ * header : {x-access-token : apiKey},
+ * body : {apiKey : apiKey},
+ * query : ?apiKey=apiKey
+ */
+
+
+/**
+ * @api {post} /users Create a new user
+ * @apiName Create a new user
+ * @apiGroup User
+ *
+ * @apiDescription Create and register a new user.
+ *
+ * @apiParam {String} firstname First name of the new user
+ * @apiParam {String} lastname Last name of the new user
+ * @apiParam {String} email Last name of the new user
+ * @apiParam {String} password The password of the new user
+ * @apiParam {String} username The username of the new user
+ * @apiParam {String[]} scripts="[]" List of the scripts. Only admin can have some.
+ * @apiParam {Object} authorization Value to restrict user.
+ * @apiParam {Boolean} authorization.admin="false" Param to set a user admin.
+ * @apiParam {Boolean} authorization.blocked="true" The user can't use the API when true.
+ * @apiParam {Object[]} authorization.fermes="[]" List of the farms the user have access.
+ *
+ * @apiSuccess {Boolean} success
+ * @apiSuccess {String} message Successful created new user.
+ *
+ * @apiSuccessExample {json} Success-Response:
+ {
+   "success": true,
+   "message": "Successful created new user.",
+   "user": {
+     "__v": 0,
+     "username": "Postman",
+     "firstname": "Post",
+     "lastname": "Man",
+     "email": "postman@gmail.com",
+     "_id": "1234567980",
+     "authorization": {
+       "blocked": true,
+       "fermes": [],
+       "admin": false
+     },
+     "scripts": [],
+     "password": "1234567980"
+   }
+ }
+ *
+ * @apiError Error Message detail
+ * @apiErrorExample {json} Error-Response
+ *  {
+ *       "success": false,
+ *      "message": "User validation failed"
+ *  }
  */
 router.post('/users', function(req, res) {
     var newUser = new User(req.body);
@@ -90,7 +199,28 @@ router.use(function(req, res, next) {
     }
 });
 
-
+/**
+ * @api {get} /users/:id/redirections User redirections
+ * @apiName User redirections
+ * @apiGroup User
+ * @apiDescription Get all link of application the user has access.
+ * @apiPermission apiKey
+ * @apiPermission sameUser
+ *
+ * @apiParam {String} id The id of the user.
+ *
+ * @apiSuccess {Object[]} list List of the link with title.
+ * @apiSuccess {String} .name Title of the link.
+ * @apiSuccess {String} .url The url of the link.
+ * @apiSuccessExample {json} Resposne-Example
+ * [
+ {
+   "name": "Blandford",
+   "url": "http://carte.canneberge.io/?fermeId=1234567890"
+ }
+ * ]
+ *
+ */
 router.use('/users/:user_id/redirections', function (req, res, next) {
     authorization.sameUserOrAdmin(req, res, next);
 });
@@ -105,6 +235,59 @@ router.use('/users/:user_id', function (req, res, next) {
     authorization.sameUserOrAdmin(req, res, next);
 });
 router.route('/users/:user_id')
+/**
+ * @api {get} /users/:id Get User
+ * @apiName Get User
+ * @apiGroup User
+ * @apiDescription Get the information of an user.
+ * @apiPermission apiKey
+ * @apiPermission sameUser
+ *
+ * @apiParam {String} id The id of the user.
+ *
+ * @apiSuccess {Object} user Object user
+ * @apiSuccess {String} user.firstname First name of the new user
+ * @apiSuccess {String} user.lastname Last name of the new user
+ * @apiSuccess {String} user.email Last name of the new user
+ * @apiSuccess {String} user.password The password of the new user
+ * @apiSuccess {String} user.username The username of the new user
+ * @apiSuccess {String[]} user.scripts="[]" List of the scripts. Only admin can have some.
+ * @apiSuccess {Object} user.authorization Value to restrict user.
+ * @apiSuccess {Boolean} user.authorization.admin="false" Param to set a user admin.
+ * @apiSuccess {Boolean} user.authorization.blocked="true" The user can't use the API when true.
+ * @apiSuccess {Object[]} user.authorization.fermes="[]" List of the farms the user have access.
+ *
+ * @apiSuccessExample {json} Success-Response
+ *{
+  "user": {
+    "_id": "1234567980",
+    "firstname": "PostMan",
+    "lastname": "Pampev",
+    "email": "pampev@gmail.com",
+    "username": "pampev",
+    "__v": 0,
+    "authorization": {
+      "blocked": false,
+      "fermes": [
+        {
+          "_id": "1234567980",
+          "name": "Pampev"
+        }
+      ],
+      "admin": false
+    },
+    "scripts": [],
+    "password": "1234567980"
+  }
+}
+ *
+ * @apiError UserNotFound The user doesn't exist.
+ * @apiErrorExample {json} Error-Response
+ *{
+  "message": "no user"
+}
+ *
+ */
     .get(function (req, res) {
         User.findById(req.params.user_id, function (err, user) {
             if(err) res.status(404).json({message : 'no user'});
@@ -112,6 +295,40 @@ router.route('/users/:user_id')
             else res.json({user: user});
         });
     })
+/**
+* @api {put} /users/:id Update User
+* @apiName Update User
+* @apiGroup User
+ * @apiPermission apiKey
+ * @apiPermission sameUser
+*
+* @apiDescription Update a user by it's id
+*
+* @apiParam {String} firstname First name of the new user
+* @apiParam {String} lastname Last name of the new user
+* @apiParam {String} email Last name of the new user
+* @apiParam {String} password The password of the new user
+* @apiParam {String} username The username of the new user
+* @apiParam {String[]} scripts="[]" List of the scripts. Only admin can have some.
+* @apiParam {Object} authorization Value to restrict user.
+* @apiParam {Boolean} authorization.admin="false" Param to set a user admin.
+* @apiParam {Boolean} authorization.blocked="true" The user can't use the API when true.
+* @apiParam {Object[]} authorization.fermes="[]" List of the farms the user have access.
+*
+* @apiSuccess {Object} user The object of the user updated.
+*
+* @apiSuccessExample {json} Success-Response:
+*     {
+*          "user": Object
+*     }
+*
+* @apiError Error Message detail
+* @apiErrorExample {json} Error-Response
+ {
+   "success": false,
+   "message": "Error no user found"
+ }
+*/
     .put(function (req, res) {
         User.update({_id : ObjectId(req.params.user_id)}, req.body, function (err, result) {
             if(err) res.status(404).send({message : 'error update user', success : false});
@@ -125,10 +342,24 @@ router.route('/users/:user_id')
         });
 
     })
+/**
+ * @api {delete} /users/:id Delete User
+ * @apiName Delete User
+ * @apiGroup User
+ * @apiPermission apiKey
+ * @apiPermission sameUser
+ *
+ * @apiDescription Delete a user by it's id
+ *
+ * @apiParam {String} id The user id.
+ *
+ * @apiSuccess {String} Code Status message
+ *
+ */
     .delete(function (req, res) {
         User.remove({_id : ObjectId(req.params.user_id)}, function (err, result) {
             if (err) {
-                console.log(err);
+                res.status(404).send(err.message);
             }
             // console.log(result);
             res.sendStatus(200);
@@ -136,6 +367,18 @@ router.route('/users/:user_id')
     });
 
 
+/**
+ * @api {get} /users Get all user
+ * @apiName Get all user
+ * @apiGroup User
+ * @apiPermission admin
+ *
+ * @apiDescription Retrive all users
+ *
+ *
+ * @apiSuccess {Object[]} list List of all users
+ *
+ */
 router.use('/users', function (req, res, next) {
     authorization.isAdmin(req, res, next);
 });
@@ -351,9 +594,9 @@ router.use('/fermes', function (req, res, next) {
 });
 router.route('/fermes')
     .get(function (req, res) {
-            Ferme.find({}, function (err, fermes) {
-                res.json(fermes);
-            });
+        Ferme.find({}, function (err, fermes) {
+            res.json(fermes);
+        });
     })
     .post(function (req, res) {
         var newferme = new Ferme(req.body);

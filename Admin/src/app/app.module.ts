@@ -17,6 +17,7 @@ import { ScriptComponent } from './script/script.component';
 import {AceEditorDirective, AceEditorComponent} from 'ng2-ace-editor';
 import { FichierComponent } from './fichier/fichier.component';
 import {DatePickerModule} from "ng2-datepicker";
+import { FermesRastersComponent } from './fermes/fermes-rasters.component';
 
 export function startupServiceFactory(startupService: CannebergeApiService): Function {
   return () => startupService.load();
@@ -35,7 +36,8 @@ export function startupServiceFactory(startupService: CannebergeApiService): Fun
     FermesAddComponent,
     FermesDetailComponent,
     ScriptComponent,
-    FichierComponent
+    FichierComponent,
+    FermesRastersComponent
 
   ],
   imports: [
