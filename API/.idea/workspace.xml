@@ -3,12 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="f6bbfeec-e0c8-4138-abab-040d88e9d06c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/file_system_api/fileserver.js" afterPath="$PROJECT_DIR$/app/file_system_api/fileserver.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/ferme.js" afterPath="$PROJECT_DIR$/app/models/ferme.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/rasters.js" afterPath="$PROJECT_DIR$/app/routes/rasters.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/route.js" afterPath="$PROJECT_DIR$/app/routes/route.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/uploads/filetext.R" afterPath="$PROJECT_DIR$/uploads/filetext.R" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Documentation/API/api_data.js" afterPath="$PROJECT_DIR$/../Documentation/API/api_data.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Documentation/API/api_data.json" afterPath="$PROJECT_DIR$/../Documentation/API/api_data.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Documentation/API/api_project.js" afterPath="$PROJECT_DIR$/../Documentation/API/api_project.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Documentation/API/api_project.json" afterPath="$PROJECT_DIR$/../Documentation/API/api_project.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Documentation/API/index.html" afterPath="$PROJECT_DIR$/../Documentation/API/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,42 +42,58 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="route.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fileserver.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/file_system_api/fileserver.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="348">
+              <caret line="103" column="72" lean-forward="false" selection-start-line="103" selection-start-column="72" selection-end-line="103" selection-end-column="72" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="route.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/routes/route.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3375">
-              <caret line="214" column="36" lean-forward="false" selection-start-line="214" selection-start-column="36" selection-end-line="214" selection-end-column="36" />
+            <state relative-caret-position="140">
+              <caret line="587" column="0" lean-forward="true" selection-start-line="587" selection-start-column="0" selection-end-line="587" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/config.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="2" lean-forward="true" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/user.js">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Documentation/API/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="149">
-              <caret line="12" column="58" lean-forward="true" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="58" />
-              <folding />
+              <caret line="647" column="4" lean-forward="true" selection-start-line="647" selection-start-column="4" selection-end-line="652" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file leaf-file-name="r.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../Documentation/API/r.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-              <folding />
+            <state relative-caret-position="198">
+              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="example.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../Documentation/API/example.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -87,12 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>data</find>
-      <find>req.query</find>
-      <find>fermes/data</find>
-      <find>404</find>
-      <find>args.apiKey</find>
-      <find>replace</find>
       <find>writeF</find>
       <find>recu</find>
       <find>writeFile</find>
@@ -115,8 +131,14 @@
       <find>admin</find>
       <find>gmail</find>
       <find>body</find>
-      <find>apiError</find>
       <find>Resposn</find>
+      <find>Get Ferme</find>
+      <find>weather</find>
+      <find>apiParamEx</find>
+      <find>example.ht</find>
+      <find>&lt;a href=&quot;example.html#example-weather&quot;&gt;Example weather&lt;/a&gt;</find>
+      <find>apiError</find>
+      <find>rasters</find>
     </findStrings>
     <replaceStrings>
       <replace>fileSystemDir</replace>
@@ -146,17 +168,21 @@
         <option value="$PROJECT_DIR$/app/models/authorization.js" />
         <option value="$PROJECT_DIR$/app/models/weather.js" />
         <option value="$PROJECT_DIR$/app/models/raster.js" />
-        <option value="$PROJECT_DIR$/app/file_system_api/fileserver.js" />
         <option value="$PROJECT_DIR$/app/file_system_api/fsDriver.js" />
-        <option value="$PROJECT_DIR$/app/models/ferme.js" />
-        <option value="$PROJECT_DIR$/app/routes/rasters.js" />
         <option value="$PROJECT_DIR$/app/models/TiffToOverlay.js" />
         <option value="$PROJECT_DIR$/uploads/.gitignore" />
         <option value="$PROJECT_DIR$/app/config/config.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/app/apidoc.json" />
         <option value="$PROJECT_DIR$/api.js" />
+        <option value="$PROJECT_DIR$/app/models/ferme.js" />
+        <option value="$PROJECT_DIR$/../Documentation/API/view/example.html" />
+        <option value="$PROJECT_DIR$/app/routes/rasters.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/app/file_system_api/fileserver.js" />
         <option value="$PROJECT_DIR$/app/routes/route.js" />
+        <option value="$PROJECT_DIR$/../Documentation/API/index.html" />
+        <option value="$PROJECT_DIR$/../Documentation/API/r.html" />
+        <option value="$PROJECT_DIR$/../Documentation/API/example.html" />
       </list>
     </option>
   </component>
@@ -488,12 +514,12 @@
       <workItem from="1489504734435" duration="4631000" />
       <workItem from="1490012843105" duration="77317000" />
       <workItem from="1490628058085" duration="42833000" />
-      <workItem from="1491223555867" duration="12271000" />
+      <workItem from="1491223555867" duration="35730000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="417210000" />
+    <option name="totallyTimeSpent" value="440669000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="-2" width="1922" height="1035" extended-state="6" />
@@ -532,22 +558,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/uploads/scirpt.R">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/rio/lib/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="120" column="12" lean-forward="false" selection-start-line="120" selection-start-column="12" selection-end-line="120" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/file_system_api/fileSystem/Hello.json" />
-    <entry file="file://$PROJECT_DIR$/app/file_system_api/fileSystem/Images/usb.png" />
     <entry file="file://$PROJECT_DIR$/node_modules/mongoose/lib/drivers/node-mongodb-native/connection.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1140">
@@ -679,32 +689,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/ferme.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="56" column="2" lean-forward="false" selection-start-line="56" selection-start-column="2" selection-end-line="56" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/file_system_api/fileserver.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6750">
-          <caret line="375" column="0" lean-forward="false" selection-start-line="375" selection-start-column="0" selection-end-line="375" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/routes/rasters.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1692">
-          <caret line="96" column="15" lean-forward="false" selection-start-line="96" selection-start-column="15" selection-end-line="96" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#41#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/uploads/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -713,34 +697,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/uploads/filetext.R">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/TiffToOverlay.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="24" column="47" lean-forward="true" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/apidoc.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="46" lean-forward="false" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -761,6 +721,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/ferme.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="50" column="41" lean-forward="false" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/uploads/filetext.R">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documentation/API/view/example.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="4353" column="8" lean-forward="true" selection-start-line="4353" selection-start-column="8" selection-end-line="4353" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -769,11 +753,75 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/TiffToOverlay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="27" column="2" lean-forward="true" selection-start-line="27" selection-start-column="2" selection-end-line="27" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/routes/rasters.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2070">
+          <caret line="117" column="3" lean-forward="true" selection-start-line="117" selection-start-column="3" selection-end-line="117" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#41#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="20" lean-forward="false" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/file_system_api/fileserver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="103" column="72" lean-forward="false" selection-start-line="103" selection-start-column="72" selection-end-line="103" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/route.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3375">
-          <caret line="214" column="36" lean-forward="false" selection-start-line="214" selection-start-column="36" selection-end-line="214" selection-end-column="36" />
+        <state relative-caret-position="140">
+          <caret line="587" column="0" lean-forward="true" selection-start-line="587" selection-start-column="0" selection-end-line="587" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documentation/API/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="647" column="4" lean-forward="true" selection-start-line="647" selection-start-column="4" selection-end-line="652" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documentation/API/r.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../Documentation/API/example.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,31 +1,18 @@
 run <- function(){ 
 setwd('/home/bhacaz/Documents/Platforme-Canneberge/API/app/routes/../file_system_api/fileSystem/5894a2f1df1f28501873a566')
-# Créé le : 20/2/2017-16:24:5
+# Créé le : 4/4/2017-16:20:23
 
-library(jsonlite)
-library(httr)
+library(raster)
+library(rgdal)
 
+p <- WebPlot(300,300)
 
-### Aller chercher les donnees
-url <- 'api.canneberge.io/api/fermes/589b68bf90d51c42998c017d/weather?simple=true&apiKey=5894a2f1df1f28501873a566' # url de l'api
-r <- GET(url) # requete HTTP pour recuperer les donnees
-d <- fromJSON(content(r, 'text')) # transforme la reponse en data frame (json -> data frame)
+# The id of the ferme : 589b68bf90d51c42998c017d
+r <- raster("../589b68bf90d51c42998c017d/Nappe_Blandford_2016-07-13-c.tif")
+plot(r)
+oprint(r)
 
-### Utilisation de FastRWeb
-p <- WebPlot(600, 300) # Creation dun graphique pour le retour web
-
-library(ggplot2)
-library(reshape2)
-d <- melt(d, id.vars="day")
-
-# Everything on the same plot
-print(ggplot(d, aes(day,value, col=variable)) + 
-  geom_point() + 
-  stat_smooth())
 out(p)
 
-oprint(d) # Printer les donnes de la ferme avec FastRWeb
-
-
 done()
- }
+}

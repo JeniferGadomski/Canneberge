@@ -296,14 +296,14 @@ router.route('/users/:user_id')
         });
     })
 /**
-* @api {put} /users/:id Update User
-* @apiName Update User
-* @apiGroup User
+ * @api {put} /users/:id Update User
+ * @apiName Update User
+ * @apiGroup User
  * @apiPermission apiKey
  * @apiPermission sameUser
-*
-* @apiDescription Update a user by it's id
-*
+ *
+ * @apiDescription Update a user by it's id
+ *
  * @apiParam {String} [firstname] First name of the new user
  * @apiParam {String} [lastname] Last name of the new user
  * @apiParam {String} [email] Email of the new user
@@ -314,21 +314,21 @@ router.route('/users/:user_id')
  * @apiParam {Boolean} [authorization.admin="false"] Param to set a user admin.
  * @apiParam {Boolean} [authorization.blocked="true"] The user can't use the API when true.
  * @apiParam {Object[]} [authorization.fermes="[]"] List of the farms the user have access.
-*
-* @apiSuccess {Object} user The object of the user updated.
-*
-* @apiSuccessExample {json} Success-Response:
-*     {
+ *
+ * @apiSuccess {Object} user The object of the user updated.
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     {
 *          "user": Object
 *     }
-*
-* @apiError Error Message detail
-* @apiErrorExample {json} Error-Response
+ *
+ * @apiError Error Message detail
+ * @apiErrorExample {json} Error-Response
  {
    "success": false,
    "message": "Error no user found"
  }
-*/
+ */
     .put(function (req, res) {
         User.update({_id : ObjectId(req.params.user_id)}, req.body, function (err, result) {
             if(err) res.status(404).send({message : 'error update user', success : false});
@@ -390,10 +390,6 @@ router.route('/users')
     });
 
 
-
-
-
-
 /////////////////
 // Ferme route //
 /////////////////
@@ -421,11 +417,27 @@ function getGeoJSONFormData(path, sourceSrs) {
     };
 }
 
+/**
+ * @api {post} /shapefile-to-geojson Convert Shapefile
+ * @apiName Convert Shapefile to geosjson
+ * @apiGroup Shapefile
+ * @apiPermission apiKey
+ * @apiDescription Convert a shapefile
+ *
+ * @apiParam {File} shapefileZip A zip file with .shp, .dbf, and .shx (.prj optionnel) en form-data
+ * @apiParam {Integer} [sourceSrs=26918] The projection of the shapefile
+ * @apiParamExample {String} Request example
+ * /api/shapefile-to-geojson?=sourceSrs=4326
+ *
+ * @apiSuccessExample {html} Geojson
+ * <a href="example.html#example-geojson">Example geojson</a>
+ */
+
 router.post('/shapefile-to-geojson', upload.single('shapefileZip'), function (req, res) {
     request.post({url : "http://ogre.adc4gis.com/convert", formData: getGeoJSONFormData(req.file.path, req.query.sourceSrs)},
         function (err, httpResponse, body) {
             if (err) {
-                return console.error('upload failed:', err);
+                return res.status(400).send({message : 'upload failed:' +  err.message});
             }
             res.send(JSON.parse(body));
         });
@@ -449,6 +461,18 @@ function responseFile(filePath, fileName, response) {
     });
 }
 
+/**
+ * @api {post} /geojson-to-shapefile Convert GeoJSON
+ * @apiName Convert a GeoJSON to a shapefile
+ * @apiGroup Shapefile
+ * @apiPermission apiKey
+ * @apiDescription Convert a GeoJSON
+ *
+ * @apiParam {Object} geojson The geojson object to convert
+ *
+ * @apiSuccess {File} file A stream witch content a zip file of the shapefile (EPSG:4326)
+ */
+
 router.post('/geojson-to-shapefile', function (req, res) {
     var fileName;
     var url = 'http://ogre.adc4gis.com/convertJson';
@@ -467,45 +491,6 @@ router.post('/geojson-to-shapefile', function (req, res) {
 });
 
 
-
-// router.use('/fermes/data', function (req, res, next) {
-//     authorization.fermeAuthorization(req, res, next);
-// });
-// router.route('/fermes/data')
-//     .get(function(req, res){
-//         var query = req.query;
-//         if(query.hasOwnProperty('fermeName')){
-//             Ferme.getFermeByName(query.fermeName, function (ferme) {
-//                 res.json(Ferme.geojsonToData(ferme.geojson));
-//             })
-//         }
-//         else {
-//             res.status(400).send({message : 'Aucune ferme demander'});
-//         }
-//     })
-//     .put(function (req, res) {
-//         var query = req.query;
-//         var body = JSON.parse(JSON.stringify(req.body));
-//         if(!body.hasOwnProperty('data')){
-//             res.statusMessage = 'Aucune donne, \'data\' doit etre fournie';
-//             res.sendStatus(400);
-//         }
-//         else if(query.hasOwnProperty('fermeId')){
-//             Ferme.getFermeById(query.fermeId, function (ferme) {
-//                 Ferme.updateDataFerme(req, res, ferme);
-//             });
-//         }
-//         else if(query.hasOwnProperty('fermeName')){
-//             Ferme.getFermeByName(query.fermeName, function (ferme) {
-//                 Ferme.updateDataFerme(req, res, ferme);
-//             })
-//         }
-//         else{
-//             res.statusMessage = "Parametre valide : fermeId, fermeName";
-//             res.sendStatus(400);
-//         }
-//     });
-
 router.use('/fermes/:ferme_id/*', function (req, res, next) {
     authorization.fermeExiste(req, res, next);
 });
@@ -515,10 +500,44 @@ router.use('/fermes/:ferme_id*', function (req, res, next) {
 });
 
 router.route('/fermes/:ferme_id/data')
+/**
+ * @api {get} /fermes/:id/data Get ferme data
+ * @apiName Get ferme data
+ * @apiGroup Ferme
+ * @apiDescription Retrive only the data / attribut of the shapefile of the ferme in a list of Object.
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ * @apiSuccess {Object[]} list List of object of every attribut of the ferme shapefile
+ *
+ * @apiSuccessExample {html} Response-Example
+ * <a href="example.html#example-ferme-data">Example ferme data</a>
+ */
     .get(function (req, res) {
         Ferme.getFermeById(req.params.ferme_id, function (ferme) {
             res.json(Ferme.geojsonToData(ferme.geojson));
         });
+/**
+ * @api {put} /fermes/:id/data Update ferme data
+ * @apiName update ferme data
+ * @apiGroup Ferme
+ * @apiDescription Update the shapefile data with a list of Object. Must put the entier data. The function doesn't merge
+ * the data on the database, <strong>it replace it</strong>.
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ * @apiParam {Object[]} data List of object that represent the data. <strong> Must have the same lenght of features </strong>
+ * @apiSuccess {String} code OK
+ *
+ * @apiError LenghtOfData doesn't match
+ * @apiErrorExample {json} Lenght data error
+ * {"success" : false, "message" : "Le nombre de ligne de 'data' ne concorde pas"}
+ *
+ */
     })
     .put(function (req, res) {
         var body = JSON.parse(JSON.stringify(req.body));
@@ -532,6 +551,31 @@ router.route('/fermes/:ferme_id/data')
         });
     });
 
+/**
+ * @api {get} /fermes/:id/weather Get ferme weather
+ * @apiName Get ferme weather
+ * @apiGroup Ferme
+ * @apiDescription Get the weather at the location of the ferme.
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ * @apiParam {Boolean} [simple=false] If simple return only a list of certain data of the weather
+ * @apiParamExample {String} Resquest simple example
+ * /api/fermes/:id/weather?simple=true
+ *
+ * @apiSuccess {Object} forecast The data object for the forecast weather
+ * @apiSuccess {Object} forecast.simpleforecast
+ * @apiSuccess {Object[]} forecast.simpleforecast.forecastday A list of the data for today to today + 3 day
+ * @apiSuccess {Object} current_observation The data of the current observation
+ * @apiSuccessExample {html} simple=false
+ * <a href="example.html#example-weather">Example weather</a>
+ * @apiSuccessExample {html} simple=true
+ * <a href="example.html#example-weather-simple">Example weather simple</a>
+ *
+ *
+ */
 router.get('/fermes/:ferme_id/weather', function (req, res) {
     var simple = req.query.simple || false;
     Ferme.getFermeById(req.params.ferme_id, function (ferme) {
@@ -542,12 +586,61 @@ router.get('/fermes/:ferme_id/weather', function (req, res) {
     });
 });
 
+
+/**
+ * @api {get} /fermes/:id/file/:path Ferme file
+ * @apiName Get ferme
+ * @apiGroup Ferme
+ * @apiDescription See the section <a href="#api-File">File</a>. The only difference is the url to use. <br>
+ * Replace <code>/file/:path</code> by <code>/fermes/:id/file/:path</code>
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme.
+ * @apiParam {String} path The path to the file or the folder.
+ * @apiParamExample {String} Request example
+ * /api/fermes/1234567890/file/path/to/file.png
+ *
+ */
 router.use('/fermes/:ferme_id/file', fileserver);
 
 var rasters = require('../routes/rasters');
 router.use('/fermes/:ferme_id/rasters', rasters);
 
+
 router.route('/fermes/:ferme_id')
+/**
+ * @api {get} /fermes/:id Get ferme
+ * @apiName Get ferme
+ * @apiGroup Ferme
+ * @apiDescription Get ferme informations in a object
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ * @apiParam {Boolean} [weather=true] If false, doesn't return the weather.
+ * @apiParamExample {String} weather=false
+ * /api/fermes/:id?=weather=false
+ *
+ * @apiSuccess {Object} ferme Object with the information of the ferme
+ * @apiSuccess {String} ferme._id The id of the ferme.
+ * @apiSuccess {String} ferme.name The name of the ferme
+ * @apiSuccess {Object} ferme.geojson The geosjon of the shapefile of the ferme
+ * @apiSuccess {Object} ferme.centerCoordinate The coordinate of the center of the ferme
+ * @apiSuccess {Number} ferme.centerCoordinate.lat The latitide.
+ * @apiSuccess {Number} ferme.centerCoordinate.lng The longitude.
+ * @apiSuccess {Object[]} ferme.rasters List of object with the information of the raster, see <a href="#api-Rasters-Get_all_info">Rasters</a>
+ * @apiSuccess {Object[]} ferme.markers List of the markers to show on map
+ * @apiSuccess {String} ferme.markers.title Title of the markers
+ * @apiSuccess {String} ferme.markers.note Note of the markers
+ * @apiSuccess {String} ferme.markers.id Id of the markers
+ * @apiSuccess {Object} ferme.markers.latLng Object with the <code>latLng.lat</code> and <code>latLng.lng</code>
+ * @apiSuccess {Object} weather The data of the weather for the location of the ferme.
+ * @apiSuccessExample {html} Example response
+ * <a href="example.html#example-ferme">Example Ferme</a>
+ */
     .get(function (req, res) {
         Ferme.findById(req.params.ferme_id, function (err, ferme) {
             if(err)
@@ -568,6 +661,18 @@ router.route('/fermes/:ferme_id')
             });
         });
     })
+/**
+ * @api {put} /fermes/:id Update ferme
+ * @apiName Update ferme
+ * @apiGroup Ferme
+ * @apiDescription Upadte ferme informations
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ * @apiParam {Object} object The body must have the structure like the object ferme of <a href="#api-Ferme-Get_ferme">Get ferme</a>.
+ */
     .put(function (req, res) {
         Ferme.update({_id : ObjectId(req.params.ferme_id)}, req.body, function (err, result) {
             if(err) res.status(404).send({message : 'ferme not found'});
@@ -579,12 +684,24 @@ router.route('/fermes/:ferme_id')
             }
         });
     })
+/**
+ * @api {delete} /fermes/:id Delete ferme
+ * @apiName Delete ferme
+ * @apiGroup Ferme
+ * @apiDescription Delete the ferme from the database.
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ */
     .delete(function (req, res) {
         Ferme.remove({_id : ObjectId(req.params.ferme_id)}, function (err, result) {
             if (err) {
                 console.log(err);
+                res.status(400).send({message : err.message});
             }
-            res.sendStatus(200);
+            res.send(result);
         });
     });
 
@@ -593,22 +710,52 @@ router.use('/fermes', function (req, res, next) {
     authorization.isAdmin(req, res, next);
 });
 router.route('/fermes')
+/**
+ * @api {get} /fermes Get all ferme
+ * @apiName Get all ferme
+ * @apiGroup Ferme
+ * @apiDescription Get all ferme information. Admin only.
+ *
+ * @apiPermission admin
+ *
+ * @apiSuccess {Object[]} list List of ferme object
+ */
     .get(function (req, res) {
         Ferme.find({}, function (err, fermes) {
             res.json(fermes);
         });
     })
+/**
+ * @api {post} /fermes Create a ferme
+ * @apiName Create a ferme
+ * @apiGroup Ferme
+ * @apiDescription Create a new ferme. Admin only.
+ *
+ * @apiPermission admin
+ * @apiParam {String} name The name of the ferme.
+ * @apiParam {Object} [geojson] The geosjon of the ferme.
+ *
+ */
     .post(function (req, res) {
         var newferme = new Ferme(req.body);
         newferme.save(function (err) {
             if (err) {
-                return res.json({success: false, message: err.message});
+                return res.status(400).json({success: false, message: err.message});
             }
             res.json({success: true, message: 'Successful created new ferme.', ferme : newferme});
         });
     });
 
-
+/**
+ * @api {post} /executeR Execute R code
+ * @apiName Execute R code
+ * @apiGroup R
+ * @apiDescription Execute a R code and print the output <a href="http://r.canneberge.io/filetext">r.canneberge.io</a>
+ *
+ * @apiPermission apiKey
+ * @apiParam {String} filetext The string of the script to execute
+ *
+ */
 router.post('/executeR', upload.any(), function (req, response) {
     function sendResponseBack(err, res){
         if(err){
@@ -635,7 +782,7 @@ router.post('/executeR', upload.any(), function (req, response) {
             "run <- function(){ \n" +
             "setwd('" + __dirname + "/../file_system_api/fileSystem/" + authorization.getApiFromReq(req) +"')\n" +
             req.body.filetext +
-            "\n }";
+            "\n}";
 
         fs.writeFile(filename, filecontent, function(err) {
             if(err) {
@@ -659,6 +806,27 @@ router.post('/executeR', upload.any(), function (req, response) {
     }
 });
 
+
+/**
+ * @api {get} /weather Get weather latLng
+ * @apiName Get weather latLng
+ * @apiGroup Weather
+ * @apiDescription Get the current weather condition and the forecast with latitude and longitude.
+ *
+ * @apiPermission apiKey
+ * @apiParam {Number} lat The latitude
+ * @apiParam {Number} lng The longitude
+ * @apiParam {Boolean} [simple] If <code>true</code> return only a array on forecast data.
+ * @apiParamExample {String} Request example
+ * /api/weather?lat=46.123&lng=-72.123
+ * @apiParamExample {String} Request example simple
+ * /api/weather?lat=46.123&lng=-72.123&simple=true
+ *
+ * @apiSuccessExample {html} Response Example
+ * <a href="example.html#example-weather">Example weather</a>
+ * @apiSuccessExample {html} Response Example simple
+ * <a href="example.html#example-weather-simple">Example weather simple</a>
+ */
 router.get('/weather', function (req, res) {
     var query = req.query;
     var simple = req.query.simple || false;

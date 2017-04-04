@@ -33,6 +33,13 @@
     "interpreter" : "bash",
     "args" : "-d",
     "out_file" : "/dev/null",
+  },
+  {
+  	"name"        : "Documentation",
+    "script"      : "/usr/bin/http-server",
+    "watch"       : false,
+    "cwd"	: "./Documentation/API/",
+    "args" : "-p 8001"
   }
   ]
 }

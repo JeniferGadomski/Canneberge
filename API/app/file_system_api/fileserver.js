@@ -10,10 +10,149 @@ var router = express.Router({mergeParams: true});
 var authorization = require('../models/authorization');
 var fs = require('fs');
 
+/**
+ * @api {get} /file/:pathFolder/ Get folder content
+ * @apiName Get folder content
+ * @apiGroup File
+ * @apiDescription Get the content of a folder. The path must end with a '/'
+ *
+ * @apiPermission apiKey
+ *
+ * @apiParam {String} pathFolder The path to the folder. Must end with a '/'.
+ * @apiSuccess {String[]} list A list of the file and folder in the directory.
+ * @apiSuccessExample {json} Response example
+ * [
+ "/Data/",
+ "/Graph/",
+ "/ferme_graph.png"
+ ]
+
+ @apiError NotFound The folder doesn't exist
+ @apiErrorExample {json} Error example
+ {
+  "errno": -2,
+  "code": "ENOENT",
+  "path": "/.../45/",
+  "message": "ENOENT: no such file or directory, scandir '/.../45/'",
+  "stack": "Error: ENOENT: no such file or directory, scandir '/.../45/'\n    at Error (native)"
+}
+ */
 router.get(/^\/(.+\/)?$/, getDir);
+
+/**
+ * @api {get} /file/:pathFile Get file
+ * @apiName Get file
+ * @apiGroup File
+ * @apiDescription Get and download a file by its path
+ *
+ * @apiPermission apiKey
+ *
+ * @apiParam {String} pathFile The path to the file.
+ * @apiSuccess {File} file A stream of the file.
+ *
+ *  @apiError NotFound The file doesn't exist
+ @apiErrorExample {json} Error example
+ {
+  "errno": -2,
+  "code": "ENOENT",
+  "path": "/.../45/",
+  "message": "ENOENT: no such file or directory, scandir '/.../45/'",
+  "stack": "Error: ENOENT: no such file or directory, scandir '/.../45/'\n    at Error (native)"
+}
+ *
+ */
 router.get( /^\/.+[^\/]$/, getFile);
+
+
+/**
+ * @api {post} /file/:pathFolder/ Create a folder
+ * @apiName Create a folder
+ * @apiGroup File
+ * @apiDescription Create a new folder. The path must end with a '/'.
+ *
+ * @apiPermission apiKey
+ *
+ * @apiParam {String} pathFolder The path to the folder, must end with a '/'.
+ * @apiSuccess {String} pathFolder The path of the new folder.
+ * @apiSuccessExample {String} Response example
+ * /new_Folder/
+ */
+
+/**
+ * @api {post} /file/:pathFile Upload a file
+ * @apiName Upload a file
+ * @apiGroup File
+ * @apiDescription Upload a file to the specified path.
+ *
+ * @apiPermission apiKey
+ *
+ * @apiParam {String} pathFile The path to the file.
+ * @apiParam {File} file A raw file as a stream body.
+ * @apiSuccess {String} pathFile The path of the new file.
+ * @apiSuccessExample {String} Response example
+ * /new_Folder/file.txt
+ */
+
+/**
+ * @api {post} /file/:originalPath Rename or move
+ * @apiName Rename or move
+ * @apiGroup File
+ * @apiDescription Rename or move a file or a folder. The path for a folder must end by a '/'. <br>
+ * To rename : the path must be the same and the filename different. <br>
+ * To move : the filename must be the same and the path different. <br>
+ * The original path and filename is in the url. <br>
+ * The new path or filename is set in the <code>body.newPath</code> <br>
+ *
+ * @apiPermission apiKey
+ *
+ * @apiParam {String} originalPath The path to the original file or folder.
+ * @apiParam {String} newPath The new path or new name of the file-folder.
+ */
+
+/**
+ * @api {post} /file/:path Get stats
+ * @apiName Get stats
+ * @apiGroup File
+ * @apiDescription Get the stats of a folder or a file.
+ *
+ * @apiPermission apiKey
+ *
+ * @apiParam {String} path The path to the file or folder.
+ * @apiParam {Boolean} stat Set <code> query.stat=true</code> to get the stats.
+ * @apiParamExample {String} Request example
+ * /api/file/path/to/file.png?stat=true
+ *
+ * @apiSuccessExample {json} Response example
+ * {
+    "dev": 2053,
+    "mode": 16893,
+    "nlink": 4,
+    "uid": 1000,
+    "gid": 1000,
+    "rdev": 0,
+    "blksize": 4096,
+    "ino": 2626870,
+    "size": 4096,
+    "blocks": 8,
+    "atime": "2017-04-04T13:29:35.590Z",
+    "mtime": "2017-04-03T13:24:58.223Z",
+    "ctime": "2017-04-03T13:24:58.223Z",
+    "birthtime": "2017-04-03T13:24:58.223Z"
+}
+ */
 router.post( "/*", postFileOrDir);
 router.put( "/*", putFileOrDir);
+
+/**
+ * @api {delete} /file/:path Delete file or folder
+ * @apiName Delete file or folder
+ * @apiGroup File
+ * @apiDescription Delete a file or a folder by its path. For a folder, the path must end by a '/'.
+ *
+ * @apiPermission apiKey
+ *
+ * @apiParam {String} path The path to the file or folder.
+ */
 router.delete( /^\/.+\/$/, delDir);
 router.delete( /^\/.+[^\/]$/, delFile);
 

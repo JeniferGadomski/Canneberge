@@ -48,7 +48,7 @@ Ferme.dataToGeojson = function(data, geojson){
 Ferme.updateDataFerme = function (req, res, ferme){
     var data = tryToParseJson(req.body.data);
     if(data.length != ferme.geojson.features.length)
-        return res.status(400).send({sucess : false, message : 'Le nombre de ligne de \'data\' ne concorde pas'});
+        return res.status(400).send({success : false, message : 'Le nombre de ligne de \'data\' ne concorde pas'});
     Ferme.update({_id : ferme._id}, {geojson : this.dataToGeojson(req.body.data ,ferme.geojson)}, function (err, result) {
         if(err)
             console.log(err);

@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 
 # Script python pour updater le fichier hosts (/etc/hosts)
@@ -8,7 +9,7 @@
 import sys
 
 hosts = '/etc/hosts'
-domains = ['admin.canneberge.io', 'api.canneberge.io', 'carte.canneberge.io', 'r.canneberge.io', 'portail.canneberge.io']
+domains = ['admin.canneberge.io', 'api.canneberge.io', 'carte.canneberge.io', 'r.canneberge.io', 'portail.canneberge.io', 'doc.canneberge.io']
 
 #Read file
 f = open(hosts, 'r')
