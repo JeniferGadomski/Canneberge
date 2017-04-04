@@ -118,16 +118,16 @@ router.post('/authentification', function(req, res) {
  *
  * @apiDescription Create and register a new user.
  *
- * @apiParam {String} firstname First name of the new user
- * @apiParam {String} lastname Last name of the new user
+ * @apiParam {String} [firstname] First name of the new user
+ * @apiParam {String} [lastname] Last name of the new user
  * @apiParam {String} email Last name of the new user
- * @apiParam {String} password The password of the new user
+ * @apiParam {String} [password="default"]  The password of the new user
  * @apiParam {String} username The username of the new user
- * @apiParam {String[]} scripts="[]" List of the scripts. Only admin can have some.
- * @apiParam {Object} authorization Value to restrict user.
- * @apiParam {Boolean} authorization.admin="false" Param to set a user admin.
- * @apiParam {Boolean} authorization.blocked="true" The user can't use the API when true.
- * @apiParam {Object[]} authorization.fermes="[]" List of the farms the user have access.
+ * @apiParam {String[]} [scripts="[]"] List of the scripts. Only admin can have some.
+ * @apiParam {Object} [authorization] Value to restrict user.
+ * @apiParam {Boolean} [authorization.admin="false"] Param to set a user admin.
+ * @apiParam {Boolean} [authorization.blocked="true"] The user can't use the API when true.
+ * @apiParam {Object[]} [authorization.fermes="[]"] List of the farms the user have access.
  *
  * @apiSuccess {Boolean} success
  * @apiSuccess {String} message Successful created new user.
@@ -212,7 +212,7 @@ router.use(function(req, res, next) {
  * @apiSuccess {Object[]} list List of the link with title.
  * @apiSuccess {String} .name Title of the link.
  * @apiSuccess {String} .url The url of the link.
- * @apiSuccessExample {json} Resposne-Example
+ * @apiSuccessExample {json} Reponse-Example
  * [
  {
    "name": "Blandford",
@@ -304,16 +304,16 @@ router.route('/users/:user_id')
 *
 * @apiDescription Update a user by it's id
 *
-* @apiParam {String} firstname First name of the new user
-* @apiParam {String} lastname Last name of the new user
-* @apiParam {String} email Last name of the new user
-* @apiParam {String} password The password of the new user
-* @apiParam {String} username The username of the new user
-* @apiParam {String[]} scripts="[]" List of the scripts. Only admin can have some.
-* @apiParam {Object} authorization Value to restrict user.
-* @apiParam {Boolean} authorization.admin="false" Param to set a user admin.
-* @apiParam {Boolean} authorization.blocked="true" The user can't use the API when true.
-* @apiParam {Object[]} authorization.fermes="[]" List of the farms the user have access.
+ * @apiParam {String} [firstname] First name of the new user
+ * @apiParam {String} [lastname] Last name of the new user
+ * @apiParam {String} [email] Email of the new user
+ * @apiParam {String} [password="default"]  The password of the new user
+ * @apiParam {String} [username] The username of the new user
+ * @apiParam {String[]} [scripts="[]"] List of the scripts. Only admin can have some.
+ * @apiParam {Object} [authorization] Value to restrict user.
+ * @apiParam {Boolean} [authorization.admin="false"] Param to set a user admin.
+ * @apiParam {Boolean} [authorization.blocked="true"] The user can't use the API when true.
+ * @apiParam {Object[]} [authorization.fermes="[]"] List of the farms the user have access.
 *
 * @apiSuccess {Object} user The object of the user updated.
 *
