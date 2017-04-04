@@ -32,48 +32,6 @@
   </form>
 
 
-  <div id="list-raster">
-    <div class="raster-header">
-      <h2 style="display: inline-block">Rasters</h2>
-      <button style="float: right" type="button"
-              [ngClass]="{disabled : !date}"
-              class="btn btn-secondary"
-              (click)="addFile(newFileInput)"
-              title="Ajouter"><i class="fa fa-plus" aria-hidden="true"></i></button>
-      <ng2-datepicker style="float: right; padding-right: 25px" [options]="options" [(ngModel)]="date"></ng2-datepicker>
-      <input #newFileInput type="file" style="display: none" (change)="postNewRaster($event)">
-    </div>
-
-
-    <div class="list-group">
-      <li *ngFor="let raster of ferme.rasters | sortBy : 'date.time'"
-          class="list-group-item"
-          (mouseenter)="raster.show = true"
-          (mouseleave)="raster.show = false">
-
-        <a style="width: 100px; height: 100px" target="_blank" [href]="getPngSrc(raster)">
-          <img alt="{{raster.name}}" [src]="getPngSrc(raster)" height="100%">
-        </a>
-
-        <div class="raster-info" style="width: 200px">
-          <div class="little-title">{{raster.name}}</div>
-          <div class="sub-text">{{raster.date.string}}</div>
-        </div>
-
-        <div class="raster-info raster-band">
-          max. {{raster.band.max.toFixed(2)}} <br>
-          moy. {{raster.band.mean.toFixed(2)}} <br>
-          min. {{raster.band.min.toFixed(2)}}
-        </div>
-
-        <div class="raster-options" [ngClass]="{invisible : !raster.show}">
-          <a class="btn btn-link" [href]="getTifSrc(raster)" title="Télécharger le raster (.tif)"><i class="fa fa-download"></i></a>
-          <a class="btn btn-default" [href]="getUrlSeeRasterOnCarte(raster)" target="_blank" title="Voir sur la carte"><i class="fa fa-eye"></i></a>
-          <button class="btn btn-link hover-red" (click)="deleteRaster(raster)" title="Supprimer"><i class="fa fa-times"></i></button>
-        </div>
-      </li>
-    </div>
-  </div>
 
 
 
