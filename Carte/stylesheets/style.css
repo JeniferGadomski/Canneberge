@@ -122,7 +122,6 @@ img.weather {
     /*height: 40px;*/
     padding-top: 15px;
     padding-right: 15px;
-    padding-left: 15px;
 }
 
 .btn.red{
@@ -230,9 +229,19 @@ img.current-icon{
     border-top-right-radius: 5px;
 }
 
+.max-mean{
+    background: #404040;
+    color: white;
+}
+
 .mean{
     background: #777777;
     color: white;
+}
+
+.min-mean{
+    background: #c0c0c0;
+    color:black;
 }
 
 .min{

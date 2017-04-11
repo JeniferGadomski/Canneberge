@@ -608,6 +608,9 @@ router.use('/fermes/:ferme_id/file', fileserver);
 var rasters = require('../routes/rasters');
 router.use('/fermes/:ferme_id/rasters', rasters);
 
+var shapefiles = require('../routes/shapefiles');
+router.use('/fermes/:ferme_id/shapefiles', shapefiles);
+
 
 router.route('/fermes/:ferme_id')
 /**

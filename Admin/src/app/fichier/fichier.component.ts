@@ -137,7 +137,7 @@ export class FichierComponent implements OnInit {
   getInfopath(path){
     this.service.getInfoPath(path).subscribe(
       req => {
-        alert('Taille : ' + this.fileSizeSI(req.size));
+        alert(path + '\nTaille : ' + this.fileSizeSI(req.size));
       }
     )
   }

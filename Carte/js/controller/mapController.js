@@ -19,6 +19,16 @@ angular.module('app')
         $scope.currentMarker = {};
         $scope.infowindow = {};
 
+        var customIcon = {
+            url: '/images/icon.png'
+            // // This marker is 20 pixels wide by 32 pixels high.
+            // size: new google.maps.Size(16, 16),
+            // // The origin for this image is (0, 0).
+            // origin: new google.maps.Point(0, 0),
+            // // The anchor for this image is the base of the flagpole at (0, 32).
+            // anchor: new google.maps.Point(0, 0)
+        };
+
         var projection  = '+proj=utm +zone=18 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
 
         $scope.markerColor = [
@@ -36,7 +46,19 @@ angular.module('app')
                 max : 0,
                 step : 1
             },
-            value : 0
+            value : 0,
+            next : function () {
+                if(this.value < this.range.max) {
+                    this.value++;
+                    $scope.toggleRasters();
+                }
+            },
+            previous : function () {
+                if(this.value > this.range.min) {
+                    this.value--;
+                    $scope.toggleRasters();
+                }
+            }
         };
 
         $scope.markerFunction = {
@@ -81,12 +103,13 @@ angular.module('app')
             $scope.sliderRaster.range.max = $scope.ferme.rasters.length - 1;
             initRaster();
 
-            map.data.addGeoJson($scope.ferme.geojson);
             map.data.setStyle({
                 fillColor: '#485B6B',
                 strokeColor : '#DDED36',
-                strokeWeight : 1.5
+                strokeWeight : 1.5,
+                icon : customIcon
             });
+            map.data.addGeoJson($scope.ferme.geojson);
         };
 
         $rootScope.$on('initMap', initialize);
@@ -201,8 +224,6 @@ angular.module('app')
                 initMarker(false);
             });
 
-
-
             return map;
         };
 
@@ -310,7 +331,8 @@ angular.module('app')
                 map.data.setStyle({
                     fillColor: '#485B6B',
                     strokeColor : '#DDED36',
-                    strokeWeight : 1.5
+                    strokeWeight : 1.5,
+                    icon : customIcon
                 });
             }
             else{
@@ -331,6 +353,17 @@ angular.module('app')
                 $scope.groundOverlay.setMap(map);
             }
         };
+
+        $scope.valueBand = function (rasterband) {
+            var halfMean = rasterband.mean / 2;
+            return {
+                max: rasterband.max,
+                min : rasterband.min,
+                mean : rasterband.mean,
+                maxMean: rasterband.max - halfMean,
+                minMean : rasterband.min + halfMean
+            };
+        }
 
 
 

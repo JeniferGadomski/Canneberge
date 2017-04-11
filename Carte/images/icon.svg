@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16"
+   height="16"
+   id="svg4152"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   viewBox="0 0 16 16"
+   sodipodi:docname="icon.svg"
+   inkscape:export-filename="/home/bhacaz/Documents/Platforme-Canneberge/Carte/images/icon.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4154" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="32"
+     inkscape:cx="4.0608949"
+     inkscape:cy="7.9184171"
+     inkscape:current-layer="layer2"
+     showgrid="true"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1048"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata4157">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(0,-48)" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2"
+     transform="translate(0,-48)">
+    <circle
+       style="fill:#000000;stroke-width:1.39999998;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path4703"
+       cx="8"
+       cy="56"
+       r="8" />
+    <path
+       style="fill:#ffcc00;stroke-width:1.39999998;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 7.31567,63.033897 C 7.267526,63.027209 7.1230958,63.007744 6.994713,62.990693 4.5271598,62.663019 2.3680617,60.965006 1.4409658,58.622975 1.1090062,57.784379 0.95887864,56.973091 0.9600063,56.02387 c 9.6795e-4,-0.839416 0.109188,-1.487071 0.3807357,-2.279164 0.5902453,-1.721719 1.8863898,-3.1892 3.5239838,-3.989815 0.6953476,-0.339953 1.3400838,-0.542101 2.1008093,-0.658678 0.488938,-0.07493 1.4951597,-0.07493 1.9840977,0 1.5728852,0.241036 2.9429262,0.946398 4.0416182,2.080817 2.458849,2.538806 2.634932,6.492055 0.413063,9.273678 -0.609948,0.763611 -1.474603,1.455975 -2.349569,1.881399 -0.478114,0.232465 -0.771028,0.344258 -1.2409847,0.473627 -0.6334297,0.174371 -0.9851954,0.221149 -1.7394648,0.231317 -0.3691004,0.0049 -0.710482,0.0036 -0.7586255,-0.0032 z"
+       id="path4136"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96.240929"
+       inkscape:export-ydpi="96.240929" />
+    <path
+       style="fill:#000000;stroke-width:1.39999998;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 3.0984988,2.6413903 c 0.013841,-0.013965 0.026923,-0.025391 0.029071,-0.025391 0.00215,0 -0.00742,0.011426 -0.021259,0.025391 -0.013841,0.013965 -0.026923,0.025391 -0.029071,0.025391 -0.00215,0 0.00742,-0.011426 0.021259,-0.025391 z"
+       id="path4146"
+       inkscape:connector-curvature="0"
+       transform="translate(0,48)" />
+  </g>
+</svg>

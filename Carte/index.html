@@ -3,6 +3,7 @@
 <head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/retrieveApiKey.js"></script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.js"></script>
@@ -55,7 +56,7 @@
     <script src="js/cannebergeApiService.js"></script>
 
     <script src="bower_components/proj4/dist/proj4-src.js"></script>
-    <script src="js/retrieveApiKey.js"></script>
+
 
 
 
@@ -111,9 +112,11 @@
                         {{currentField.hectare}} ha
                     </div>
                     <div ng-class="{invisible : !showRasters}" >
-                        <div class="max rasters-band">Max. :  {{ferme.rasters[sliderRaster.value].band.max.toFixed(2)}}</div>
-                        <div class="mean rasters-band">Moy. : {{ferme.rasters[sliderRaster.value].band.mean.toFixed(2)}}</div>
-                        <div class="min rasters-band">Min. : {{ferme.rasters[sliderRaster.value].band.min.toFixed(2)}}</div>
+                        <div class="max rasters-band">{{valueBand(ferme.rasters[sliderRaster.value].band).max.toFixed(2)}}</div>
+                        <div class="max-mean rasters-band">{{valueBand(ferme.rasters[sliderRaster.value].band).maxMean.toFixed(2)}}</div>
+                        <div class="mean rasters-band">{{valueBand(ferme.rasters[sliderRaster.value].band).mean.toFixed(2)}}</div>
+                        <div class="min-mean rasters-band">{{valueBand(ferme.rasters[sliderRaster.value].band).minMean.toFixed(2)}}</div>
+                        <div class="min rasters-band">{{valueBand(ferme.rasters[sliderRaster.value].band).min.toFixed(2)}}</div>
                     </div>
                 </div>
             </div>
@@ -130,12 +133,25 @@
                  class="myGrid full-height" ></div>
             <div class=" w-100">
                 <div class="row footer-grid" style="display: flex">
-                    <div class="btn-group" role="group">
+                    <div class="btn-group col-sm-4" role="group">
                         <button class="btn btn-group red" role="group" ng-click="addColumn()" title="Ajouter"><span class="glyphicon glyphicon-plus-sign"></span></button>
                         <button class="btn btn-group red" role="group" ng-click="resetHide()"><span class="glyphicon glyphicon-eye-open" title="Afficher toutes les colonnes"></span> <span class="badge badge-default badge-pill">{{nbHideColumn}}</span> </button>
                     </div>
-                    <div ng-class="{invisible : !showRasters}" class="" style="padding-left: 15px; flex : 1">
-                        <slider class="raster-slider w-100"
+                    <div ng-class="{invisible : !showRasters}" class="col-sm-8" style="text-align: right">
+                        <div class="rasters-title">
+                            <h4>{{ferme.rasters[sliderRaster.value].name}}</h4>
+                            <h5>{{ferme.rasters[sliderRaster.value].date.string}}</h5>
+                        </div>
+                    </div>
+
+                </div>
+                <div ng-class="{invisible : !showRasters}" class=" row w-100" style="">
+                    <div class="col-sm-4 btn-group">
+                        <button class="btn btn-group btn-success" role="group" ng-click="sliderRaster.next()"><span class="glyphicon glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
+                        <button class="btn btn-group btn-warning" role="group" ng-click="sliderRaster.previous()"><span class="glyphicon glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+                    </div>
+                    <div class="col-sm-8">
+                        <slider class="raster-slider"
                                 ng-model="sliderRaster.value"
                                 min="sliderRaster.range.min"
                                 step="sliderRaster.range.step"
@@ -144,13 +160,9 @@
                                 on-stop-slide="toggleRasters()"
                                 tooltip="hide"></slider>
                     </div>
+
                 </div>
-                <div ng-class="{invisible : !showRasters}" class="w-100" style="padding-left: 15px">
-                    <div class="rasters-title">
-                        <h4>{{ferme.rasters[sliderRaster.value].name}}</h4>
-                        <h5>{{ferme.rasters[sliderRaster.value].date.string}}</h5>
-                    </div>
-                </div>
+
 
             </div>
         </div>
