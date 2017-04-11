@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Example R</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="vendor/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="vendor/prettify.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet" media="screen, print">
+    <link href="img/favicon.ico" rel="icon" type="image/x-icon">
+    <script src="vendor/polyfill.js"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script type="text/javascript" src="renderjson.js"></script>
+
+    <script>
+        var renderjson = renderjson.set_show_to_level(2);
+        var addJSON = function (elementId, json) {
+            document.getElementById(elementId).appendChild(
+                renderjson(
+                    json
+                )
+            ).className = "prettyprint lang-js";
+        }
+    </script>
+
+    <style>
+
+        pre.prettyprint{
+            max-height : 500px;
+            padding: 15px;
+
+        }
+
+        h1{
+            padding-top : 25px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/favicon.ico" alt="Documentation" height="25px">
+            </a>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li><a href="index.html">API</a></li>
+            <li><a href="example.html">Example Object</a></li>
+            <li class="active"><a href="r.html">Example R</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container" style="padding-top: 50px;">
+
+    <h1>Référence documentation : </h1>
+        <a href="https://www.rdocumentation.org/packages/FastRWeb/versions/1.1-1" target="_blank">FastRWeb</a> <br>
+        <a href="https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html" target="_blank">httr</a> <br>
+        <a href="https://cran.r-project.org/web/packages/jsonlite/vignettes/json-aaquickstart.html" target="_blank">jsonlite</a> <br>
+
+    <h1>Simple example</h1>
+    <pre class="prettyprint lang-r">
+x <- 1:10
+oprint(x)
+
+for(c in x){
+    oprint(c)
+}
+
+p <- WebPlot(300,300)
+x=seq(1,100,1)
+plot(x, sin(x))
+out(p)
+
+done()
+    </pre>
+    <div>
+        <img src="img/example-r-simple.png">
+    </div>
+
+    <h1>Example with ferme data</h1>
+    <pre class="prettyprint lang-r">
+library(jsonlite)
+library(httr)
+
+### Aller chercher les donnees
+url <- 'api.canneberge.io/api/fermes/589b68bf90d51c42998c017d/data?apiKey=5894a2f1df1f28501873a566' # url de l'api
+r <- GET(url) # requete HTTP pour recuperer les donnees
+fermeData <- fromJSON(content(r, 'text')) # transforme la reponse en data frame (json -> data frame)
+
+### Utilisation de FastRWeb
+p <- WebPlot(600, 300) # Creation dun graphique pour le retour web
+barplot(fermeData$Exp, names = fermeData$Name,
+  xlab = "Nom champs", ylab = "Hauteur nappe",
+  main = "Hauteur de nappe d'une ferme",
+  col=ifelse(fermeData$Exp>300,"red","blue")) # Creation du graphique
+out(p) # Imprimer le graphique sur le rendu web
+
+barplot(fermeData$Exp, names = fermeData$Name,
+  xlab = "Nom champs", ylab = "Hauteur nappe",
+  main = "Hauteur de nappe d'une ferme",
+  col=ifelse(fermeData$Exp>300,"red","blue")) # Creation du graphique
+dev.copy(png,'ferme_graph.png')
+dev.off()
+
+
+# fermeData[1, 1] <- 9999 # Changer une donnee de la ferme
+oprint(fermeData) # Printer les donnes de la ferme avec FastRWeb
+
+
+# Enregistrer les nouvelles donnees
+# oprint(PUT(url, body = list(data = fermeData), encode = 'json'))
+
+done()
+    </pre>
+    <div>
+        <img src="img/example-r-data-ferme.png">
+    </div>
+
+
+    <h1>Example with weather</h1>
+    <pre class="prettyprint lang-r">
+library(jsonlite)
+library(httr)
+
+
+### Aller chercher les donnees
+url <- 'api.canneberge.io/api/fermes/589b68bf90d51c42998c017d/weather?simple=true&apiKey=5894a2f1df1f28501873a566' # url de l'api
+
+### Or with lat lng
+# url <- 'api.canneberge.io/api/weather?lat=46.123&lng=-72.123simple=true&apiKey=5894a2f1df1f28501873a566' # url de l'api
+r <- GET(url) # requete HTTP pour recuperer les donnees
+d <- fromJSON(content(r, 'text')) # transforme la reponse en data frame (json -> data frame)
+
+### Utilisation de FastRWeb
+p <- WebPlot(600, 300) # Creation dun graphique pour le retour web
+
+library(ggplot2)
+library(reshape2)
+d <- melt(d, id.vars="day")
+
+# Everything on the same plot
+print(ggplot(d, aes(day,value, col=variable)) +
+  geom_point() +
+  stat_smooth())
+out(p)
+
+oprint(d) # Printer les donnes de la ferme avec FastRWeb
+
+done()
+    </pre>
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="img/example-r-weather-graph.png">
+        </div>
+        <div class="col-sm-6">
+            <img src="img/example-r-weather-print.png">
+        </div>
+    </div>
+
+    <h1>Example file</h1>
+    <pre class="prettyprint lang-r">
+oprint(getwd())
+
+## This folder and file must exist on the tab Fichiers
+d = read.csv("Data/export.csv")  # read csv file
+oprint(d)
+
+p <- WebPlot(300,300)
+
+plot(d)
+dev.copy(png,'Graph/export_graph.png')
+dev.off()
+
+plot(d)
+out(p)
+
+oprint(list.files('./Graph'))
+
+done()
+    </pre>
+    <div>
+        <img src="img/example-r-file.png">
+    </div>
+
+    <h1>Example ferme file and rasters</h1>
+    <pre class="prettyprint lang-r">
+library(raster)
+library(rgdal)
+
+p <- WebPlot(300,300)
+
+# The id of the ferme : 589b68bf90d51c42998c017d
+r <- raster("../589b68bf90d51c42998c017d/Nappe_Blandford_2016-07-13-c.tif")
+plot(r)
+oprint(r)
+
+out(p)
+
+done()
+    </pre>
+    <div>
+        <img src="img/example-r-raster.png">
+    </div>
+
+</div>
+</body>
+</html>

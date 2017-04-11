@@ -10,6 +10,12 @@
   <link href="css/style.css" rel="stylesheet" media="screen, print">
   <link href="img/favicon.ico" rel="icon" type="image/x-icon">
   <script src="vendor/polyfill.js"></script>
+
+  <style>
+    .sidenav{
+      padding-top: 50px;
+    }
+  </style>
 </head>
 <body>
 
@@ -636,7 +642,25 @@
   </tbody>
 </script>
 
-<div class="container-fluid">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">
+        <img src="img/favicon.ico" alt="Documentation" height="25px">
+      </a>
+    </div>
+
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="index.html">API</a></li>
+      <li><a href="example.html">Example Object</a></li>
+      <li><a href="r.html">Example R</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="container" style="padding-top: 50px">
   <div class="row">
     <div id="sidenav" class="span2"></div>
     <div id="content">

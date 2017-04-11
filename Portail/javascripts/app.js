@@ -21,6 +21,10 @@ app.config(function ($routeProvider) {
             templateUrl : '../views/login.html',
             controller : 'logoutController'
         })
+        .when('/forget', {
+            templateUrl : '../views/forget.html',
+            controller : 'forgetController'
+        })
         .when('/', {
             templateUrl : '../views/login.html',
             controller : 'mainController'

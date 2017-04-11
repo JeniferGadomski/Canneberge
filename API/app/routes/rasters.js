@@ -12,11 +12,111 @@ var dateFormat = require('dateformat');
 var ObjectId = require('mongodb').ObjectID;
 var mime = require('mime');
 
+/**
+ * @api {get} /fermes/:id/rasters Get all rasters info
+ * @apiName Get all info
+ * @apiGroup Rasters
+ * @apiDescription Get all rasters object of a ferme.
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ *
+ * @apiSuccess {Object[]} list List of rasters object
+ * @apiSuccess {Stinng} list._id Id of the raster
+ * @apiSuccess {Object} list.date Object with two format for the date
+ * @apiSuccess {String} list.date.string The date formated dd MMMM YYYY
+ * @apiSuccess {Number} list.date.time The number of milliseconds since 1 janv 1970
+ * @apiSuccess {Object} list.path Object containing the url for the api to get the files
+ * @apiSuccess {String} list.path.tif Url for the tif file
+ * @apiSuccess {String} list.path.png Url for the png file
+ * @apiSuccess {Object} list.bounds With <code> .north .south .west .east</code>
+ * @apiSuccess {Object} list.band With <code> .min .max .mean </code>
+ * @apiSuccessExample {html} Success example
+ * <a href="example.html#example-rasters">Example rasters</a>
+ *
+ */
 router.get('/', getAllRasterObject);
+/**
+ * @api {post} /fermes/:id/rasters/:name Add raster
+ * @apiName Add raster
+ * @apiGroup Rasters
+ * @apiDescription Create a new raster for the ferme.
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ * @apiParam {String} name The name of the raster
+ * @apiParam {Number} [date=today] The time (milliseconds) since 1 janv. 1970
+ * @apiParam {File} file A raw file as stream of a .tif file.
+ * @apiParamExample {String} Request example
+ * /api/fermes/1234567890/rasters/My_New_Raster?date=14022465698
+ *
+ * @apiError NoStreamFile The body must be a raw stream
+ */
 router.post('/:raster_name', postNewRaster);
+
+/**
+ * @api {get} /fermes/:id/rasters/:raster_id Get raster info
+ * @apiName Get raster info
+ * @apiGroup Rasters
+ * @apiDescription Get the informations of a raster by its id in a object.
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ * @apiParam {String} raster_id The id of the raster
+ * @apiParamExample {String} Request example
+ * /api/fermes/1234567890/rasters/14022465698
+ *
+ * @apiSuccess {Object} object A object with the info of the raster. See :  <a href="#api-Rasters-Get_all_info">Get all rasters</a>
+ * @apiError BadRasterId No raster found
+ */
+
+/**
+ * @api {get} /fermes/:id/rasters/:raster_id.type Get raster file
+ * @apiName Get raster file
+ * @apiGroup Rasters
+ * @apiDescription Get the file of a raster. Valid option .png or .tif
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ * @apiParam {String} raster_id The id of the raster
+ * @apiParam {String} type The type of the file. Only : <code>.png</code>, <code>.tif</code>
+ * @apiParamExample {String} Request example png
+ * /api/fermes/1234567890/rasters/14022465698.png
+ * @apiParamExample {String} Request example tif
+ * /api/fermes/1234567890/rasters/14022465698.tif
+ *
+ * @apiSuccess {File} file A stream of the file.
+ *
+ * @apiError BadRasterId No raster found
+ * @apiError BadFileExtension Bad extension, must be .png or .tif
+ *
+ */
 router.get('/:raster_id', getRasterObject);
+
+/**
+ * @api {delete} /fermes/:id/rasters/:raster_id Delete raster
+ * @apiName Delete raster
+ * @apiGroup Rasters
+ * @apiDescription Delete the raster, info, tif and png from the server.
+ *
+ * @apiPermission apiKey
+ * @apiPermission fermeAccess
+ *
+ * @apiParam {String} id The id of the ferme
+ * @apiParam {String} raster_id The id of the raster
+ *
+ * @apiError ErrorDelete Error deleting a rasters
+ *
+ */
 router.delete('/:raster_id', deleteRaster);
-// router.get('/:raster_id/:file_type', getRasterFileByType);
 
 function getAllRasterObject(req, res, next) {
     Ferme.getFermeById(req.params.ferme_id, function (ferme) {
