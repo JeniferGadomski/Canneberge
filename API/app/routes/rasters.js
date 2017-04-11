@@ -35,7 +35,6 @@ var mime = require('mime');
  * @apiSuccess {Object} list.band With <code> .min .max .mean </code>
  * @apiSuccessExample {html} Success example
  * <a href="example.html#example-rasters">Example rasters</a>
- *
  */
 router.get('/', getAllRasterObject);
 /**

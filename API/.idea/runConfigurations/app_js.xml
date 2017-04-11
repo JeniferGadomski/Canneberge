@@ -4,7 +4,6 @@
       <env name="DEBUG" value="untitled:*" />
     </envs>
     <browser with-js-debugger="true" url="http://localhost:8080/" />
-    <profiling v8-profiler-path="" />
     <EXTENSION ID="com.jetbrains.nodejs.remote.docker.NodeJSDockerRunConfigurationExtension">
       <option name="envVars">
         <list />
@@ -25,9 +24,6 @@
       <option name="volumeBindings">
         <list />
       </option>
-    </EXTENSION>
-    <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSProfilingRunConfigurationExtension">
-      <profiling v8-profiler-path="" />
     </EXTENSION>
     <EXTENSION ID="com.jetbrains.nodejs.run.NodeJSStartBrowserRunConfigurationExtension">
       <browser with-js-debugger="true" url="http://localhost:8080/" />

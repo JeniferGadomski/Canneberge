@@ -37,10 +37,11 @@
 
   <div class="list-group">
     <div *ngFor="let file of listFiles | sortBy : 'name'"
+         (mouseleave)="file.show = false"
          [class.folder] = "isAFolder(file.name)"
          [class.file] = "!isAFolder(file.name)"
          [class.hover-file] = "isHover(file.path)"
-         (mouseenter)="onMouseEnter(file.path)"
+         (mouseenter)="onMouseEnter(file.path); file.show = true;"
          draggable="true"
          (dragstart)="dragStart_handler($event, file.name)"
          (dragend)="dragEnd_handler($event)"
@@ -53,9 +54,11 @@
         <div (click)="clickFolder(file.path)" style="width: 100%; padding-top: 6px">
           {{file.name}}
         </div>
-        <button class="btn btn-link" (click)="getInfopath(file.path)"><i class="fa fa-info" aria-hidden="true"></i></button>
-        <button class="btn btn-link" (click)="popUpRename(file.name)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-        <button class="btn btn-link remove" (click)="clickRemoveWithPath(file.path)"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <div style="width: 250px; text-align: right" [ngClass]="{invisible : !file.show}">
+          <button class="btn btn-link" (click)="getInfopath(file.path)"><i class="fa fa-info" aria-hidden="true"></i></button>
+          <button class="btn btn-link" (click)="popUpRename(file.name)"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+          <button class="btn btn-link remove" (click)="clickRemoveWithPath(file.path)"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
       </div>
     </div>
   </div>

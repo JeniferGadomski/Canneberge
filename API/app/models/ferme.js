@@ -9,6 +9,7 @@ var Schema = mongoose.Schema;
 var fermeSchema = new Schema({
     name: { type: String, required: false},
     geojson : {type : Object},
+    geojsons : {type : Array, default : []},
     centerCoordinate : {type : Object},
     markers : {type : Array, default : []},
     rasters : {type : Array, default : []}
