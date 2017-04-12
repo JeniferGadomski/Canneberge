@@ -1,0 +1,38 @@
+<div *ngIf="ferme" class="container" style="padding-top: 50px">
+  <div id="list-raster">
+    <div class="raster-header">
+      <h2 style="display: inline-block">Shapefiles</h2>
+      <button style="float: right" type="button"
+              class="btn btn-secondary"
+              (click)="addFile(newFileInput)"
+              title="Ajouter"><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <input #newFileInput type="file" style="display: none" (change)="postNewShapefile($event)">
+      <br> {{ferme.name}}
+    </div>
+
+
+    <div class="list-group" style="padding-top: 25px">
+      <li *ngFor="let shapefile of ferme.shapefiles | sortBy : 'date.time'"
+          class="list-group-item"
+          (mouseenter)="shapefile.show = true"
+          (mouseleave)="shapefile.show = false">
+
+        <a style="width: 100px; height: 100px" target="_blank" [href]="getPngSrc(shapefile)">
+          <img alt="{{shapefile.name}}" [src]="getPngSrc(shapefile)" height="100%">
+        </a>
+
+        <div class="raster-info" style="width: 200px">
+          <div class="little-title">{{shapefile.name}}</div>
+        </div>
+
+        <div class="raster-options" [ngClass]="{invisible : !shapefile.show}">
+          <a class="btn btn-link" [href]="getZipSrc(shapefile)" title="Télécharger le shapefile (.zip)"><i class="fa fa-download"></i></a>
+          <a class="btn btn-default" href="#" target="_blank" title="Voir sur la carte"><i class="fa fa-eye"></i></a>
+          <button class="btn btn-link hover-red" (click)="deleteShapefile(shapefile)" title="Supprimer"><i class="fa fa-times"></i></button>
+        </div>
+      </li>
+    </div>
+  </div>
+</div>
+
+

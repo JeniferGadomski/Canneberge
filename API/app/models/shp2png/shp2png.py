@@ -24,7 +24,7 @@ def process(r):
   for shape in r.shapes():
     if shape.shapeType == 1:
       x,y = shape.points[0]
-      penta = pointToPentagone(x, y, 5)
+      penta = pointToPentagone(x, y, 10)
       for x,y in penta:
         xy.append((x,y))
       xys.append(xy)

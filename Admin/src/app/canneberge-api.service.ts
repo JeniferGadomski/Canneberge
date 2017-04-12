@@ -225,6 +225,22 @@ export class CannebergeApiService {
       .map(res => res);
   }
 
+  /*
+  Service shapefile
+   */
+  postNewShapefile(ferme_id, file){
+    console.log(file);
+    let inputFile = new Blob(file);
+    let filename = file[0].name.replace('.zip', '');
+    return this._http.post(this.serverUrl + '/fermes/' + ferme_id + '/shapefiles/' + filename, inputFile, {headers : this.headers})
+      .map(res => res);
+  }
+
+  deleteShapefile(ferme_id, raster_id){
+    return this._http.delete(this.serverUrl + '/fermes/' + ferme_id + '/shapefiles/' + raster_id, {headers : this.headers})
+      .map(res => res);
+  }
+
 
 
 }
