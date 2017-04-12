@@ -261,3 +261,7 @@ img.current-icon{
     text-align: right;
     padding-right: 15px;
 }
+
+.dropdown{
+    display: inline;
+}

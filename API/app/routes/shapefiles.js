@@ -11,14 +11,12 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var mkdirp = require('mkdirp');
 var Ferme = require('../models/ferme');
-var ObjectId = require('mongodb').ObjectID;
 var mime = require('mime');
 var uidGenerator = require('../models/uniqueIdGenerator');
 var unzip = require('unzip');
 var fs = require('fs');
 var path = require('path');
 var ogr2ogr = require('ogr2ogr');
-var fsExtra = require('fs-extra');
 var copydir = require('copy-dir');
 
 
