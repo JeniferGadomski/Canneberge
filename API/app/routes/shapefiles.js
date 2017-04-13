@@ -18,6 +18,7 @@ var fs = require('fs');
 var path = require('path');
 var ogr2ogr = require('ogr2ogr');
 var copydir = require('copy-dir');
+var ObjectId = require('mongodb').ObjectID;
 
 
 router.get('/', getAllShapefileObject);
@@ -47,7 +48,6 @@ function postNewShapefile(req, res, next) {
     options.mode = req.query.mode || 438;
     options.flags =  req.query.clobber === 'true' ? 'w' : 'wx';
 
-    // TODO copie all file with a different name (uid) into a new folder name : uid
     // Save copie in ferme folder file
     return fileDriver.writeFileStream({
         dirPath: pathFermeFolder,
@@ -138,7 +138,6 @@ function getShapefileFile(req, res, next) {
 }
 
 function createImage(path, next) {
-    // console.log(path);
     exec('python ' + __dirname + '/../models/shp2png/shp2png.py ' + path, function(error, stdout, stderr) {
         if (error !== null) console.log('exec error: ' + error);
         next();
@@ -164,6 +163,14 @@ function shapefileToGeojson(path, next) {
         fs.writeFile(path + '.json', JSON.stringify(data, null, 4), function () {next(data)});
     })
 
+}
+
+function geojsonToShapefile(geojson, path, next) {
+    var og = ogr2ogr(geojson).project('EPSG:26918').format('ESRI Shapefile');
+    og.exec(function (er, zipData) {
+        if(er) console.error(er);
+        fs.writeFile(path + '.zip', zipData, function () {next()});
+    });
 }
 
 function backupShapefile(orignalPath, newPath, next) {
@@ -194,12 +201,26 @@ function updateGeojson(req, res, next) {
     var fermeId = req.params.ferme_id;
     if(req.body.features){
         var features = req.body.features;
+        Ferme.getFermeById(fermeId, function (ferme) {
+            for (var i = 0; i < ferme.shapefiles.length; i++) {
+                var shp = ferme.shapefiles[i];
+                if(shp._id === shapefileId){
+                    var newGeojson = Ferme.dataToGeojson(features, shp.geojson);
+                    Ferme.update({_id : ObjectId(req.params.ferme_id), "shapefiles._id" : shapefileId},
+                        {$set : {"shapefiles.$.geojson" : newGeojson}}, function (err, result) {
+                        if(err) return res.status(400).send({message : 'Error updating geojson'});
+                        return res.send(result);
+                    });
+                    return;
+                }
+            }
+            return res.status(400).send({message : 'No shapefile found'});
+        });
     }
     else if(req.body.geojson){
         var geojson = req.body.geojson;
     }
-    else
-        res.status(400).send({message : 'Body must content \'features\' or \'geojson\'.'});
+    else res.status(400).send({message : 'Body must content \'features\' or \'geojson\'.'});
 }
 
 module.exports = router;
