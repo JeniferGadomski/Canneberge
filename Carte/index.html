@@ -96,7 +96,12 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Action <input type="checkbox" style="float: right"></a></li>
+                    <li style="display: flex" class="dropdown-header">
+                        <p class="dropdown-title"><strong>Tableau</strong></p>
+                        <p class="dropdown-title"><strong>Afficher</strong></p>
+                    </li>
+                    <li style="display: flex"><a class="shapefile-name" href="#">Champs</a><input class="shapefile-show" type="checkbox"></li>
+                    <li style="display: flex"><a class="shapefile-name" href="#">Points</a><input class="shapefile-show" type="checkbox"></li>
                 </ul>
             </div>
             <toggle on="Rasters" off="Rasters" ng-model="showRasters" ng-change="toggleRasters()"></toggle>

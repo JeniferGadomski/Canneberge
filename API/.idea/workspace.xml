@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6bbfeec-e0c8-4138-abab-040d88e9d06c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/shp2png/shp2png.py" afterPath="$PROJECT_DIR$/app/models/shp2png/shp2png.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/routes/shapefiles.js" afterPath="$PROJECT_DIR$/app/routes/shapefiles.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/index.html" afterPath="$PROJECT_DIR$/../Carte/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/js/controller/mapController.js" afterPath="$PROJECT_DIR$/../Carte/js/controller/mapController.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/stylesheets/style.css" afterPath="$PROJECT_DIR$/../Carte/stylesheets/style.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -26,8 +29,8 @@
       <file leaf-file-name="shapefiles.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/routes/shapefiles.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+            <state relative-caret-position="267">
+              <caret line="194" column="26" lean-forward="true" selection-start-line="194" selection-start-column="26" selection-end-line="194" selection-end-column="26" />
               <folding>
                 <element signature="e#0#41#0" expanded="false" />
               </folding>
@@ -38,8 +41,8 @@
       <file leaf-file-name="ferme.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/ferme.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="13" column="43" lean-forward="false" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
+            <state relative-caret-position="790">
+              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -65,36 +68,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rasters.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/routes/rasters.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="201" column="0" lean-forward="false" selection-start-line="201" selection-start-column="0" selection-end-line="232" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fsDriver.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/file_system_api/fsDriver.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-386">
-              <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TiffToOverlay.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/TiffToOverlay.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="32" column="45" lean-forward="false" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -106,8 +79,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fileDriver</find>
-      <find>req.body</find>
       <find>opts</find>
       <find>bodyParser</find>
       <find>raw</find>
@@ -136,6 +107,8 @@
       <find>shp</find>
       <find>mime</find>
       <find>console</find>
+      <find>720</find>
+      <find>==</find>
     </findStrings>
     <replaceStrings>
       <replace>fileSystemDir</replace>
@@ -420,7 +393,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.Debug">
+  <component name="RunManager" selected="Node.js.app.js">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
@@ -560,12 +533,12 @@
       <workItem from="1491223555867" duration="39351000" />
       <workItem from="1491829047194" duration="599000" />
       <workItem from="1491846027724" duration="4947000" />
-      <workItem from="1491932258297" duration="28716000" />
+      <workItem from="1491932258297" duration="31455000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="478552000" />
+    <option name="totallyTimeSpent" value="481291000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -835,14 +808,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/ferme.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="13" column="43" lean-forward="false" selection-start-line="13" selection-start-column="43" selection-end-line="13" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/file_system_api/fileSystem/58c8226d78024e673e5fa9a1/Point/Point.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -874,14 +839,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/shp2png/shp2png.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="39" lean-forward="false" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/route.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3423">
@@ -890,10 +847,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/shp2png/shp2png.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/ferme.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="790">
+          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/routes/shapefiles.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        <state relative-caret-position="267">
+          <caret line="194" column="26" lean-forward="true" selection-start-line="194" selection-start-column="26" selection-end-line="194" selection-end-column="26" />
           <folding>
             <element signature="e#0#41#0" expanded="false" />
           </folding>

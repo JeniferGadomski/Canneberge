@@ -24,6 +24,8 @@ router.get('/', getAllShapefileObject);
 router.post('/:shapefile_name', postNewShapefile);
 router.get('/:shapefile_id', getShapefileObject);
 router.delete('/:shapefile_id', deleteShapefile);
+router.get('/:shapefile_id/features', getFeaturesGeojson);
+router.put('/:shapefile_id/features', updateGeojson);
 
 function getAllShapefileObject(req, res, next) {
 
@@ -171,6 +173,33 @@ function backupShapefile(orignalPath, newPath, next) {
             next();
         });
     });
+}
+
+function getFeaturesGeojson(req, res, next) {
+    var shapefileId = req.params.shapefile_id;
+    var fermeId = req.params.ferme_id;
+
+    Ferme.getFermeById(fermeId, function (ferme) {
+        for (var i = 0; i < ferme.shapefiles.length; i++) {
+            var shp = ferme.shapefiles[i];
+            if(shp._id === shapefileId)
+                return res.send(Ferme.geojsonToData(shp.geojson));
+        }
+        return res.status(404).send({message : 'Shapefile not found'});
+    })
+}
+
+function updateGeojson(req, res, next) {
+    var shapefileId = req.params.shapefile_id;
+    var fermeId = req.params.ferme_id;
+    if(req.body.features){
+        var features = req.body.features;
+    }
+    else if(req.body.geojson){
+        var geojson = req.body.geojson;
+    }
+    else
+        res.status(400).send({message : 'Body must content \'features\' or \'geojson\'.'});
 }
 
 module.exports = router;

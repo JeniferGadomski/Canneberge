@@ -65,7 +65,7 @@ def process(r):
 
 parser = argparse.ArgumentParser(description="Produce .png image from shapefile. Optionally filter by attribute value(s).")
 parser.add_argument('input' ,help='input filename (without .shp)')
-parser.add_argument('-w', '--width', type=int, default=720)
+parser.add_argument('-w', '--width', type=int, default=360)
 parser.add_argument('--stroke', type=str, default='rgb(255, 255, 255)', help="polygon stroke color. defaults to \"rgb(255, 255, 255)\"")
 
 args = vars(parser.parse_args())
