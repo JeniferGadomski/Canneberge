@@ -26,10 +26,12 @@ router.post('/:shapefile_name', postNewShapefile);
 router.get('/:shapefile_id', getShapefileObject);
 router.delete('/:shapefile_id', deleteShapefile);
 router.get('/:shapefile_id/features', getFeaturesGeojson);
-router.put('/:shapefile_id/features', updateGeojson);
+router.put('/:shapefile_id', updateGeojson);
 
 function getAllShapefileObject(req, res, next) {
-
+    Ferme.getFermeById(req.params.ferme_id, function (ferme) {
+        return res.send(ferme.shapefiles);
+    });
 }
 
 function postNewShapefile(req, res, next) {
@@ -63,16 +65,13 @@ function postNewShapefile(req, res, next) {
                             shapefileToGeojson(pathFermeFolderWithoutEx, function (geojson) {
                                 backupShapefile(path.dirname(pathFermeFolder), path.dirname(pathHide), function () {
                                     var pngPath = '/api/fermes/' + fermeId + '/shapefiles/' + uid + '.png' ;
-                                    var zipPath = pngPath.replace('.png', '.zip');
-                                    var jsonPath = pngPath.replace('.png', '.json');
                                     var newShapefile = {
                                         _id : uid,
                                         geojson : geojson,
                                         name : filename,
                                         path : {
                                             png : pngPath,
-                                            zip : zipPath,
-                                            json : jsonPath
+                                            zip : pngPath.replace('.png', '.zip')
                                         }
                                     };
                                     Ferme.findByIdAndUpdate(fermeId, {$push : {shapefiles : newShapefile}}, function (err, model) {
@@ -123,6 +122,17 @@ function getShapefileFile(req, res, next) {
     var fermeId = req.params.ferme_id;
     var pathHide = __dirname + '/../file_system_api/fileSystem/' + fermeId + '_rasters/' + shapefileId.split('.')[0] + '/' +shapefileId;
 
+    if(shapefileId.indexOf('.json') !== -1){
+        Ferme.getFermeById(fermeId, function (ferme) {
+            for (var i = 0; i < ferme.shapefiles.length; i++) {
+                var shp = ferme.shapefiles[i];
+                if(shp._id === shapefileId)
+                    return res.send(shp.geojson);
+            }
+            return res.status(404).send({message : 'Shapefile not found'});
+        })
+    }
+
     var encoding = req.query.encoding || 'utf8';
     var opts = req.body.opts;
 
@@ -160,9 +170,8 @@ function shapefileToGeojson(path, next) {
     var og = ogr2ogr(zipFile).project('EPSG:4326').format();
     og.exec(function (er, data) {
         if (er) console.error(er);
-        fs.writeFile(path + '.json', JSON.stringify(data, null, 4), function () {next(data)});
+        next(data);
     })
-
 }
 
 function geojsonToShapefile(geojson, path, next) {
@@ -175,7 +184,6 @@ function geojsonToShapefile(geojson, path, next) {
 
 function backupShapefile(orignalPath, newPath, next) {
     copydir(orignalPath, newPath, function (err) {
-        // console.log('ok');
         renameAllFile(newPath, newPath.split('/').slice(-1)[0], function () {
             next();
         });
@@ -199,6 +207,11 @@ function getFeaturesGeojson(req, res, next) {
 function updateGeojson(req, res, next) {
     var shapefileId = req.params.shapefile_id;
     var fermeId = req.params.ferme_id;
+    var path = __dirname + '/../file_system_api/fileSystem/' + fermeId+ '_rasters/' + shapefileId + '/';
+
+
+    var shapefileId = req.params.shapefile_id;
+    var fermeId = req.params.ferme_id;
     if(req.body.features){
         var features = req.body.features;
         Ferme.getFermeById(fermeId, function (ferme) {
@@ -209,7 +222,9 @@ function updateGeojson(req, res, next) {
                     Ferme.update({_id : ObjectId(req.params.ferme_id), "shapefiles._id" : shapefileId},
                         {$set : {"shapefiles.$.geojson" : newGeojson}}, function (err, result) {
                         if(err) return res.status(400).send({message : 'Error updating geojson'});
-                        return res.send(result);
+                        geojsonToShapefile(newgeojson, path, function () {
+                            return res.send(result);
+                        });
                     });
                     return;
                 }
@@ -218,7 +233,14 @@ function updateGeojson(req, res, next) {
         });
     }
     else if(req.body.geojson){
-        var geojson = req.body.geojson;
+        var newgeojson = JSON.parse(req.body.geojson);
+        Ferme.update({_id : ObjectId(req.params.ferme_id), "shapefiles._id" : shapefileId},
+            {$set : {"shapefiles.$.geojson" : newgeojson}}, function (err, result) {
+                if(err) return res.status(400).send({message : 'Error updating geojson'});
+                geojsonToShapefile(newgeojson, path, function () {
+                    return res.send(result);
+                });
+            });
     }
     else res.status(400).send({message : 'Body must content \'features\' or \'geojson\'.'});
 }

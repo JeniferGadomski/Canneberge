@@ -19,22 +19,7 @@ def getRandomColor():
 
 def process(r):
   iwidth = args['width']
-  xys = []
-  xy = []
-  for shape in r.shapes():
-    if shape.shapeType == 1:
-      x,y = shape.points[0]
-      penta = pointToPentagone(x, y, 10)
-      for x,y in penta:
-        xy.append((x,y))
-      xys.append(xy)
-
-    else:
-      for x,y in shape.points:
-        xy.append((x,y))
-      xys.append(xy)
-    xy = []
-
+  
   bbox = r.bbox
   xdist = bbox[2] - bbox[0]
   ydist = bbox[3] - bbox[1]
@@ -42,7 +27,7 @@ def process(r):
   iheight = int(iwidth/ratio)
   xratio = iwidth/xdist
   yratio = iheight/ydist
-
+  
   img = Image.new("RGB", (iwidth, iheight), "white")
   transparent_area = (0,0,iwidth,iheight)
 
@@ -52,6 +37,29 @@ def process(r):
   img.putalpha(mask)
 
   draw = ImageDraw.Draw(img)
+  
+  xys = []
+  xy = []
+  for shape in r.shapes():
+    if shape.shapeType == 1:
+      x,y = shape.points[0]
+      x = int(iwidth - ((bbox[2] - x) * xratio))
+      y = int((bbox[3] - y) * yratio)
+      penta = pointToPentagone(x, y, 15)
+      for x,y in penta:
+        xy.append((x,y))
+      #xys.append(xy)
+      draw.polygon(xy, outline=args['stroke'], fill=args['fill'])
+
+    else:
+      for x,y in shape.points:
+        xy.append((x,y))
+      xys.append(xy)
+    xy = []
+
+
+
+
 
   for pts in xys:
     pixels2 = []
