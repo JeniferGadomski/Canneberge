@@ -16,7 +16,7 @@ Configuration :
 	$ sudo apt-get install -y nodejs
     $ sudo apt-get install npm
     $ sudo ln -s /usr/bin/nodejs /usr/bin/node
-    $ sudo npm install -g angular-cli bower pm2
+    $ sudo npm install -g angular-cli bower pm2 http-server
     $ sudo apt-get install gdal-bin
 
 
@@ -60,4 +60,38 @@ Pour compiler le projet Admin
 
 	$ pm2 start ecosystem.json
 	
-*****Penser a builder l'application Administrateur
+Pour monitorer la platform : 
+
+	$ pm2 monit
+	
+*Penser a builder l'application Administrateur
+
+## Serveur localhost
+À titre d'information voici les ports par default de chaque application sur le *localhost* : 
+
+
+Application  | Domaine | Port
+--- | --- | ---
+Administrateur |	[admin.canneberge.io](https://admin.canneberge.io)  |	8000
+Carte |	[carte.canneberge.io](http://carte.canneberge.io)  |	3001
+API |	[api.canneberge.io](http://api.canneberge.io)  |	8080
+Interpréteur R |	[r.canneberge.io](http://r.canneberge.io)  |	8888
+Portail |	[portail.canneberge.io](http://portail.canneberge.io)  |	8002
+Documentation |	[doc.canneberge.io](http://doc.canneberge.io)  |	8001
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
