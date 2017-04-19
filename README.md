@@ -17,6 +17,8 @@ Configuration :
     $ sudo apt-get install npm
     $ sudo ln -s /usr/bin/nodejs /usr/bin/node
     $ sudo npm install -g angular-cli bower pm2
+    $ sudo apt-get install gdal-bin
+
 
 ## Cloner le projet
 Téléchargement du la platforme localement
@@ -54,27 +56,8 @@ Pour compiler le projet Admin
 	$ cd public
 	$ bower install
 
-## Partir les 3 serveurs
+## Partir les serveurs
 
 	$ pm2 start ecosystem.json
 	
-Penser a builder l'application Administrateur
-
-## Base de données MongoDB (temporaire*)
-Connection avec Robomongo
-
- * Adresse : ds139969.mlab.com
- * Port : 39969
- * Authentificaiton
-    * Databse : canneberge-database
-    * User Name : canneberge
-    * Password : drainage
-
-\* L'utilisation de mlab est seulement utiliser pour le développement.
-
-## Interpréteur R
-Consulteur le fichier /Doc/R/Installation_Rserve.md
-
-## Document pour les bugs
-
-[Bugs -> Google Calc, Feuille 2](https://docs.google.com/spreadsheets/d/1C3X9shZRBUGFJRZjLsi7VNtN8FvPP1UO5NXW6SVH7Mw/edit?usp=sharing) 
+*****Penser a builder l'application Administrateur
