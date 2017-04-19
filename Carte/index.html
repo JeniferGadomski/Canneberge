@@ -9,16 +9,16 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-touch.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+    <!--<script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>-->
+    <!--<script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>-->
+    <!--<script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>-->
     <script src="js/components/angular-ui-grid/ui-grid.js"></script>
 
     <script src="js/angular-ui-bootstrap-modal.js"></script>
     <!--Include google maps-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA47o2l_ZHyAnwNchSLakCJh89Lc0aCWtk&libraries=placeses,visualization,drawing,geometry,places"></script>
 
-    <link rel="stylesheet" href="http://ui-grid.info/release/ui-grid.css" type="text/css">
+    <link rel="stylesheet" href="js/components/angular-ui-grid/ui-grid.min.css" type="text/css">
 
 
     <!-- Include jquery-->
@@ -98,10 +98,12 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li style="display: flex" class="dropdown-header">
                         <p class="dropdown-title"><strong>Tableau</strong></p>
-                        <p class="dropdown-title"><strong>Afficher</strong></p>
+                        <p class="dropdown-title" style="text-align: right"><strong>Afficher</strong></p>
                     </li>
-                    <li style="display: flex"><a class="shapefile-name" href="#">Champs</a><input class="shapefile-show" type="checkbox"></li>
-                    <li style="display: flex"><a class="shapefile-name" href="#">Points</a><input class="shapefile-show" type="checkbox"></li>
+                    <li ng-repeat="shp in ferme.shapefiles" style="display: flex; padding-right: 15px;">
+                        <a class="shapefile-name" href="#">{{shp.name}}</a>
+                        <input ng-model="ferme.shapefiles[$index].show" class="shapefile-show" type="checkbox" ng-change="displayShapefileManager()">
+                    </li>
                 </ul>
             </div>
             <toggle on="Rasters" off="Rasters" ng-model="showRasters" ng-change="toggleRasters()"></toggle>

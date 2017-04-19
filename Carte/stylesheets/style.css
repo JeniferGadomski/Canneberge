@@ -268,11 +268,13 @@ img.current-icon{
 
 a.shapefile-name{
     width: 80%;
+    min-width: 175px;
 }
 
 input.shapefile-show{
     margin-top: 8px;
     float: right;
+    margin-left: 15px;
 }
 
 p.dropdown-title{

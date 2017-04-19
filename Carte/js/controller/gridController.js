@@ -242,11 +242,5 @@ angular.module('app')
             gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
                 updateGeojson();
             });
-
-
-
-
         };
-
-
     });

@@ -11,6 +11,7 @@ angular.module('app')
         $scope.groundOverlay = null;
 
         var map = null;
+
         $scope.currentCoord = {};
         $scope.currentField = {};
 
@@ -27,6 +28,13 @@ angular.module('app')
             // origin: new google.maps.Point(0, 0),
             // // The anchor for this image is the base of the flagpole at (0, 32).
             // anchor: new google.maps.Point(0, 0)
+        };
+
+        var dataMapStyle = {
+            fillColor: '#485B6B',
+            strokeColor : '#DDED36',
+            strokeWeight : 1.5,
+            icon : customIcon
         };
 
         var projection  = '+proj=utm +zone=18 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
@@ -94,22 +102,31 @@ angular.module('app')
         }
 
         var initialize = function (event) {
+
             console.log('intiMap');
             setCenterCoordinate();
-            if(map == null){
+            if(map === null){
                 map = init();
             }
 
             $scope.sliderRaster.range.max = $scope.ferme.rasters.length - 1;
             initRaster();
 
-            map.data.setStyle({
-                fillColor: '#485B6B',
-                strokeColor : '#DDED36',
-                strokeWeight : 1.5,
-                icon : customIcon
-            });
+            map.data.setStyle(dataMapStyle);
             map.data.addGeoJson($scope.ferme.geojson);
+        };
+
+        $scope.displayShapefileManager = function() {
+            map.data.forEach(function(feature) {
+                map.data.remove(feature);
+            });
+            map.data.setStyle(dataMapStyle);
+            for (var i = 0; i < $scope.ferme.shapefiles.length; i++) {
+                var shp = $scope.ferme.shapefiles[i];
+                if(shp.show){
+                    map.data.addGeoJson(shp.geojson);
+                }
+            }
         };
 
         $rootScope.$on('initMap', initialize);
@@ -327,19 +344,21 @@ angular.module('app')
         $scope.toggleShapefile = function () {
             // console.log($scope.showShapefile);
             if($scope.showShapefile){
-                map.data.addGeoJson($scope.ferme.geojson);
-                map.data.setStyle({
-                    fillColor: '#485B6B',
-                    strokeColor : '#DDED36',
-                    strokeWeight : 1.5,
-                    icon : customIcon
-                });
+                // map.data.addGeoJson($scope.ferme.geojson);
+                // map.data.setStyle({
+                //     fillColor: '#485B6B',
+                //     strokeColor : '#DDED36',
+                //     strokeWeight : 1.5,
+                //     icon : customIcon
+                // });
+                $scope.displayShapefileManager();
             }
             else{
                 map.data.forEach(function(feature) {
                     map.data.remove(feature);
                 });
             }
+
         };
 
         $scope.toggleRasters = function () {
