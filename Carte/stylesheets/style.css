@@ -261,3 +261,21 @@ img.current-icon{
     text-align: right;
     padding-right: 15px;
 }
+
+.dropdown{
+    display: inline;
+}
+
+a.shapefile-name{
+    width: 80%;
+}
+
+input.shapefile-show{
+    margin-top: 8px;
+    float: right;
+}
+
+p.dropdown-title{
+    width: 50%;
+    margin-bottom: 5px;
+}

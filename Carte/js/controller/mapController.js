@@ -355,6 +355,7 @@ angular.module('app')
         };
 
         $scope.valueBand = function (rasterband) {
+            if(!rasterband) return {};
             var halfMean = rasterband.mean / 2;
             return {
                 max: rasterband.max,

@@ -91,6 +91,19 @@
         <div class="col-sm-5">
             <button class="btn red" id="btnSave" ng-click="saveFerme()" title="Sauvegarder" ><span class="glyphicon glyphicon-floppy-save"></span></button>
             <toggle checked on="Shapefile" off="Shapefile" ng-model="showShapefile" ng-change="toggleShapefile()"></toggle>
+            <div class="dropdown" >
+                <button class="btn red dropdown-toggle" ng-class="{disabled : !showShapefile}" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li style="display: flex" class="dropdown-header">
+                        <p class="dropdown-title"><strong>Tableau</strong></p>
+                        <p class="dropdown-title"><strong>Afficher</strong></p>
+                    </li>
+                    <li style="display: flex"><a class="shapefile-name" href="#">Champs</a><input class="shapefile-show" type="checkbox"></li>
+                    <li style="display: flex"><a class="shapefile-name" href="#">Points</a><input class="shapefile-show" type="checkbox"></li>
+                </ul>
+            </div>
             <toggle on="Rasters" off="Rasters" ng-model="showRasters" ng-change="toggleRasters()"></toggle>
             <a class="btn red" href="http://portail.canneberge.io/#/logout" style="float: right;" >Déconnextion</a>
 

@@ -50,7 +50,7 @@ Et ajouter les lignes suivante :
 
 Ajouter un lien symbolique entre le fichier script de l'API et de FastRWeb : 
 
-	$ ln -s ~/Documents/Platforme-Canneberge/API/uploads/filetext.R
+	$ ln -s /.../Platforme-Canneberge/API/uploads/filetext.R
 
 ## Partir FastRWeb
 
@@ -61,3 +61,5 @@ Option 1 : Seul
 Option 2 : En même temps que les autres service
 
 	$ pm2 start ecosystem.json
+	
+

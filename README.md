@@ -16,7 +16,9 @@ Configuration :
 	$ sudo apt-get install -y nodejs
     $ sudo apt-get install npm
     $ sudo ln -s /usr/bin/nodejs /usr/bin/node
-    $ sudo npm install -g angular-cli bower pm2
+    $ sudo npm install -g angular-cli bower pm2 http-server
+    $ sudo apt-get install gdal-bin
+
 
 ## Cloner le projet
 Téléchargement du la platforme localement
@@ -54,27 +56,45 @@ Pour compiler le projet Admin
 	$ cd public
 	$ bower install
 
-## Partir les 3 serveurs
+## Partir les serveurs
 
 	$ pm2 start ecosystem.json
 	
-Penser a builder l'application Administrateur
+Pour monitorer la platform : 
 
-## Base de données MongoDB (temporaire*)
-Connection avec Robomongo
+	$ pm2 monit
+	
+*Penser a builder l'application Administrateur
 
- * Adresse : ds139969.mlab.com
- * Port : 39969
- * Authentificaiton
-    * Databse : canneberge-database
-    * User Name : canneberge
-    * Password : drainage
+### Monitorer sur le web et a distance
+Pour avoir une belle interface web qui remplace *pm2 monit* consulter [keymetrics.io](http://docs.keymetrics.io/) 
 
-\* L'utilisation de mlab est seulement utiliser pour le développement.
+## Serveur sur localhost
+À titre d'information voici les ports par default de chaque application sur le *localhost* : 
 
-## Interpréteur R
-Consulteur le fichier /Doc/R/Installation_Rserve.md
 
-## Document pour les bugs
+Application  | Domaine | Port
+--- | --- | ---
+Administrateur |	[admin.canneberge.io](https://admin.canneberge.io)  |	8000
+Carte |	[carte.canneberge.io](http://carte.canneberge.io)  |	3001
+API |	[api.canneberge.io](http://api.canneberge.io)  |	8080
+Interpréteur R |	[r.canneberge.io](http://r.canneberge.io)  |	8888
+Portail |	[portail.canneberge.io](http://portail.canneberge.io)  |	8002
+Documentation |	[doc.canneberge.io](http://doc.canneberge.io)  |	8001
 
-[Bugs -> Google Calc, Feuille 2](https://docs.google.com/spreadsheets/d/1C3X9shZRBUGFJRZjLsi7VNtN8FvPP1UO5NXW6SVH7Mw/edit?usp=sharing) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
