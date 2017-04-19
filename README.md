@@ -66,7 +66,10 @@ Pour monitorer la platform :
 	
 *Penser a builder l'application Administrateur
 
-## Serveur localhost
+### Monitorer sur le web et a distance
+Pour avoir une belle interface web qui remplace *pm2 monit* consulter [keymetrics.io](http://docs.keymetrics.io/) 
+
+## Serveur sur localhost
 À titre d'information voici les ports par default de chaque application sur le *localhost* : 
 
 
