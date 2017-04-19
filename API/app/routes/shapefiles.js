@@ -118,33 +118,32 @@ function deleteShapefile(req, res, next) {
 }
 
 function getShapefileFile(req, res, next) {
-    var shapefileId = (req.params.shapefile_id).toLowerCase();
+    var shapefileFile = (req.params.shapefile_id).toLowerCase();
+    var shapefileId = shapefileFile.split('.')[0];
     var fermeId = req.params.ferme_id;
-    var pathHide = __dirname + '/../file_system_api/fileSystem/' + fermeId + '_rasters/' + shapefileId.split('.')[0] + '/' +shapefileId;
+    var pathHide = __dirname + '/../file_system_api/fileSystem/' + fermeId + '_rasters/' + shapefileId + '/' +shapefileFile;
 
-    if(shapefileId.indexOf('.json') !== -1){
-        Ferme.getFermeById(fermeId, function (ferme) {
-            for (var i = 0; i < ferme.shapefiles.length; i++) {
-                var shp = ferme.shapefiles[i];
-                if(shp._id === shapefileId)
-                    return res.send(shp.geojson);
-            }
-            return res.status(404).send({message : 'Shapefile not found'});
+    if(shapefileFile.indexOf('.json') !== -1){
+        Ferme.findOne({_id : ObjectId(req.params.ferme_id), "shapefiles._id" : shapefileId}, function (err, result) {
+            if(err) return res.status(404).send({message : 'Shapefile not found'});
+            return res.send(result.geojson);
         })
     }
 
-    var encoding = req.query.encoding || 'utf8';
-    var opts = req.body.opts;
+    else{
+        var encoding = req.query.encoding || 'utf8';
+        var opts = req.body.opts;
 
-    fileDriver.readFile({
-        filePath : pathHide,
-        encoding: encoding,
-        opts: opts
-    }, function (err, data) {
-        if(err) return res.status(404).send({success : false, message : 'Error no file'});
-        res.set('Content-Type', mime.lookup(pathHide));
-        res.send(data);
-    })
+        fileDriver.readFile({
+            filePath : pathHide,
+            encoding: encoding,
+            opts: opts
+        }, function (err, data) {
+            if(err) return res.status(404).send({success : false, message : 'Error no file'});
+            res.set('Content-Type', mime.lookup(pathHide));
+            res.send(data);
+        })
+    }
 }
 
 function createImage(path, next) {
@@ -184,34 +183,42 @@ function geojsonToShapefile(geojson, path, next) {
 
 function backupShapefile(orignalPath, newPath, next) {
     copydir(orignalPath, newPath, function (err) {
-        renameAllFile(newPath, newPath.split('/').slice(-1)[0], function () {
-            next();
+        var fileName = newPath.split('/').slice(-1)[0];
+        renameAllFile(newPath, fileName, function () {
+            onlyKeepPngZip(newPath, function () {
+                next();
+            });
         });
+    });
+}
+
+function onlyKeepPngZip(path, next) {
+    var args = {};
+    args.dirPath =  path;
+    fileDriver.listAll(args, function (_null, files) {
+        for(var i = 1; i < files.length; i++){ //start at one files[0] = folder
+            var fileName = files[i];
+            if(!fileName.includes('.zip') && !fileName.includes('.png')){
+                fs.unlink(fileName, function () {});
+            }
+        }
+        return next();
     });
 }
 
 function getFeaturesGeojson(req, res, next) {
     var shapefileId = req.params.shapefile_id;
-    var fermeId = req.params.ferme_id;
-
-    Ferme.getFermeById(fermeId, function (ferme) {
-        for (var i = 0; i < ferme.shapefiles.length; i++) {
-            var shp = ferme.shapefiles[i];
-            if(shp._id === shapefileId)
-                return res.send(Ferme.geojsonToData(shp.geojson));
-        }
-        return res.status(404).send({message : 'Shapefile not found'});
-    })
+    Ferme.findOne({_id : ObjectId(req.params.ferme_id), "shapefiles._id" : shapefileId}, function (err, result) {
+        if(err) return res.status(404).send({message : 'Shapefile not found'});
+        return res.send(Ferme.geojsonToData(result.geojson));
+    });
 }
 
 function updateGeojson(req, res, next) {
     var shapefileId = req.params.shapefile_id;
     var fermeId = req.params.ferme_id;
-    var path = __dirname + '/../file_system_api/fileSystem/' + fermeId+ '_rasters/' + shapefileId + '/';
+    var path = __dirname + '/../file_system_api/fileSystem/' + fermeId+ '_rasters/' + shapefileId + '/' + shapefileId;
 
-
-    var shapefileId = req.params.shapefile_id;
-    var fermeId = req.params.ferme_id;
     if(req.body.features){
         var features = req.body.features;
         Ferme.getFermeById(fermeId, function (ferme) {
@@ -221,11 +228,11 @@ function updateGeojson(req, res, next) {
                     var newGeojson = Ferme.dataToGeojson(features, shp.geojson);
                     Ferme.update({_id : ObjectId(req.params.ferme_id), "shapefiles._id" : shapefileId},
                         {$set : {"shapefiles.$.geojson" : newGeojson}}, function (err, result) {
-                        if(err) return res.status(400).send({message : 'Error updating geojson'});
-                        geojsonToShapefile(newgeojson, path, function () {
-                            return res.send(result);
+                            if(err) return res.status(400).send({message : 'Error updating geojson'});
+                            geojsonToShapefile(newGeojson, path, function () {
+                                return res.send(result);
+                            });
                         });
-                    });
                     return;
                 }
             }
