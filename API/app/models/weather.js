@@ -7,6 +7,7 @@ var config = require('../config/config');
 var Weather = {};
 
 Weather.getWeatherByLatLng = function (lat, lng, simple, next){
+    if(lat === null || lng === null){return next({message : 'not lnt lng set'})}
     var coord = lat.toString() + "," + lng.toString();
     var weatherRequest = {};
     var weather = {};

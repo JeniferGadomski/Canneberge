@@ -95,6 +95,7 @@ img.weather {
 
 .myGrid {
     width: 100%;
+    display: inline-flex;
 }
 
 .content{
@@ -109,7 +110,7 @@ img.weather {
 }
 
 .col-grid{
-    padding-top: 15px;
+    padding-top: 5px;
 }
 
 .myGrid.full-height{
@@ -120,7 +121,7 @@ img.weather {
 
 .footer-grid{
     /*height: 40px;*/
-    padding-top: 15px;
+    padding-top: 5px;
     padding-right: 15px;
 }
 
@@ -280,4 +281,10 @@ input.shapefile-show{
 p.dropdown-title{
     width: 50%;
     margin-bottom: 5px;
+}
+
+
+.topbar{
+    display: flex;
+    justify-content: space-between;
 }

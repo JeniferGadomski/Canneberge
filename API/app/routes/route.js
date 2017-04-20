@@ -330,6 +330,11 @@ router.route('/users/:user_id')
  }
  */
     .put(function (req, res) {
+        // if(req.body.password){
+        //     User.hash(req.body.password)
+        // }
+
+
         User.update({_id : ObjectId(req.params.user_id)}, req.body, function (err, result) {
             if(err) res.status(404).send({message : 'error update user', success : false});
             else {
@@ -658,7 +663,7 @@ router.route('/fermes/:ferme_id')
                 return res.json({ferme : ferme});
 
             Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, false, function (weather) {
-                if(typeof weather.message !== 'undefined') res.status(404);
+                // if(typeof weather.message !== 'undefined') res.status(404);
                 send.weather = weather;
                 res.send(send);
             });

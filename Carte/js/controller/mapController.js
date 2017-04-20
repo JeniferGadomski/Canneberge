@@ -6,7 +6,9 @@ angular.module('app')
 
         $scope.rasterId = $location.search().rasterId;
         console.log($scope.rasterId);
-        $scope.showRasters = false;
+        $scope.overlay = {};
+        $scope.overlay.showRasters = false;
+        $scope.overlay.showRasters = false;
         $scope.showShapefile = true;
         $scope.groundOverlay = null;
 
@@ -92,7 +94,7 @@ angular.module('app')
             if($scope.rasterId){
                 for(var i = 0; i < $scope.ferme.rasters.length; i++){
                     if($scope.ferme.rasters[i]._id === $scope.rasterId){
-                        $scope.showRasters = true;
+                        $scope.overlay.showRasters = true;
                         $scope.sliderRaster.value = i;
                         $scope.toggleRasters();
                         return;
@@ -113,7 +115,7 @@ angular.module('app')
             initRaster();
 
             map.data.setStyle(dataMapStyle);
-            map.data.addGeoJson($scope.ferme.geojson);
+            map.data.addGeoJson($scope.ferme.shapefiles[0].geojson);
         };
 
         $scope.displayShapefileManager = function() {
@@ -121,12 +123,15 @@ angular.module('app')
                 map.data.remove(feature);
             });
             map.data.setStyle(dataMapStyle);
-            for (var i = 0; i < $scope.ferme.shapefiles.length; i++) {
-                var shp = $scope.ferme.shapefiles[i];
-                if(shp.show){
-                    map.data.addGeoJson(shp.geojson);
+            if($scope.showShapefile){
+                for (var i = 0; i < $scope.ferme.shapefiles.length; i++) {
+                    var shp = $scope.ferme.shapefiles[i];
+                    if(shp.show){
+                        map.data.addGeoJson(shp.geojson);
+                    }
                 }
             }
+
         };
 
         $rootScope.$on('initMap', initialize);
@@ -144,19 +149,20 @@ angular.module('app')
         }
 
         function setCenterCoordinate() {
-            if(typeof $scope.ferme.centerCoordinate !== 'undefined') return;
+            if(typeof $scope.ferme.centerCoordinate !== 'undefined' && $scope.ferme.centerCoordinate.lat !== null) return;
             var arrayLng = [];
             var arrayLat = [];
 
-            var features = $scope.ferme.geojson.features;
-            for(var i = 0; i < features.length; i++){
-                var coord = features[i].geometry.coordinates[0];
-                for(var j = 0; j < coord.length; j++){
-                    arrayLng.push(coord[j][0]);
-                    arrayLat.push(coord[j][1])
+            if($scope.ferme.shapefiles.length > 0){
+                var features = $scope.ferme.shapefiles[0].geojson.features;
+                for(var i = 0; i < features.length; i++){
+                    var coord = features[i].geometry.coordinates[0];
+                    for(var j = 0; j < coord.length; j++){
+                        arrayLng.push(coord[j][0]);
+                        arrayLat.push(coord[j][1])
+                    }
                 }
             }
-
             var minLng = Math.min.apply(null, arrayLng);
             var minLat = Math.min.apply(null, arrayLat);
             var maxLng = Math.max.apply(null, arrayLng);
@@ -343,6 +349,7 @@ angular.module('app')
 
         $scope.toggleShapefile = function () {
             // console.log($scope.showShapefile);
+            $scope.showShapefile = !$scope.showShapefile;
             if($scope.showShapefile){
                 // map.data.addGeoJson($scope.ferme.geojson);
                 // map.data.setStyle({
@@ -362,12 +369,16 @@ angular.module('app')
         };
 
         $scope.toggleRasters = function () {
+            console.log($scope.overlay.showRasters);
+            $scope.showRasters = $scope.overlay.showRasters;
+            // $scope.overlay.showRasters = !$scope.overlay.showRasters;
+
             var indexRaster = $scope.sliderRaster.value;
             if($scope.groundOverlay !== null) $scope.groundOverlay.setMap(null);
-            if($scope.showRasters){
+            if($scope.overlay.showRasters){
                 var imageBounds = $scope.ferme.rasters[indexRaster].bounds;
                 $scope.groundOverlay = new google.maps.GroundOverlay(
-                    'http://api.canneberge.io' + $scope.ferme.rasters[indexRaster].path.png +'?apiKey=5894a2f1df1f28501873a566',
+                    apiService.getRasterImageUrl($scope.ferme.rasters[indexRaster].path.png),
                     imageBounds);
                 $scope.groundOverlay.setMap(map);
             }

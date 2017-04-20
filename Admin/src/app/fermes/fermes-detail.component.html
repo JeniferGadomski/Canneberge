@@ -8,15 +8,12 @@
              [(ngModel)]="ferme.name" name="name">
     </div>
 
-    <div class="form-group">
-
-
-
-      <label for="exampleInputFile">Remplacer le shapefile</label>
-      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" accept=".zip"
-             (change)="shapefileZipChange($event)" >
-      <small id="fileHelp" class="form-text text-muted">Fichier .zip contenenant : .shp, .dbf, and .shx (.prj optionnel)	</small>
-    </div>
+    <!--<div class="form-group" style="display: none;">-->
+      <!--<label for="exampleInputFile">Remplacer le shapefile</label>-->
+      <!--<input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp" accept=".zip"-->
+             <!--(change)="shapefileZipChange($event)" >-->
+      <!--<small id="fileHelp" class="form-text text-muted">Fichier .zip contenenant : .shp, .dbf, and .shx (.prj optionnel)	</small>-->
+    <!--</div>-->
 
     <div class="exemple">
       Identifiant unique : {{ferme._id}}

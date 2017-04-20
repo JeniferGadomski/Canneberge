@@ -10,6 +10,8 @@ angular.module('app')
         $scope.dataTable = [];
         $scope.nbHideColumn = 0;
         $scope.gridOptions = {};
+        var currentGeoJson;
+        $scope.indexCurrentGeojson = 0;
 
         function updateGridOptions() {
             $scope.gridOptions.columnDefs = $scope.columns;
@@ -41,10 +43,10 @@ angular.module('app')
 
 
         function updateGeojson(){
-            var updatedGeojson = $scope.ferme.geojson;
+            var updatedGeojson = currentGeoJson;
             console.log(updatedGeojson);
             console.log($scope.dataTable);
-            for(var fieldIndex in $scope.ferme.geojson.features)
+            for(var fieldIndex in currentGeoJson.features)
                 updatedGeojson.features[fieldIndex].properties = $scope.dataTable[fieldIndex];
         }
 
@@ -76,16 +78,23 @@ angular.module('app')
 
 
         $scope.saveGeojson = function () {
-            var updatedGeojson = $scope.ferme.geojson;
-            console.log(updatedGeojson);
-            for(var fieldIndex in $scope.ferme.geojson.features)
-                updatedGeojson.features[fieldIndex].properties = $scope.dataTable[fieldIndex];
-            apiService.putFerme($scope.fermeID, {geojson : updatedGeojson, markers : $scope.ferme.markers})
+            // var updatedGeojson = currentGeoJson;
+            // console.log(updatedGeojson);
+            // for(var fieldIndex in currentGeoJson.features)
+            //     updatedGeojson.features[fieldIndex].properties = $scope.dataTable[fieldIndex];
+            apiService.putFerme($scope.fermeID, {markers : $scope.ferme.markers})
                 .then(
                     function (response) {
                         console.log(response);
                     }
                 );
+            apiService.putShapefileData($scope.fermeID, $scope.ferme.shapefiles[$scope.indexCurrentGeojson]._id, angular.copy($scope.dataTable))
+                .then(
+                    function (rep) {
+                        console.log(rep);
+                    }
+                );
+
             updateGeojson();
         };
 
@@ -135,16 +144,22 @@ angular.module('app')
         };
 
 
-        var initGrid = function () {
-            //Format data for the table
+
+
+        $scope.updateGeojsonToDisplay = function (index) {
+            $scope.indexCurrentGeojson = index;
+            currentGeoJson = $scope.ferme.shapefiles[$scope.indexCurrentGeojson].geojson;
+            $scope.dataTable = [];
+
             var colName = [];
-            for(var header in $scope.ferme.geojson.features[0].properties)
+            for(var header in currentGeoJson.features[0].properties)
                 colName.push(header);
             colName.splice(colName.indexOf('id'), 1);
             colName.unshift('id');
 
-            for(var field in $scope.ferme.geojson.features)
-                $scope.dataTable.push($scope.ferme.geojson.features[field].properties);
+            var features = angular.copy(currentGeoJson.features);
+            for(var field in features)
+                $scope.dataTable.push(features[field].properties);
 
             var tmpNewCol = [];
             for(var field in colName){
@@ -161,6 +176,11 @@ angular.module('app')
             }
             $scope.columns = tmpNewCol;
             updateGridOptions();
+        };
+
+        var initGrid = function () {
+            $scope.ferme.shapefiles[$scope.indexCurrentGeojson].show = true;
+            $scope.updateGeojsonToDisplay($scope.indexCurrentGeojson);
         };
 
 
@@ -243,4 +263,7 @@ angular.module('app')
                 updateGeojson();
             });
         };
+
+
+        
     });
