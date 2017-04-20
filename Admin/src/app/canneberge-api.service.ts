@@ -70,6 +70,7 @@ export class CannebergeApiService {
 
   saveUser(id : string, userValue : any)
   {
+    delete userValue.password;
     return this._http.put(this.serverUrl + '/users/' + id, userValue, {headers : this.headers});
   }
 
