@@ -47,3 +47,6 @@ fileSystem/*
 
 #fileText.R qui change test souvent selon lutilisateur actif
 filetext.R
+
+# IDE file
+.idea/
