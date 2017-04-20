@@ -30,6 +30,17 @@ angular.module('apiServiceModule', [])
             return domain + pngPath + '?apiKey=' + cannerberApi.apiKey
         };
 
+
+        cannerberApi.getUtmFromLatLng = function(lat, lng) {
+            var projection  = '+proj=utm +zone=18 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
+            var utm = proj4(projection, [lng, lat]);
+            return {
+                x: utm[0].toFixed(2),
+                y: utm[1].toFixed(2)
+            };
+        };
+
+
         return cannerberApi;
 
     });
