@@ -330,17 +330,41 @@ router.route('/users/:user_id')
  }
  */
     .put(function (req, res) {
-        User.update({_id : ObjectId(req.params.user_id)}, req.body, function (err, result) {
-            if(err) res.status(404).send({message : 'error update user', success : false});
-            else {
-                User.findById(req.params.user_id, function (err, user) {
-                    if(err) res.status(404).send({success : false, message : 'Error no user found'});
-                    else if(!user) res.status(404).send({success : false, message : 'Error no user found'});
-                    else res.send({user : user});
-                })
-            }
-        });
+        var bcrypt   = require('bcrypt');
+        console.log(req.body);
+        if(req.body.password){
+            bcrypt.genSalt(10, function (err, salt) {
+                if (err) {return console.log(err);}
+                var word = req.body.password;
+                bcrypt.hash(word, salt, function (err, hash) {
+                    req.body.password = hash;
+                    if (err) {return console.log(err);}
+                    User.update({_id : ObjectId(req.params.user_id)}, req.body, function (err, result) {
+                        if(err) res.status(404).send({message : 'error update user', success : false});
+                        else {
+                            User.findById(req.params.user_id, function (err, user) {
+                                if(err) res.status(404).send({success : false, message : 'Error no user found'});
+                                else if(!user) res.status(404).send({success : false, message : 'Error no user found'});
+                                else res.send({user : user});
+                            })
+                        }
+                    });
+                });
+            });
+        }
 
+        else{
+            User.update({_id : ObjectId(req.params.user_id)}, req.body, function (err, result) {
+                if(err) res.status(404).send({message : 'error update user', success : false});
+                else {
+                    User.findById(req.params.user_id, function (err, user) {
+                        if(err) res.status(404).send({success : false, message : 'Error no user found'});
+                        else if(!user) res.status(404).send({success : false, message : 'Error no user found'});
+                        else res.send({user : user});
+                    })
+                }
+            });
+        }
     })
 /**
  * @api {delete} /users/:id Delete User
@@ -658,7 +682,7 @@ router.route('/fermes/:ferme_id')
                 return res.json({ferme : ferme});
 
             Weather.getWeatherByLatLng(ferme.centerCoordinate.lat, ferme.centerCoordinate.lng, false, function (weather) {
-                if(typeof weather.message !== 'undefined') res.status(404);
+                // if(typeof weather.message !== 'undefined') res.status(404);
                 send.weather = weather;
                 res.send(send);
             });

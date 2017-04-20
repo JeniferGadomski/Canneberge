@@ -19,6 +19,7 @@ angular.module('app')
             else{
                 ga('set', 'userId', value); // Définir l'ID utilisateur à partir du paramètre user_id de l'utilisateur connecté.
                 ga('send', 'pageview');
+                apiService.apiKey = value;
                 apiService.headers.headers['x-access-token'] = value;
                 initFerme();
             }

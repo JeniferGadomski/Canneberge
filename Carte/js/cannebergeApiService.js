@@ -5,7 +5,9 @@ angular.module('apiServiceModule', [])
     .factory('apiService', function($http) {
 
         var cannerberApi = {};
-        var url = 'http://api.canneberge.io/api/';
+        var domain = 'http://api.canneberge.io';
+        var url = domain + '/api/';
+        cannerberApi.apiKey = '';
         cannerberApi.headers = {headers : {'x-access-token' : ''}};
 
         cannerberApi.getFerme = function (fermeID) {
@@ -18,6 +20,14 @@ angular.module('apiServiceModule', [])
         
         cannerberApi.getWeahter = function (fermeID) {
             return $http.get(url + 'fermes/' + fermeID + '/weather', cannerberApi.headers);
+        };
+
+        cannerberApi.putShapefileData = function (fermeID, shapefileID, features) {
+            return $http.put(url + 'fermes/' + fermeID + '/shapefiles/' + shapefileID, {features : features}, cannerberApi.headers)
+        };
+
+        cannerberApi.getRasterImageUrl =function (pngPath) {
+            return domain + pngPath + '?apiKey=' + cannerberApi.apiKey
         };
 
         return cannerberApi;

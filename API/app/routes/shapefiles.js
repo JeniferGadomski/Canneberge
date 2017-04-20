@@ -147,7 +147,7 @@ function getShapefileFile(req, res, next) {
 }
 
 function createImage(path, next) {
-    exec('python ' + __dirname + '/../models/shp2png/shp2png.py ' + path, function(error, stdout, stderr) {
+    exec('python ' + __dirname + '/../models/shp2png/shp2png.py \"' + path + '\"', function(error, stdout, stderr) {
         if (error !== null) console.log('exec error: ' + error);
         next();
     });

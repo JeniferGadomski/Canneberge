@@ -61,16 +61,16 @@ export class FermesDetailComponent implements OnInit {
 
   }
 
-  shapefileZipChange(event) {
-    this.listFile = event.srcElement.files;
-    let espg = prompt('ESPG Source (espg: )', '26918');
-    if (espg) {
-      let tmpEspg = parseInt(espg);
-      this.service.getGeojson(this.listFile, tmpEspg).subscribe(geojson => {
-        this.ferme.geojson = geojson;
-      });
-    }
-  }
+  // shapefileZipChange(event) {
+  //   this.listFile = event.srcElement.files;
+  //   let espg = prompt('ESPG Source (espg: )', '26918');
+  //   if (espg) {
+  //     let tmpEspg = parseInt(espg);
+  //     this.service.getGeojson(this.listFile, tmpEspg).subscribe(geojson => {
+  //       this.ferme.geojson = geojson;
+  //     });
+  //   }
+  // }
 
 
 
