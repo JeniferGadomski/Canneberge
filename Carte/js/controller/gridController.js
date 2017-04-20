@@ -145,21 +145,34 @@ angular.module('app')
 
 
 
-
+        // .shapefiles[1].geojson.features["0"].geometry.type
+        // .shapefiles[1].geojson.features["0"].geometry.coordinates["0"]
         $scope.updateGeojsonToDisplay = function (index) {
             $scope.indexCurrentGeojson = index;
             currentGeoJson = $scope.ferme.shapefiles[$scope.indexCurrentGeojson].geojson;
             $scope.dataTable = [];
 
+            var features = angular.copy(currentGeoJson.features);
+            for(var field in features){
+                var f = features[field];
+                if(f.geometry.type === 'Point'){
+                    var utm = apiService.getUtmFromLatLng(f.geometry.coordinates[1], f.geometry.coordinates[0]);
+                    f.properties.x = utm.x;
+                    f.properties.y = utm.y;
+                }
+            }
+
             var colName = [];
-            for(var header in currentGeoJson.features[0].properties)
+            for(var header in features[0].properties)
                 colName.push(header);
             colName.splice(colName.indexOf('id'), 1);
             colName.unshift('id');
 
-            var features = angular.copy(currentGeoJson.features);
-            for(var field in features)
-                $scope.dataTable.push(features[field].properties);
+            for(var field in features){
+                var f = features[field];
+                console.log(f.properties);
+                $scope.dataTable.push(f.properties);
+            }
 
             var tmpNewCol = [];
             for(var field in colName){

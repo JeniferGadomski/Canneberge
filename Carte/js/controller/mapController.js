@@ -39,7 +39,6 @@ angular.module('app')
             icon : customIcon
         };
 
-        var projection  = '+proj=utm +zone=18 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs';
 
         $scope.markerColor = [
             {couleur : "Rouge", code : "#fd7567", iconPath : "http://maps.google.com/mapfiles/ms/icons/red-dot.png"},
@@ -85,8 +84,8 @@ angular.module('app')
                 return des.latLng.lat.toFixed(6) + ", " + des.latLng.lng.toFixed(6);
             },
             getUtmString : function (des) {
-                var utm = getUtmFromLatLng(des.latLng.lat, des.latLng.lng);
-                return utm[0].toFixed(2) + ', ' + utm[1].toFixed(2);
+                var utm = apiService.getUtmFromLatLng(des.latLng.lat, des.latLng.lng);
+                return utm[0] + ', ' + utm[1];
             }
         };
 
@@ -321,20 +320,13 @@ angular.module('app')
             var pnt = getLatLngByOffset(map, event.offsetX, event.offsetY);
             var lat = pnt.lat().toFixed(6);
             var lng = pnt.lng().toFixed(6);
-            var utm = getUtmFromLatLng(lat, lng);
-
-            utmx = utm[0].toFixed(2);
-            utmy = utm[1].toFixed(2);
+            var utm = apiService.getUtmFromLatLng(lat, lng);
 
             $scope.currentCoord['lat'] = lat;
             $scope.currentCoord['lng'] = lng;
-            $scope.currentCoord['utmx'] = utmx;
-            $scope.currentCoord['utmy'] = utmy;
+            $scope.currentCoord['utmx'] = utm.x;
+            $scope.currentCoord['utmy'] = utm.y;
         };
-
-        function getUtmFromLatLng(lat, lng) {
-            return proj4(projection, [lng, lat]);
-        }
 
         function getLatLngByOffset( map, offsetX, offsetY ){
             var currentBounds = map.getBounds();
