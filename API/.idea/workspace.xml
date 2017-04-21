@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6bbfeec-e0c8-4138-abab-040d88e9d06c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Carte/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/js/cannebergeApiService.js" afterPath="$PROJECT_DIR$/../Carte/js/cannebergeApiService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/js/controller/gridController.js" afterPath="$PROJECT_DIR$/../Carte/js/controller/gridController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/js/controller/mapController.js" afterPath="$PROJECT_DIR$/../Carte/js/controller/mapController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Carte/stylesheets/style.css" afterPath="$PROJECT_DIR$/../Carte/stylesheets/style.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
