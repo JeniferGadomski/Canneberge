@@ -39,7 +39,7 @@ Connection avec Robomongo
  * Authentificaiton
     * Databse : canneberge-database
     * User Name : canneberge
-    * Password : drainage
+    * Password : drainage1
 
 \* L'utilisation de *mlab* est seulement utiliser pour le développement.
 
